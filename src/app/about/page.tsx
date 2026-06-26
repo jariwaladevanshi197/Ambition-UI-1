@@ -351,40 +351,69 @@ export default function AboutPage() {
       </section>
 
       {/* Why Choose Us */}
-      <section ref={whyRef} className="py-20 px-6" style={{ background:"var(--offwhite)" }}>
-        <div className="max-w-5xl mx-auto">
-          <motion.div initial={{ opacity:0,y:20 }} animate={t3?{opacity:1,y:0}:{}} transition={{ duration:0.5 }}
-                      className="text-center mb-14">
-            <div className="section-tag">WHY AMBITION COAL</div>
-            <h2 className="text-3xl font-black" style={{ color:"var(--text-primary)" }}>
-              Why <span style={{ color:"var(--orange)" }}>Choose Us</span>
-            </h2>
-          </motion.div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+      <section ref={whyRef} className="py-24 px-6" style={{ background:"#ffffff" }}>
+        <div className="max-w-6xl mx-auto">
+
+          {/* Header row */}
+          <div className="grid lg:grid-cols-2 gap-12 items-end mb-16">
+            <motion.div initial={{ opacity:0,y:20 }} animate={t3?{opacity:1,y:0}:{}} transition={{ duration:0.5 }}>
+              <div className="section-tag mb-3">WHY AMBITION COAL</div>
+              <h2 className="text-3xl md:text-4xl font-black leading-tight" style={{ color:"#111111" }}>
+                Why <span style={{ color:"var(--orange)" }}>Choose Us</span>
+              </h2>
+            </motion.div>
+            <motion.p initial={{ opacity:0,y:20 }} animate={t3?{opacity:1,y:0}:{}} transition={{ duration:0.5, delay:0.1 }}
+                      className="text-sm leading-relaxed" style={{ color:"#666666" }}>
+              For over two decades, Ambition Coal has built its reputation on reliability, quality and integrity.
+              Here's what sets us apart from the competition.
+            </motion.p>
+          </div>
+
+          {/* 3-col grid — clean card style */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px"
+               style={{ background:"#e8e8e8", border:"1px solid #e8e8e8", borderRadius:16, overflow:"hidden" }}>
             {whyUs.map((w, i) => (
               <motion.div
                 key={w.title}
-                initial={{ opacity:0, y:30 }} animate={t3?{opacity:1,y:0}:{}}
-                transition={{ duration:0.5, delay: i*0.08 }}
-                className="p-6 rounded-2xl group transition-all duration-300"
-                style={{ background:"white", border:"1px solid #ebebeb" }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget as HTMLDivElement;
-                  el.style.borderColor = "rgba(249,115,22,0.3)";
-                  el.style.boxShadow   = "0 16px 40px rgba(0,0,0,0.06)";
-                  el.style.transform   = "translateY(-4px)";
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget as HTMLDivElement;
-                  el.style.borderColor=""; el.style.boxShadow=""; el.style.transform="";
-                }}
+                initial={{ opacity:0, y:24 }} animate={t3?{opacity:1,y:0}:{}}
+                transition={{ duration:0.45, delay: i*0.07 }}
+                className="p-8 group transition-all duration-250"
+                style={{ background:"#ffffff" }}
+                onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.background = "#fffaf7"}
+                onMouseLeave={e => (e.currentTarget as HTMLDivElement).style.background = "#ffffff"}
               >
-                <div className="text-3xl mb-3">{w.icon}</div>
-                <h3 className="font-bold text-sm mb-2" style={{ color:"var(--text-primary)" }}>{w.title}</h3>
-                <p className="text-xs leading-relaxed" style={{ color:"var(--text-secondary)" }}>{w.text}</p>
+                {/* Icon box */}
+                <div className="w-11 h-11 rounded-lg flex items-center justify-center mb-5 transition-colors duration-250"
+                     style={{ background:"rgba(249,115,22,0.08)", border:"1px solid rgba(249,115,22,0.15)" }}>
+                  <span className="text-xl">{w.icon}</span>
+                </div>
+
+                {/* Orange accent line */}
+                <div className="w-8 h-0.5 mb-4 transition-all duration-300 group-hover:w-14"
+                     style={{ background:"var(--orange)" }}/>
+
+                <h3 className="font-bold text-sm mb-2.5" style={{ color:"#111111", letterSpacing:"-0.01em" }}>{w.title}</h3>
+                <p className="text-xs leading-relaxed" style={{ color:"#666666", lineHeight:1.7 }}>{w.text}</p>
               </motion.div>
             ))}
           </div>
+
+          {/* Bottom trust strip */}
+          <motion.div initial={{ opacity:0,y:16 }} animate={t3?{opacity:1,y:0}:{}} transition={{ duration:0.5, delay:0.5 }}
+                      className="mt-10 flex flex-wrap items-center justify-between gap-6 px-8 py-5 rounded-xl"
+                      style={{ background:"#f9f9f9", border:"1px solid #e8e8e8" }}>
+            {[
+              { val:"20+", label:"Years in Business" },
+              { val:"1M+", label:"Tonnes Delivered Annually" },
+              { val:"50+", label:"Cities Served" },
+              { val:"ISO", label:"Certified Operations" },
+            ].map(s => (
+              <div key={s.label} className="flex items-center gap-3">
+                <span className="text-xl font-black" style={{ color:"var(--orange)" }}>{s.val}</span>
+                <span className="text-xs" style={{ color:"#666666" }}>{s.label}</span>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </section>
     </>
