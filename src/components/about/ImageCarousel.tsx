@@ -12,7 +12,7 @@ const SLIDES = [
     stat1: { val:"1M+", label:"Tonnes/Year" },
     stat2: { val:"50+", label:"Cities Served" },
     icon:  "⛏️",
-    image: "https://images.pexels.com/photos/2101187/pexels-photo-2101187.jpeg?auto=compress&cs=tinysrgb&w=900",
+    image: "/images/coal-dark.jpg",
     imageAlt: "Industrial coal operations",
   },
   {
@@ -24,7 +24,7 @@ const SLIDES = [
     stat1: { val:"6",    label:"Major Ports" },
     stat2: { val:"20+", label:"Years Active" },
     icon:  "🚢",
-    image: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=900&q=80&fit=crop",
+    image: "/images/port.jpg",
     imageAlt: "Shipping port operations",
   },
   {
@@ -36,7 +36,7 @@ const SLIDES = [
     stat1: { val:"ISO",  label:"Certified" },
     stat2: { val:"ESG",  label:"Compliant" },
     icon:  "🌱",
-    image: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=900&q=80&fit=crop",
+    image: "/images/mining.jpg",
     imageAlt: "Sustainable green energy",
   },
   {
@@ -48,7 +48,7 @@ const SLIDES = [
     stat1: { val:"6",    label:"Countries" },
     stat2: { val:"3",    label:"Continents" },
     icon:  "🌏",
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=900&q=80&fit=crop",
+    image: "/images/shipping.jpg",
     imageAlt: "Global operations and reach",
   },
   {
@@ -60,7 +60,7 @@ const SLIDES = [
     stat1: { val:"5K+",  label:"Beneficiaries" },
     stat2: { val:"20+",  label:"CSR Projects" },
     icon:  "🤝",
-    image: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=900&q=80&fit=crop",
+    image: "/images/factory.jpg",
     imageAlt: "Community CSR initiatives",
   },
 ];
