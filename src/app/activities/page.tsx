@@ -16,15 +16,42 @@ const activities = [
 ];
 
 const gallery = [
-  { emoji:"📚", caption:"School Library Inauguration",   cat:"Education"        },
-  { emoji:"🌳", caption:"Plantation Drive 2024",          cat:"Environment"      },
-  { emoji:"🏥", caption:"Free Medical Camp",              cat:"Healthcare"       },
-  { emoji:"👩‍🏫", caption:"Teacher Training Program",    cat:"Education"        },
-  { emoji:"🎨", caption:"Art Competition Finals",         cat:"Community"        },
-  { emoji:"🤝", caption:"Community Welfare Meet",         cat:"Community"        },
-  { emoji:"💊", caption:"Medicine Distribution Drive",    cat:"Healthcare"       },
-  { emoji:"🌱", caption:"Sapling Distribution",           cat:"Environment"      },
-  { emoji:"🎒", caption:"Stationery Kit Distribution",    cat:"Education"        },
+  {
+    image:"https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=700&q=80&fit=crop",
+    caption:"School Library Inauguration",   cat:"Education",
+  },
+  {
+    image:"https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=700&q=80&fit=crop",
+    caption:"Plantation Drive 2024",          cat:"Environment",
+  },
+  {
+    image:"https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=700&q=80&fit=crop",
+    caption:"Free Medical Camp",              cat:"Healthcare",
+  },
+  {
+    image:"https://images.unsplash.com/photo-1509062522246-3755977927d7?w=700&q=80&fit=crop",
+    caption:"Teacher Training Program",       cat:"Education",
+  },
+  {
+    image:"https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=700&q=80&fit=crop",
+    caption:"Art Competition Finals",         cat:"Community",
+  },
+  {
+    image:"https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=700&q=80&fit=crop",
+    caption:"Community Welfare Meet",         cat:"Community",
+  },
+  {
+    image:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=700&q=80&fit=crop",
+    caption:"Medicine Distribution Drive",    cat:"Healthcare",
+  },
+  {
+    image:"https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=700&q=80&fit=crop",
+    caption:"Sapling Distribution",           cat:"Environment",
+  },
+  {
+    image:"https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=700&q=80&fit=crop",
+    caption:"Stationery Kit Distribution",    cat:"Education",
+  },
 ];
 
 const ALL_CATS = ["All","Education","Healthcare","Environment","Community","Women Empowerment"];
@@ -150,13 +177,26 @@ export default function ActivitiesPage() {
                 key={item.caption}
                 initial={{ opacity:0, scale:0.95 }} animate={{ opacity:1, scale:1 }}
                 transition={{ duration:0.35, delay: i*0.05 }}
-                className="relative rounded-2xl overflow-hidden group"
-                style={{ aspectRatio: i%3===1 ? "3/4" : "1/1", background:"linear-gradient(135deg, #fde8d0, #fcd5aa)" }}
+                className="relative rounded-2xl overflow-hidden group cursor-pointer"
+                style={{ aspectRatio: i%3===1 ? "3/4" : "4/3" }}
               >
-                <div className="absolute inset-0 flex items-center justify-center text-5xl">{item.emoji}</div>
-                <div className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                     style={{ background:"linear-gradient(to top, rgba(249,115,22,0.85), transparent)" }}>
-                  <span className="text-xs font-bold text-white">{item.caption}</span>
+                {/* Photo */}
+                <img
+                  src={item.image}
+                  alt={item.caption}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+
+                {/* Category badge — top left */}
+                <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[9px] font-black backdrop-blur-sm"
+                     style={{ background:`${CAT_COLORS[item.cat]||"#666"}cc`, color:"white" }}>
+                  {item.cat}
+                </div>
+
+                {/* Hover overlay with caption */}
+                <div className="absolute inset-0 flex flex-col justify-end p-4 opacity-0 group-hover:opacity-100 transition-all duration-300"
+                     style={{ background:"linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)" }}>
+                  <span className="text-sm font-bold text-white leading-tight">{item.caption}</span>
                 </div>
               </motion.div>
             ))}
