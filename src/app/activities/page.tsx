@@ -2,17 +2,28 @@
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
+import { Trees, HeartPulse, BookOpen, Users, Recycle, Handshake, Palette, Pill, Leaf } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
-const activities = [
-  { emoji:"🌳", cat:"Environment",      title:"Annual Plantation Drive",           date:"Jun 2024", desc:"Planted 2,000 saplings across 5 locations in Jharkhand with community volunteers.",          highlight:"2,000 Saplings" },
-  { emoji:"🏥", cat:"Healthcare",       title:"Free Medical Camp — Dhanbad",       date:"May 2024", desc:"Free health check-ups for 800+ villagers. Doctors from 3 hospitals participated.",           highlight:"800+ Beneficiaries" },
-  { emoji:"📚", cat:"Education",        title:"School Supply Distribution",        date:"Apr 2024", desc:"Distributed stationery kits to 450 students across 3 of our adopted schools.",                highlight:"450 Students" },
-  { emoji:"👩", cat:"Women Empowerment",title:"Women Skill Development Workshop",  date:"Mar 2024", desc:"2-day workshop on weaving, tailoring and digital literacy for 120 women.",                    highlight:"120 Women" },
-  { emoji:"♻️", cat:"Environment",      title:"E-Waste Collection Drive",          date:"Feb 2024", desc:"Collected and responsibly disposed of 1.2 tonnes of electronic waste from our offices.",     highlight:"1.2 Tonnes" },
-  { emoji:"🤝", cat:"Community",        title:"Village Infrastructure Support",    date:"Jan 2024", desc:"Funded repair of 3 community halls and 2 bore-well installations in rural Chhattisgarh.",   highlight:"5 Villages" },
-  { emoji:"🎨", cat:"Education",        title:"Children Art & Science Festival",   date:"Dec 2023", desc:"Organised inter-school festival for 600 students. Prizes and scholarships awarded.",         highlight:"600 Students" },
-  { emoji:"💊", cat:"Healthcare",       title:"Medicine Distribution Drive",       date:"Nov 2023", desc:"Distributed essential medicines worth ₹4 lakh to 12 primary health centres.",               highlight:"12 PHCs" },
-  { emoji:"🌱", cat:"Environment",      title:"Sapling Distribution — Diwali",    date:"Oct 2023", desc:"Distributed 5,000 saplings across employees, schools and partner organisations.",            highlight:"5,000 Saplings" },
+interface Activity {
+  Icon: LucideIcon;
+  cat: string;
+  title: string;
+  date: string;
+  desc: string;
+  highlight: string;
+}
+
+const activities: Activity[] = [
+  { Icon:Trees,     cat:"Environment",       title:"Annual Plantation Drive",          date:"Jun 2024", desc:"Planted 2,000 saplings across 5 locations in Jharkhand with community volunteers.",          highlight:"2,000 Saplings" },
+  { Icon:HeartPulse,cat:"Healthcare",        title:"Free Medical Camp — Dhanbad",      date:"May 2024", desc:"Free health check-ups for 800+ villagers. Doctors from 3 hospitals participated.",           highlight:"800+ Beneficiaries" },
+  { Icon:BookOpen,  cat:"Education",         title:"School Supply Distribution",       date:"Apr 2024", desc:"Distributed stationery kits to 450 students across 3 of our adopted schools.",                highlight:"450 Students" },
+  { Icon:Users,     cat:"Women Empowerment", title:"Women Skill Development Workshop", date:"Mar 2024", desc:"2-day workshop on weaving, tailoring and digital literacy for 120 women.",                    highlight:"120 Women" },
+  { Icon:Recycle,   cat:"Environment",       title:"E-Waste Collection Drive",         date:"Feb 2024", desc:"Collected and responsibly disposed of 1.2 tonnes of electronic waste from our offices.",     highlight:"1.2 Tonnes" },
+  { Icon:Handshake, cat:"Community",         title:"Village Infrastructure Support",   date:"Jan 2024", desc:"Funded repair of 3 community halls and 2 bore-well installations in rural Chhattisgarh.",   highlight:"5 Villages" },
+  { Icon:Palette,   cat:"Education",         title:"Children Art & Science Festival",  date:"Dec 2023", desc:"Organised inter-school festival for 600 students. Prizes and scholarships awarded.",         highlight:"600 Students" },
+  { Icon:Pill,      cat:"Healthcare",        title:"Medicine Distribution Drive",      date:"Nov 2023", desc:"Distributed essential medicines worth ₹4 lakh to 12 primary health centres.",               highlight:"12 PHCs" },
+  { Icon:Leaf,      cat:"Environment",       title:"Sapling Distribution — Diwali",   date:"Oct 2023", desc:"Distributed 5,000 saplings across employees, schools and partner organisations.",            highlight:"5,000 Saplings" },
 ];
 
 const gallery = [
@@ -130,8 +141,11 @@ export default function ActivitiesPage() {
                 onMouseLeave={e=>{const el=e.currentTarget as HTMLDivElement;el.style.borderColor="";el.style.transform="";el.style.boxShadow="";}}
               >
                 <div className="flex items-start justify-between gap-2">
-                  <span className="text-3xl">{a.emoji}</span>
-                  <span className="px-2 py-0.5 rounded-full text-[9px] font-bold shrink-0"
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                       style={{ background:`${CAT_COLORS[a.cat]||"#666"}15` }}>
+                    <a.Icon size={20} style={{ color: CAT_COLORS[a.cat]||"#666" }} />
+                  </div>
+                  <span className="px-2 py-0.5 rounded-full text-[9px] font-bold shrink-0 mt-1"
                         style={{ background:`${CAT_COLORS[a.cat]||"#666"}18`, color:CAT_COLORS[a.cat]||"#aaa" }}>
                     {a.cat}
                   </span>

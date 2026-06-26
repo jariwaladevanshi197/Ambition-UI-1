@@ -10,7 +10,7 @@ const services = [
     title: "Coal Trading & Sourcing",
     desc:  "Our core focus — sourcing and supplying Steam Coal from Indonesia, South Africa and East Africa. Independent international testing at every stage: mine, mother vessel and final delivery. Competitive pricing with quality you can rely on.",
     tags:  ["Steam Coal", "Indonesia", "South Africa", "East Africa"],
-    image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80&fit=crop",
+    image: "https://loremflickr.com/800/450/coal,mining,dark/lock/1",
     badge: "Core Business",
     badgeColor: "#F97316",
     wide: true,
@@ -37,7 +37,7 @@ const services = [
     title: "Road Transportation",
     desc:  "Doorstep delivery covering 50+ cities. Our experienced network ensures proper quality and quantity dispatch, with loading, unloading and packing available on request.",
     tags:  ["Doorstep Delivery", "50+ Cities", "Packing", "Dispatch"],
-    image: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=800&q=80&fit=crop",
+    image: "https://loremflickr.com/800/450/truck,logistics,highway/lock/3",
     badge: "Supply Chain",
     badgeColor: "#22c55e",
     wide: false,
@@ -46,7 +46,7 @@ const services = [
     title: "Unloading & Stacking",
     desc:  "Loading and unloading from railway rakes and motor vehicles. Storage units with special platforms, weighing and machinery. Coal stacking using state-of-the-art equipment to prevent oxidation and moisture increase.",
     tags:  ["Railway Rakes", "Stockpiles", "Anti-oxidation", "Storage"],
-    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80&fit=crop",
+    image: "https://loremflickr.com/800/450/coal,stockpile,industrial/lock/4",
     badge: "Operations",
     badgeColor: "#D97706",
     wide: false,
@@ -55,7 +55,7 @@ const services = [
     title: "Minerals Trading",
     desc:  "Beyond coal — Manganese ore, Chrome ore and Silica ore sourced from major origins including Indonesia, South Africa, Kenya and Zimbabwe.",
     tags:  ["Manganese", "Chrome Ore", "Silica Ore"],
-    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80&fit=crop",
+    image: "https://loremflickr.com/800/450/minerals,ore,mining/lock/5",
     badge: "Minerals",
     badgeColor: "#64748b",
     wide: false,
@@ -68,25 +68,25 @@ const coalProducts = [
     name:"Steam Coal — Indonesia",
     gcv:"5500–6500 kcal/kg", ash:"10–18%", moisture:"8–12%",
     use:"Power plants, cement, steel, textile & paper mills",
-    image:"https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&q=80&fit=crop",
+    image:"https://loremflickr.com/600/350/coal,mining,dark/lock/11",
   },
   {
     name:"Steam Coal — South Africa",
     gcv:"5800–6200 kcal/kg", ash:"12–16%", moisture:"8–11%",
     use:"Power utilities, West & East coast India",
-    image:"https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&q=80&fit=crop",
+    image:"https://loremflickr.com/600/350/coal,power,plant/lock/22",
   },
   {
     name:"Steam Coal — Kenya / Zimbabwe",
     gcv:"5000–6000 kcal/kg", ash:"14–20%", moisture:"9–13%",
     use:"Industrial boilers, captive power plants",
-    image:"https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=600&q=80&fit=crop",
+    image:"https://loremflickr.com/600/350/coal,industrial,fuel/lock/33",
   },
   {
     name:"Coking Coal",
     gcv:"6000–7500 kcal/kg", ash:"8–12%", moisture:"8–10%",
     use:"Steel & metallurgy customers across India",
-    image:"https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80&fit=crop",
+    image:"https://loremflickr.com/600/350/steel,factory,metallurgy/lock/44",
   },
 ];
 
@@ -96,13 +96,13 @@ const saltProducts = [
     name: "Industrial Grade Salt",
     desc: "High-purity sodium chloride for chemical processing, water treatment, oil & gas, and industrial manufacturing.",
     specs: ["NaCl: 98–99.5%", "Moisture: <0.5%", "Bulk / Packed"],
-    icon: "🏭",
+    image: "https://loremflickr.com/800/350/salt,industrial,chemical/lock/55",
   },
   {
     name: "Edible Salt",
     desc: "Food-grade iodised and non-iodised salt for FMCG, food processing and consumer retail under a dedicated brand.",
     specs: ["Food Grade", "Iodised / Plain", "Branded Packs"],
-    icon: "🧂",
+    image: "https://loremflickr.com/800/350/salt,food,white,crystals/lock/66",
   },
 ];
 
@@ -139,7 +139,7 @@ export default function ServicesPage() {
           </motion.div>
           <motion.div initial={{ opacity:0,x:40 }} animate={{ opacity:1,x:0 }} transition={{ duration:0.7, delay:0.15 }}
                       className="hidden lg:block rounded-xl overflow-hidden shadow-lg" style={{ height:380 }}>
-            <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=900&q=80&fit=crop"
+            <img src="https://loremflickr.com/900/380/coal,industry,power/lock/2"
                  alt="Ambition Coal operations" className="w-full h-full object-cover"/>
           </motion.div>
         </div>
@@ -299,10 +299,9 @@ export default function ServicesPage() {
                   COMING SOON
                 </div>
                 <div className="relative overflow-hidden" style={{ height:200 }}>
-                  <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80&fit=crop"
-                       alt="Salt" className="w-full h-full object-cover" style={{ filter:"grayscale(0.2) brightness(0.8)" }}/>
+                  <img src={s.image}
+                       alt={s.name} className="w-full h-full object-cover" style={{ filter:"grayscale(0.2) brightness(0.8)" }}/>
                   <div className="absolute inset-0" style={{ background:"linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 60%)" }}/>
-                  <div className="absolute bottom-4 left-5 text-3xl">{s.icon}</div>
                 </div>
                 <div className="p-6">
                   <h3 className="font-bold text-base mb-2" style={{ color:"#111111" }}>{s.name}</h3>
