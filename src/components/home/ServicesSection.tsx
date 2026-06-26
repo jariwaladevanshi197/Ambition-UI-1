@@ -2,29 +2,51 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const services = [
   {
-    icon: "⛏️", title: "Coal Trading",
-    desc: "End-to-end coal procurement and trading across domestic and international markets. Quality assurance from source to delivery.",
-    tag: "FLAGSHIP", tall: true,
+    title: "Coal Trading & Sourcing",
+    desc: "End-to-end procurement of Steam Coal from Indonesia, South Africa and East Africa. Quality assured from mine to mother vessel.",
+    image: "https://images.unsplash.com/photo-1529579917-0a5d4f8b4a82?w=600&q=80&fit=crop",
+    tag: "Core Business",
+    tagColor: "#F97316",
   },
   {
-    icon: "🚢", title: "Port Operations",
-    desc: "15+ major Indian ports handling bulk commodities with rapid turnaround.", tall: false,
+    title: "Port Operations",
+    desc: "Stevedoring and bulk cargo handling at 15+ major Indian ports — Paradip, Haldia, Vizag and beyond.",
+    image: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=600&q=80&fit=crop",
+    tag: "Logistics",
+    tagColor: "#3b82f6",
   },
   {
-    icon: "🌐", title: "International Trading",
-    desc: "Global sourcing from Australia, Indonesia, South Africa and Russia.", tall: false,
+    title: "International Trading",
+    desc: "Global sourcing partnerships in Australia, Indonesia, South Africa, Kenya and Zimbabwe.",
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80&fit=crop",
+    tag: "Global",
+    tagColor: "#8b5cf6",
   },
   {
-    icon: "🚛", title: "Logistics & Supply Chain",
-    desc: "End-to-end logistics from mine mouth to factory gate across 50+ cities.", tall: false,
+    title: "Road Transportation",
+    desc: "Doorstep delivery network covering 50+ cities. Loading, unloading, packing and dispatch managed end-to-end.",
+    image: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=600&q=80&fit=crop",
+    tag: "Supply Chain",
+    tagColor: "#22c55e",
   },
   {
-    icon: "🏭", title: "Mining Solutions",
-    desc: "Technical consulting, project management, and operational support.", tall: false,
+    title: "Minerals Trading",
+    desc: "Manganese ore, Chrome ore and Silica ore sourced from major origins across Indonesia, South Africa and Zimbabwe.",
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80&fit=crop",
+    tag: "Minerals",
+    tagColor: "#D97706",
+  },
+  {
+    title: "Salt — Coming Soon",
+    desc: "Industrial Grade Salt and Edible Salt. A new vertical under Ambition — expanding beyond coal into essential commodities.",
+    image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=80&fit=crop",
+    tag: "New Product",
+    tagColor: "#64748b",
+    comingSoon: true,
   },
 ];
 
@@ -32,101 +54,97 @@ export default function ServicesSection() {
   const ref    = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
-  const applyTilt = (e: React.MouseEvent<HTMLDivElement>) => {
-    const el = e.currentTarget;
-    const r  = el.getBoundingClientRect();
-    const x  = e.clientX - r.left, y = e.clientY - r.top;
-    const cx = r.width / 2, cy = r.height / 2;
-    el.style.transform = `perspective(700px) rotateX(${-((y-cy)/cy)*7}deg) rotateY(${((x-cx)/cx)*7}deg)`;
-    const spot = el.querySelector(".bento-spot") as HTMLElement;
-    if (spot) { spot.style.left = x+"px"; spot.style.top = y+"px"; spot.style.opacity = "1"; }
-  };
-  const removeTilt = (e: React.MouseEvent<HTMLDivElement>) => {
-    const el = e.currentTarget;
-    el.style.transform = "";
-    const spot = el.querySelector(".bento-spot") as HTMLElement;
-    if (spot) spot.style.opacity = "0";
-  };
-
   return (
-    <section ref={ref} className="py-24" style={{ background: "var(--offwhite)" }}>
-      <div className="max-w-5xl mx-auto px-6">
+    <section ref={ref} className="py-24" style={{ background: "#f5f5f5" }}>
+      <div className="max-w-6xl mx-auto px-6">
+
+        {/* Header */}
         <motion.div
           initial={{ opacity:0, y:20 }} animate={inView?{opacity:1,y:0}:{}}
-          transition={{ duration:0.5 }} className="text-center mb-12"
+          transition={{ duration:0.5 }} className="mb-14"
         >
-          <div className="section-tag">WHAT WE DO</div>
-          <h2 className="text-3xl md:text-4xl font-black" style={{ color:"var(--text-primary)" }}>
-            Our <span style={{ color:"var(--orange)" }}>Services</span>
-          </h2>
+          <div className="section-tag mb-3">WHAT WE DO</div>
+          <div className="flex items-end justify-between flex-wrap gap-4">
+            <h2 className="text-3xl md:text-4xl font-black" style={{ color:"#111111" }}>
+              Our <span style={{ color:"var(--orange)" }}>Services</span>
+            </h2>
+            <Link href="/services"
+              className="text-sm font-semibold flex items-center gap-1.5 transition-colors"
+              style={{ color:"var(--orange)" }}
+              onMouseEnter={e=>(e.currentTarget.style.opacity="0.75")}
+              onMouseLeave={e=>(e.currentTarget.style.opacity="1")}>
+              View all services <ArrowRight size={14}/>
+            </Link>
+          </div>
         </motion.div>
 
-        {/* Bento grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4" style={{ gridTemplateRows: "auto auto" }}>
+        {/* Service cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((s, i) => (
             <motion.div
               key={s.title}
               initial={{ opacity:0, y:30 }} animate={inView?{opacity:1,y:0}:{}}
               transition={{ duration:0.5, delay: i*0.08 }}
-              onMouseMove={applyTilt}
-              className="relative overflow-hidden rounded-2xl p-8 group"
+              className="rounded-xl overflow-hidden bg-white group"
               style={{
-                background: "white",
-                border: "1px solid #ebebeb",
-                gridRow: s.tall ? "span 2" : "span 1",
-                transition: "border-color .3s, box-shadow .3s",
+                border: "1px solid #e5e5e5",
+                transition: "box-shadow .25s, transform .25s",
+                opacity: s.comingSoon ? 0.85 : 1,
               }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(249,115,22,0.3)";
-                (e.currentTarget as HTMLDivElement).style.boxShadow   = "0 20px 50px rgba(0,0,0,0.07)";
+              onMouseEnter={e => {
+                const el = e.currentTarget as HTMLDivElement;
+                el.style.boxShadow = "0 12px 40px rgba(0,0,0,0.10)";
+                el.style.transform = "translateY(-4px)";
               }}
-              onMouseLeave={(e) => {
-                removeTilt(e);
-                (e.currentTarget as HTMLDivElement).style.borderColor = "#ebebeb";
-                (e.currentTarget as HTMLDivElement).style.boxShadow   = "";
+              onMouseLeave={e => {
+                const el = e.currentTarget as HTMLDivElement;
+                el.style.boxShadow = "";
+                el.style.transform = "";
               }}
             >
-              {/* Orange bar bottom */}
-              <div
-                className="absolute bottom-0 left-0 right-0 h-0.5 origin-left transition-transform duration-300 scale-x-0 group-hover:scale-x-100"
-                style={{ background: "var(--orange)" }}
-              />
-              {/* Spotlight */}
-              <div
-                className="bento-spot absolute w-48 h-48 rounded-full pointer-events-none transition-opacity duration-200"
-                style={{
-                  transform: "translate(-50%,-50%)",
-                  background: "radial-gradient(circle, rgba(249,115,22,0.1) 0%, transparent 70%)",
-                  opacity: 0,
-                }}
-              />
-              <span className="text-4xl mb-4 block">{s.icon}</span>
-              <h3 className="text-lg font-bold mb-3" style={{ color:"var(--text-primary)" }}>{s.title}</h3>
-              <p className="text-sm leading-relaxed" style={{ color:"var(--text-secondary)" }}>{s.desc}</p>
-              {s.tag && (
-                <div className="inline-block mt-5 px-3 py-1 rounded-full text-xs font-bold"
-                     style={{ background:"rgba(249,115,22,0.08)", color:"var(--orange)" }}>
+              {/* Image */}
+              <div className="relative overflow-hidden" style={{ height: 180 }}>
+                <img
+                  src={s.image}
+                  alt={s.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  style={{ filter: s.comingSoon ? "grayscale(0.4) brightness(0.85)" : "brightness(0.88)" }}
+                />
+                {/* Tag */}
+                <div className="absolute top-3 left-3 px-2.5 py-1 rounded text-[10px] font-bold text-white"
+                     style={{ background: s.tagColor, letterSpacing:"0.05em" }}>
                   {s.tag}
                 </div>
-              )}
-              {s.tall && (
-                <Link href="/services" className="mt-6 inline-flex items-center gap-1 text-sm font-semibold transition-colors duration-200"
-                      style={{ color:"var(--orange)" }}>
-                  Learn more <ArrowUpRight size={14} />
-                </Link>
-              )}
+                {s.comingSoon && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="px-4 py-1.5 rounded-full text-xs font-black text-white"
+                         style={{ background:"rgba(0,0,0,0.6)", letterSpacing:"0.08em" }}>
+                      COMING SOON
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Body */}
+              <div className="p-5">
+                <h3 className="font-bold text-base mb-2" style={{ color:"#111111" }}>{s.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color:"#555555" }}>{s.desc}</p>
+              </div>
+
+              {/* Bottom orange line on hover */}
+              <div className="h-0.5 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+                   style={{ background: s.tagColor }}/>
             </motion.div>
           ))}
         </div>
 
-        <div className="text-center mt-10">
+        <div className="text-center mt-12">
           <Link href="/services"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-md text-sm font-bold transition-all duration-200"
-            style={{ background:"var(--orange)", color:"white" }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 10px 30px rgba(249,115,22,0.35)"; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.boxShadow = ""; }}
-          >
-            View All Services <ArrowUpRight size={15} />
+            className="inline-flex items-center gap-2 px-7 py-3 rounded text-sm font-bold text-white transition-all"
+            style={{ background:"var(--orange)" }}
+            onMouseEnter={e=>(e.currentTarget.style.boxShadow="0 8px 28px rgba(249,115,22,0.35)")}
+            onMouseLeave={e=>(e.currentTarget.style.boxShadow="")}>
+            View All Services <ArrowRight size={15}/>
           </Link>
         </div>
       </div>
