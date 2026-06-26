@@ -19,20 +19,20 @@ export default function Modal({ title, onClose, children, width = "560px" }: Pro
 
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center p-4"
-         style={{ background:"rgba(0,0,0,0.7)", backdropFilter:"blur(4px)" }}
+         style={{ background:"rgba(0,0,0,0.4)", backdropFilter:"blur(4px)" }}
          onClick={onClose}>
       <div className="relative rounded-2xl overflow-hidden flex flex-col"
-           style={{ background:"#1a1a1a", border:"1px solid rgba(255,255,255,0.1)", width:"100%", maxWidth:width, maxHeight:"90vh" }}
+           style={{ background:"#ffffff", border:"1px solid rgba(0,0,0,0.1)", boxShadow:"0 20px 60px rgba(0,0,0,0.15)", width:"100%", maxWidth:width, maxHeight:"90vh" }}
            onClick={e => e.stopPropagation()}>
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 shrink-0"
-             style={{ borderBottom:"1px solid rgba(255,255,255,0.07)" }}>
-          <h2 className="font-bold text-white text-base">{title}</h2>
+             style={{ borderBottom:"1px solid rgba(0,0,0,0.08)" }}>
+          <h2 className="font-bold text-gray-900 text-base">{title}</h2>
           <button onClick={onClose} className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
-                  style={{ background:"rgba(255,255,255,0.05)" }}
-                  onMouseEnter={e=>(e.currentTarget.style.background="rgba(255,255,255,0.12)") }
-                  onMouseLeave={e=>(e.currentTarget.style.background="rgba(255,255,255,0.05)") }>
-            <X size={15} className="text-white" />
+                  style={{ background:"rgba(0,0,0,0.05)" }}
+                  onMouseEnter={e=>(e.currentTarget.style.background="rgba(0,0,0,0.1)") }
+                  onMouseLeave={e=>(e.currentTarget.style.background="rgba(0,0,0,0.05)") }>
+            <X size={15} className="text-gray-900" />
           </button>
         </div>
         {/* Body */}

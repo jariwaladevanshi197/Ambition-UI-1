@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Settings } from "lucide-react";
 import AmbitionLogo from "./AmbitionLogo";
 
 const cols = [
@@ -98,9 +98,18 @@ export default function Footer() {
       {/* Bottom bar */}
       <div style={{ borderTop: "1px solid rgba(0,0,0,0.1)" }}>
         <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs" style={{ color: "rgba(0,0,0,0.4)" }}>
-            © {new Date().getFullYear()} Ambition Coal Pvt. Ltd. All Rights Reserved.
-          </p>
+          <div className="flex items-center gap-4">
+            <p className="text-xs" style={{ color: "rgba(0,0,0,0.4)" }}>
+              © {new Date().getFullYear()} Ambition Coal Pvt. Ltd. All Rights Reserved.
+            </p>
+            <Link href="/admin"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-md transition-all duration-200"
+                  style={{ background:"rgba(0,0,0,0.06)", border:"1px solid rgba(0,0,0,0.1)", color:"rgba(0,0,0,0.45)" }}
+                  onMouseEnter={e=>{e.currentTarget.style.background="var(--orange)";e.currentTarget.style.color="white";e.currentTarget.style.borderColor="var(--orange)";}}
+                  onMouseLeave={e=>{e.currentTarget.style.background="rgba(0,0,0,0.06)";e.currentTarget.style.color="rgba(0,0,0,0.45)";e.currentTarget.style.borderColor="rgba(0,0,0,0.1)";}}>
+              <Settings size={11}/> Admin
+            </Link>
+          </div>
           <div className="flex items-center gap-3">
             {["in", "𝕏", "▶"].map((icon, i) => (
               <button

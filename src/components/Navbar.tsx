@@ -63,16 +63,8 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* CTA */}
-        <div className="hidden md:flex items-center gap-3">
-          <Link href="/admin"
-                className="px-4 py-2 text-sm font-semibold rounded-md transition-all duration-200"
-                style={{ background:"var(--orange)", color:"white" }}
-                onMouseEnter={e=>(e.currentTarget.style.boxShadow="0 6px 20px rgba(249,115,22,0.4)")}
-                onMouseLeave={e=>(e.currentTarget.style.boxShadow="")}>
-            Admin Panel
-          </Link>
-        </div>
+        {/* spacer to keep logo + nav centered */}
+        <div className="hidden md:block w-[110px]" />
 
         {/* Mobile hamburger */}
         <button className="md:hidden text-gray-900" onClick={() => setOpen(!open)} aria-label="Toggle menu">
@@ -91,11 +83,6 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
-          <Link href="/admin" onClick={() => setOpen(false)}
-                className="px-4 py-2 text-sm font-semibold rounded-md text-center mt-1"
-                style={{ background:"var(--orange)", color:"white" }}>
-            Admin Panel
-          </Link>
         </div>
       )}
     </header>

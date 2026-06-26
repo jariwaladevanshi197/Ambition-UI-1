@@ -10,7 +10,8 @@ const services = [
     title: "Coal Trading & Sourcing",
     desc:  "Our core focus — sourcing and supplying Steam Coal from Indonesia, South Africa and East Africa. Independent international testing at every stage: mine, mother vessel and final delivery. Competitive pricing with quality you can rely on.",
     tags:  ["Steam Coal", "Indonesia", "South Africa", "East Africa"],
-    image: "https://loremflickr.com/800/450/coal,mining,dark/lock/1",
+    image: "https://images.pexels.com/photos/2101187/pexels-photo-2101187.jpeg?auto=compress&cs=tinysrgb&w=800",
+    fallback: "#1a120a",
     badge: "Core Business",
     badgeColor: "#F97316",
     wide: true,
@@ -19,7 +20,8 @@ const services = [
     title: "Stevedoring & Port Operations",
     desc:  "Loading and unloading of ships at 15+ major Indian ports — Paradip, Haldia, Vizag and beyond. Expert personnel and modern equipment handle break bulk to containers with rapid turnaround.",
     tags:  ["Loading", "Unloading", "Delay Recovery", "Bulk Cargo"],
-    image: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=800&q=80&fit=crop",
+    image: "https://images.pexels.com/photos/1117210/pexels-photo-1117210.jpeg?auto=compress&cs=tinysrgb&w=800",
+    fallback: "#0a1220",
     badge: "Port Logistics",
     badgeColor: "#3b82f6",
     wide: false,
@@ -28,7 +30,8 @@ const services = [
     title: "International Trading",
     desc:  "Global sourcing partnerships in Australia, Indonesia, South Africa, Kenya and Zimbabwe. Extensive physical trading positions across all major origins.",
     tags:  ["Australia", "Indonesia", "South Africa", "Zimbabwe"],
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80&fit=crop",
+    image: "https://images.pexels.com/photos/2226458/pexels-photo-2226458.jpeg?auto=compress&cs=tinysrgb&w=800",
+    fallback: "#0d0d1a",
     badge: "Global",
     badgeColor: "#8b5cf6",
     wide: false,
@@ -37,7 +40,8 @@ const services = [
     title: "Road Transportation",
     desc:  "Doorstep delivery covering 50+ cities. Our experienced network ensures proper quality and quantity dispatch, with loading, unloading and packing available on request.",
     tags:  ["Doorstep Delivery", "50+ Cities", "Packing", "Dispatch"],
-    image: "https://loremflickr.com/800/450/truck,logistics,highway/lock/3",
+    image: "https://images.pexels.com/photos/1553463/pexels-photo-1553463.jpeg?auto=compress&cs=tinysrgb&w=800",
+    fallback: "#0a150a",
     badge: "Supply Chain",
     badgeColor: "#22c55e",
     wide: false,
@@ -46,7 +50,8 @@ const services = [
     title: "Unloading & Stacking",
     desc:  "Loading and unloading from railway rakes and motor vehicles. Storage units with special platforms, weighing and machinery. Coal stacking using state-of-the-art equipment to prevent oxidation and moisture increase.",
     tags:  ["Railway Rakes", "Stockpiles", "Anti-oxidation", "Storage"],
-    image: "https://loremflickr.com/800/450/coal,stockpile,industrial/lock/4",
+    image: "https://images.pexels.com/photos/3862130/pexels-photo-3862130.jpeg?auto=compress&cs=tinysrgb&w=800",
+    fallback: "#1a1209",
     badge: "Operations",
     badgeColor: "#D97706",
     wide: false,
@@ -55,7 +60,8 @@ const services = [
     title: "Minerals Trading",
     desc:  "Beyond coal — Manganese ore, Chrome ore and Silica ore sourced from major origins including Indonesia, South Africa, Kenya and Zimbabwe.",
     tags:  ["Manganese", "Chrome Ore", "Silica Ore"],
-    image: "https://loremflickr.com/800/450/minerals,ore,mining/lock/5",
+    image: "https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=800",
+    fallback: "#1a1a0a",
     badge: "Minerals",
     badgeColor: "#64748b",
     wide: false,
@@ -68,25 +74,29 @@ const coalProducts = [
     name:"Steam Coal — Indonesia",
     gcv:"5500–6500 kcal/kg", ash:"10–18%", moisture:"8–12%",
     use:"Power plants, cement, steel, textile & paper mills",
-    image:"https://loremflickr.com/600/350/coal,mining,dark/lock/11",
+    image:"https://images.pexels.com/photos/3862130/pexels-photo-3862130.jpeg?auto=compress&cs=tinysrgb&w=600",
+    fallback:"#1a1209",
   },
   {
     name:"Steam Coal — South Africa",
     gcv:"5800–6200 kcal/kg", ash:"12–16%", moisture:"8–11%",
     use:"Power utilities, West & East coast India",
-    image:"https://loremflickr.com/600/350/coal,power,plant/lock/22",
+    image:"https://images.pexels.com/photos/2101187/pexels-photo-2101187.jpeg?auto=compress&cs=tinysrgb&w=600",
+    fallback:"#120e08",
   },
   {
     name:"Steam Coal — Kenya / Zimbabwe",
     gcv:"5000–6000 kcal/kg", ash:"14–20%", moisture:"9–13%",
     use:"Industrial boilers, captive power plants",
-    image:"https://loremflickr.com/600/350/coal,industrial,fuel/lock/33",
+    image:"https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=600",
+    fallback:"#0f0d08",
   },
   {
     name:"Coking Coal",
     gcv:"6000–7500 kcal/kg", ash:"8–12%", moisture:"8–10%",
     use:"Steel & metallurgy customers across India",
-    image:"https://loremflickr.com/600/350/steel,factory,metallurgy/lock/44",
+    image:"https://images.pexels.com/photos/2219024/pexels-photo-2219024.jpeg?auto=compress&cs=tinysrgb&w=600",
+    fallback:"#0a0a0f",
   },
 ];
 
@@ -96,13 +106,15 @@ const saltProducts = [
     name: "Industrial Grade Salt",
     desc: "High-purity sodium chloride for chemical processing, water treatment, oil & gas, and industrial manufacturing.",
     specs: ["NaCl: 98–99.5%", "Moisture: <0.5%", "Bulk / Packed"],
-    image: "https://loremflickr.com/800/350/salt,industrial,chemical/lock/55",
+    image: "https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=800",
+    fallback: "#1a1a1a",
   },
   {
     name: "Edible Salt",
     desc: "Food-grade iodised and non-iodised salt for FMCG, food processing and consumer retail under a dedicated brand.",
     specs: ["Food Grade", "Iodised / Plain", "Branded Packs"],
-    image: "https://loremflickr.com/800/350/salt,food,white,crystals/lock/66",
+    image: "https://images.pexels.com/photos/2802527/pexels-photo-2802527.jpeg?auto=compress&cs=tinysrgb&w=800",
+    fallback: "#f0f0f0",
   },
 ];
 
@@ -139,7 +151,7 @@ export default function ServicesPage() {
           </motion.div>
           <motion.div initial={{ opacity:0,x:40 }} animate={{ opacity:1,x:0 }} transition={{ duration:0.7, delay:0.15 }}
                       className="hidden lg:block rounded-xl overflow-hidden shadow-lg" style={{ height:380 }}>
-            <img src="https://loremflickr.com/900/380/coal,industry,power/lock/2"
+            <img src="https://images.pexels.com/photos/2101187/pexels-photo-2101187.jpeg?auto=compress&cs=tinysrgb&w=900"
                  alt="Ambition Coal operations" className="w-full h-full object-cover"/>
           </motion.div>
         </div>
