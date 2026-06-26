@@ -10,7 +10,7 @@ const services = [
     title: "Coal Trading & Sourcing",
     desc:  "Our core focus — sourcing and supplying Steam Coal from Indonesia, South Africa and East Africa. Independent international testing at every stage: mine, mother vessel and final delivery. Competitive pricing with quality you can rely on.",
     tags:  ["Steam Coal", "Indonesia", "South Africa", "East Africa"],
-    image: "https://images.unsplash.com/photo-1529579917-0a5d4f8b4a82?w=800&q=80&fit=crop",
+    image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80&fit=crop",
     badge: "Core Business",
     badgeColor: "#F97316",
     wide: true,
@@ -37,7 +37,7 @@ const services = [
     title: "Road Transportation",
     desc:  "Doorstep delivery covering 50+ cities. Our experienced network ensures proper quality and quantity dispatch, with loading, unloading and packing available on request.",
     tags:  ["Doorstep Delivery", "50+ Cities", "Packing", "Dispatch"],
-    image: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80&fit=crop",
+    image: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=800&q=80&fit=crop",
     badge: "Supply Chain",
     badgeColor: "#22c55e",
     wide: false,
@@ -46,7 +46,7 @@ const services = [
     title: "Unloading & Stacking",
     desc:  "Loading and unloading from railway rakes and motor vehicles. Storage units with special platforms, weighing and machinery. Coal stacking using state-of-the-art equipment to prevent oxidation and moisture increase.",
     tags:  ["Railway Rakes", "Stockpiles", "Anti-oxidation", "Storage"],
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80&fit=crop",
+    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80&fit=crop",
     badge: "Operations",
     badgeColor: "#D97706",
     wide: false,
@@ -55,7 +55,7 @@ const services = [
     title: "Minerals Trading",
     desc:  "Beyond coal — Manganese ore, Chrome ore and Silica ore sourced from major origins including Indonesia, South Africa, Kenya and Zimbabwe.",
     tags:  ["Manganese", "Chrome Ore", "Silica Ore"],
-    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=80&fit=crop",
+    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80&fit=crop",
     badge: "Minerals",
     badgeColor: "#64748b",
     wide: false,
@@ -68,7 +68,7 @@ const coalProducts = [
     name:"Steam Coal — Indonesia",
     gcv:"5500–6500 kcal/kg", ash:"10–18%", moisture:"8–12%",
     use:"Power plants, cement, steel, textile & paper mills",
-    image:"https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&q=80&fit=crop",
+    image:"https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&q=80&fit=crop",
   },
   {
     name:"Steam Coal — South Africa",
@@ -80,13 +80,13 @@ const coalProducts = [
     name:"Steam Coal — Kenya / Zimbabwe",
     gcv:"5000–6000 kcal/kg", ash:"14–20%", moisture:"9–13%",
     use:"Industrial boilers, captive power plants",
-    image:"https://images.unsplash.com/photo-1586771107445-d3ca888129ff?w=600&q=80&fit=crop",
+    image:"https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=600&q=80&fit=crop",
   },
   {
     name:"Coking Coal",
     gcv:"6000–7500 kcal/kg", ash:"8–12%", moisture:"8–10%",
     use:"Steel & metallurgy customers across India",
-    image:"https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=600&q=80&fit=crop",
+    image:"https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80&fit=crop",
   },
 ];
 
@@ -139,7 +139,7 @@ export default function ServicesPage() {
           </motion.div>
           <motion.div initial={{ opacity:0,x:40 }} animate={{ opacity:1,x:0 }} transition={{ duration:0.7, delay:0.15 }}
                       className="hidden lg:block rounded-xl overflow-hidden shadow-lg" style={{ height:380 }}>
-            <img src="https://images.unsplash.com/photo-1529579917-0a5d4f8b4a82?w=900&q=80&fit=crop"
+            <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=900&q=80&fit=crop"
                  alt="Ambition Coal operations" className="w-full h-full object-cover"/>
           </motion.div>
         </div>

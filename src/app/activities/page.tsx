@@ -29,11 +29,11 @@ const gallery = [
     caption:"Free Medical Camp",              cat:"Healthcare",
   },
   {
-    image:"https://images.unsplash.com/photo-1509062522246-3755977927d7?w=700&q=80&fit=crop",
+    image:"https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=700&q=80&fit=crop",
     caption:"Teacher Training Program",       cat:"Education",
   },
   {
-    image:"https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=700&q=80&fit=crop",
+    image:"https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=700&q=80&fit=crop",
     caption:"Art Competition Finals",         cat:"Community",
   },
   {
@@ -41,7 +41,7 @@ const gallery = [
     caption:"Community Welfare Meet",         cat:"Community",
   },
   {
-    image:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=700&q=80&fit=crop",
+    image:"https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=700&q=80&fit=crop",
     caption:"Medicine Distribution Drive",    cat:"Healthcare",
   },
   {

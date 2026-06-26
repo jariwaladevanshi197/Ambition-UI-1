@@ -12,7 +12,7 @@ const SLIDES = [
     stat1: { val:"1M+", label:"Tonnes/Year" },
     stat2: { val:"50+", label:"Cities Served" },
     icon:  "⛏️",
-    image: "https://images.unsplash.com/photo-1561489413-985b06da5bee?w=900&q=80&fit=crop",
+    image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=900&q=80&fit=crop",
     imageAlt: "Industrial coal operations",
   },
   {

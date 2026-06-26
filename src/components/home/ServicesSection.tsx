@@ -8,7 +8,7 @@ const services = [
   {
     title: "Coal Trading & Sourcing",
     desc: "End-to-end procurement of Steam Coal from Indonesia, South Africa and East Africa. Quality assured from mine to mother vessel.",
-    image: "https://images.unsplash.com/photo-1529579917-0a5d4f8b4a82?w=600&q=80&fit=crop",
+    image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&q=80&fit=crop",
     tag: "Core Business",
     tagColor: "#F97316",
   },
@@ -29,14 +29,14 @@ const services = [
   {
     title: "Road Transportation",
     desc: "Doorstep delivery network covering 50+ cities. Loading, unloading, packing and dispatch managed end-to-end.",
-    image: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=600&q=80&fit=crop",
+    image: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=600&q=80&fit=crop",
     tag: "Supply Chain",
     tagColor: "#22c55e",
   },
   {
     title: "Minerals Trading",
     desc: "Manganese ore, Chrome ore and Silica ore sourced from major origins across Indonesia, South Africa and Zimbabwe.",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80&fit=crop",
+    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80&fit=crop",
     tag: "Minerals",
     tagColor: "#D97706",
   },
