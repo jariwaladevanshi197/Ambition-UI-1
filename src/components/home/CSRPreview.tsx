@@ -2,13 +2,16 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, GraduationCap, HeartPulse, Users, Leaf } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
-const cards = [
-  { emoji:"📚", title:"Adopted Schools",         sub:"24 schools · 8,500+ students",  color:"#F97316" },
-  { emoji:"🏥", title:"Health Initiatives",      sub:"120+ medical camps annually",    color:"#22c55e" },
-  { emoji:"👩", title:"Women Empowerment",       sub:"Skill development & leadership", color:"#a855f7" },
-  { emoji:"🌳", title:"Environmental Programs",  sub:"50,000+ trees planted",          color:"#D97706" },
+interface CSRCard { Icon: LucideIcon; title: string; sub: string; color: string; }
+
+const cards: CSRCard[] = [
+  { Icon:GraduationCap, title:"Adopted Schools",        sub:"24 schools · 8,500+ students",  color:"#F97316" },
+  { Icon:HeartPulse,    title:"Health Initiatives",     sub:"120+ medical camps annually",    color:"#22c55e" },
+  { Icon:Users,         title:"Women Empowerment",      sub:"Skill development & leadership", color:"#a855f7" },
+  { Icon:Leaf,          title:"Environmental Programs", sub:"50,000+ trees planted",          color:"#D97706" },
 ];
 
 export default function CSRPreview() {
@@ -57,7 +60,10 @@ export default function CSRPreview() {
                 className="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 style={{ background: `linear-gradient(90deg, transparent, ${c.color}, transparent)` }}
               />
-              <div className="text-4xl mb-4">{c.emoji}</div>
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
+                   style={{ background:`${c.color}14` }}>
+                <c.Icon size={22} style={{ color: c.color }} strokeWidth={1.75} />
+              </div>
               <h3 className="font-bold text-sm text-gray-900 mb-2">{c.title}</h3>
               <p className="text-xs" style={{ color: c.color }}>{c.sub}</p>
             </motion.div>

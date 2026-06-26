@@ -1,14 +1,18 @@
 "use client";
 import { useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
+import { Pickaxe, Droplets, Handshake, Zap, GraduationCap, Recycle } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
-const cards = [
-  { icon:"🌱", title:"Responsible Mining",       text:"Adopting best practices to minimise environmental impact across all extraction operations worldwide." },
-  { icon:"🌊", title:"Environmental Commitment", text:"Zero-waste initiatives, reforestation programs, and clean water conservation partnerships." },
-  { icon:"🤝", title:"Community Development",    text:"Empowering local communities through education, healthcare, and economic inclusion programs." },
-  { icon:"⚡", title:"Future Energy",            text:"Investing in cleaner coal technologies and transitioning toward renewable energy solutions." },
-  { icon:"👩‍🎓", title:"Women Empowerment",      text:"Skill development and leadership programs for women in mining communities across India." },
-  { icon:"♻️", title:"Circular Economy",         text:"Recovering and reusing mine by-products to reduce waste across the supply chain." },
+interface Card { Icon: LucideIcon; title: string; text: string; color: string; }
+
+const cards: Card[] = [
+  { Icon:Pickaxe,      title:"Responsible Mining",       color:"#D97706", text:"Adopting best practices to minimise environmental impact across all extraction operations worldwide." },
+  { Icon:Droplets,     title:"Environmental Commitment", color:"#3b82f6", text:"Zero-waste initiatives, reforestation programs, and clean water conservation partnerships." },
+  { Icon:Handshake,    title:"Community Development",    color:"#22c55e", text:"Empowering local communities through education, healthcare, and economic inclusion programs." },
+  { Icon:Zap,          title:"Future Energy",            color:"#F97316", text:"Investing in cleaner coal technologies and transitioning toward renewable energy solutions." },
+  { Icon:GraduationCap,title:"Women Empowerment",        color:"#a855f7", text:"Skill development and leadership programs for women in mining communities across India." },
+  { Icon:Recycle,      title:"Circular Economy",         color:"#16a34a", text:"Recovering and reusing mine by-products to reduce waste across the supply chain." },
 ];
 
 export default function SustainSection() {
@@ -132,7 +136,10 @@ export default function SustainSection() {
                 el.style.boxShadow   = "";
               }}
             >
-              <div className="text-3xl mb-4">{c.icon}</div>
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
+                   style={{ background:`${c.color}14` }}>
+                <c.Icon size={20} style={{ color: c.color }} strokeWidth={1.75} />
+              </div>
               <h3 className="font-bold text-sm mb-3 text-gray-900">{c.title}</h3>
               <p className="text-xs leading-relaxed" style={{ color:"rgba(0,0,0,0.5)" }}>{c.text}</p>
             </motion.div>

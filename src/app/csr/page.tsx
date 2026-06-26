@@ -2,46 +2,50 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-import { MapPin, Users, Heart } from "lucide-react";
+import { MapPin, Users, Heart, Globe, CheckCircle, TreePine, BookOpen, HeartPulse, Droplets, GraduationCap, Leaf } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
-const counters = [
-  { num:5,      suffix:"",  label:"CSR Project Types",   icon:"🌐" },
-  { num:20,     suffix:"+", label:"Active Projects",      icon:"✅" },
-  { num:5000,   suffix:"+", label:"Beneficiaries",        icon:"👥" },
-  { num:50000,  suffix:"+", label:"Trees Planted",        icon:"🌳" },
+interface Counter { num:number; suffix:string; label:string; Icon:LucideIcon; color:string; }
+interface Project { type:string; Icon:LucideIcon; color:string; title:string; desc:string; stats:{val:string;label:string}[]; items:string[]; }
+
+const counters: Counter[] = [
+  { num:5,      suffix:"",  label:"CSR Project Types", Icon:Globe,        color:"#8b5cf6" },
+  { num:20,     suffix:"+", label:"Active Projects",   Icon:CheckCircle,  color:"#F97316" },
+  { num:5000,   suffix:"+", label:"Beneficiaries",     Icon:Users,        color:"#22c55e" },
+  { num:50000,  suffix:"+", label:"Trees Planted",     Icon:TreePine,     color:"#16a34a" },
 ];
 
-const projects = [
+const projects: Project[] = [
   {
-    type:"Education",       emoji:"🏫", color:"#3b82f6",
+    type:"Education",          Icon:BookOpen,      color:"#3b82f6",
     title:"School Adoption Program",
     desc:"Adopted 4 government schools across Jharkhand, Maharashtra, Chhattisgarh and Andhra Pradesh. Provided infrastructure upgrades, libraries, computer labs and mid-day meal support.",
     stats:[{ val:"4",    label:"Schools" },{ val:"1,810", label:"Students" }],
     items:["Govt. Primary School, Dhanbad — 450 students","Zilla Parishad School, Nagpur — 320 students","Model School, Korba — 580 students","Municipal School, Visakhapatnam — 460 students"],
   },
   {
-    type:"Healthcare",      emoji:"🏥", color:"#22c55e",
+    type:"Healthcare",         Icon:HeartPulse,    color:"#22c55e",
     title:"Community Healthcare Initiative",
     desc:"Monthly free medical camps in tribal and mining-adjacent communities. Over 1,200 patients served per year with doctors from partner hospitals.",
     stats:[{ val:"12",   label:"Camps/Year" },{ val:"1,200+", label:"Patients" }],
     items:["Free OPD in Dhanbad, Korba & Raipur","Medicine distribution to 12 PHCs","Eye & dental check-up camps","Mental health awareness drives"],
   },
   {
-    type:"Water & Sanitation", emoji:"💧", color:"#0ea5e9",
+    type:"Water & Sanitation", Icon:Droplets,      color:"#0ea5e9",
     title:"Clean Water Access",
     desc:"Installed bore-wells and water purification units in 6 villages around our operational areas. Over 3,000 villagers now have clean drinking water.",
     stats:[{ val:"12",   label:"Bore-wells" },{ val:"3,000+", label:"Villagers" }],
     items:["12 bore-well installations","4 community water purification units","3 rainwater harvesting structures","Sanitation block construction"],
   },
   {
-    type:"Women Empowerment", emoji:"👩", color:"#ec4899",
+    type:"Women Empowerment",  Icon:GraduationCap, color:"#ec4899",
     title:"Women Skill Development",
     desc:"Skill development workshops in weaving, tailoring, digital literacy and self-help group formation. 180 women trained and linked to livelihood opportunities.",
     stats:[{ val:"180",  label:"Women Trained" },{ val:"8",  label:"SHGs Formed" }],
     items:["Tailoring & weaving workshops","Digital literacy programs","Micro-finance & SHG support","Entrepreneurship mentoring"],
   },
   {
-    type:"Environment",     emoji:"🌳", color:"#16a34a",
+    type:"Environment",        Icon:Leaf,          color:"#16a34a",
     title:"Green India Drive",
     desc:"Annual plantation drives, e-waste collection and ESG-aligned operational practices. 50,000+ trees planted since 2015 across 5 states.",
     stats:[{ val:"50K+", label:"Trees Planted" },{ val:"5",  label:"States" }],
@@ -56,7 +60,7 @@ const impactNumbers = [
   { val:"2003",     label:"CSR Journey Began" },
 ];
 
-function CounterCard({ num, suffix, label, icon, active }: { num:number; suffix:string; label:string; icon:string; active:boolean }) {
+function CounterCard({ num, suffix, label, Icon, color, active }: Counter & { active:boolean }) {
   const [val, setVal] = useState(0);
   useEffect(() => {
     if (!active) return;
@@ -75,7 +79,10 @@ function CounterCard({ num, suffix, label, icon, active }: { num:number; suffix:
          style={{ background:"rgba(0,0,0,0.03)", border:"1px solid rgba(0,0,0,0.08)" }}
          onMouseEnter={e=>{const el=e.currentTarget as HTMLDivElement;el.style.borderColor="rgba(249,115,22,0.3)";el.style.transform="translateY(-4px)";}}
          onMouseLeave={e=>{const el=e.currentTarget as HTMLDivElement;el.style.borderColor="";el.style.transform="";}}>
-      <div className="text-3xl mb-3">{icon}</div>
+      <div className="w-11 h-11 rounded-xl flex items-center justify-center mx-auto mb-4"
+           style={{ background:`${color}14` }}>
+        <Icon size={22} style={{ color }} strokeWidth={1.75}/>
+      </div>
       <div className="text-4xl font-black mb-2" style={{ color:"var(--orange)" }}>
         {val.toLocaleString()}{suffix}
       </div>
@@ -166,7 +173,10 @@ export default function CSRPage() {
                           borderLeft: activeProject===i ? `3px solid ${p.color}` : "1px solid rgba(0,0,0,0.08)",
                           boxShadow: activeProject===i ? `0 0 18px ${p.color}18` : "none",
                         }}>
-                  <span className="text-lg shrink-0">{p.emoji}</span>
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
+                       style={{ background:`${p.color}18` }}>
+                    <p.Icon size={15} style={{ color:p.color }} strokeWidth={1.75}/>
+                  </div>
                   <span className="text-xs font-bold leading-tight" style={{ color:activeProject===i?p.color:"rgba(0,0,0,0.55)" }}>{p.type}</span>
                 </button>
               ))}
@@ -180,8 +190,10 @@ export default function CSRPage() {
               style={{ background:"rgba(0,0,0,0.02)", border:`1px solid ${proj.color}25` }}
             >
               <div className="flex items-start gap-4 mb-5">
-                <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl shrink-0"
-                     style={{ background:`${proj.color}15` }}>{proj.emoji}</div>
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0"
+                     style={{ background:`${proj.color}15` }}>
+                  <proj.Icon size={28} style={{ color:proj.color }} strokeWidth={1.5}/>
+                </div>
                 <div>
                   <div className="text-[10px] font-black tracking-widest mb-1" style={{ color:proj.color }}>{proj.type.toUpperCase()}</div>
                   <h3 className="text-xl font-black text-gray-900">{proj.title}</h3>
