@@ -28,19 +28,19 @@ export default function SettingsSection({ settings, save }: Props) {
       )}
 
       <div className="mb-6">
-        <h1 className="text-xl font-black text-white">Company Settings</h1>
-        <p className="text-xs mt-0.5" style={{ color:"rgba(255,255,255,0.3)" }}>Core information used across the website</p>
+        <h1 className="text-xl font-black text-gray-900">Company Settings</h1>
+        <p className="text-xs mt-0.5" style={{ color:"rgba(0,0,0,0.4)" }}>Core information used across the website</p>
       </div>
 
       <form onSubmit={submit} className="max-w-xl flex flex-col gap-5">
-        <div className="p-5 rounded-2xl flex flex-col gap-4" style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)" }}>
+        <div className="p-5 rounded-2xl flex flex-col gap-4" style={{ background:"#ffffff", border:"1px solid rgba(0,0,0,0.08)" }}>
           <div className="text-[10px] font-black tracking-widest mb-1" style={{ color:"var(--orange)" }}>BRAND</div>
           <Field label="COMPANY NAME"><Input value={form.name} onChange={e=>f("name",e.target.value)} placeholder="Ambition Coal & Mining Ltd."/></Field>
           <Field label="TAGLINE"><Input value={form.tagline} onChange={e=>f("tagline",e.target.value)} placeholder="Powering Industries…"/></Field>
           <Field label="ESTABLISHED YEAR"><Input value={form.estYear} onChange={e=>f("estYear",e.target.value)} placeholder="2003"/></Field>
         </div>
 
-        <div className="p-5 rounded-2xl flex flex-col gap-4" style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)" }}>
+        <div className="p-5 rounded-2xl flex flex-col gap-4" style={{ background:"#ffffff", border:"1px solid rgba(0,0,0,0.08)" }}>
           <div className="text-[10px] font-black tracking-widest mb-1" style={{ color:"var(--orange)" }}>CONTACT</div>
           <Field label="EMAIL"><Input type="email" value={form.email} onChange={e=>f("email",e.target.value)} placeholder="info@ambitioncoal.co.in"/></Field>
           <Field label="PHONE"><Input value={form.phone} onChange={e=>f("phone",e.target.value)} placeholder="+91 22 XXXX XXXX"/></Field>
@@ -48,11 +48,11 @@ export default function SettingsSection({ settings, save }: Props) {
             <textarea value={form.address} onChange={e=>f("address",e.target.value)} rows={2}
                       placeholder="Full registered address…"
                       className="w-full px-3.5 py-2.5 rounded-xl text-sm outline-none resize-none"
-                      style={{ background:"rgba(255,255,255,0.05)", border:"1px solid rgba(255,255,255,0.1)", color:"white" }}/>
+                      style={{ background:"rgba(0,0,0,0.04)", border:"1px solid rgba(0,0,0,0.12)", color:"#111111" }}/>
           </Field>
         </div>
 
-        <div className="p-5 rounded-2xl flex flex-col gap-4" style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)" }}>
+        <div className="p-5 rounded-2xl flex flex-col gap-4" style={{ background:"#ffffff", border:"1px solid rgba(0,0,0,0.08)" }}>
           <div className="text-[10px] font-black tracking-widest mb-1" style={{ color:"var(--orange)" }}>SOCIAL LINKS</div>
           <Field label="LINKEDIN URL"><Input value={form.linkedin} onChange={e=>f("linkedin",e.target.value)} placeholder="https://linkedin.com/company/…"/></Field>
           <Field label="TWITTER / X URL"><Input value={form.twitter} onChange={e=>f("twitter",e.target.value)} placeholder="https://twitter.com/…"/></Field>

@@ -25,25 +25,24 @@ export default function MessagesSection({ messages, markRead, deleteMsg }: Props
   const open = (m:Message) => { setSelected(m); if(!m.read) markRead(m.id); };
   const unread = messages.filter(m=>!m.read).length;
   const visible = messages.filter(m=>filter==="all" ? true : filter==="unread" ? !m.read : m.read);
-  const types = [...new Set(messages.map(m=>m.type))];
 
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-black text-white flex items-center gap-2">
+          <h1 className="text-xl font-black text-gray-900 flex items-center gap-2">
             Messages
             {unread > 0 && (
               <span className="px-2 py-0.5 rounded-full text-[10px] font-black text-white" style={{ background:"var(--orange)" }}>{unread}</span>
             )}
           </h1>
-          <p className="text-xs mt-0.5" style={{ color:"rgba(255,255,255,0.3)" }}>{messages.length} total · {unread} unread</p>
+          <p className="text-xs mt-0.5" style={{ color:"rgba(0,0,0,0.4)" }}>{messages.length} total · {unread} unread</p>
         </div>
         <div className="flex gap-1.5">
           {(["all","unread","read"] as const).map(f=>(
             <button key={f} onClick={()=>setFilter(f)}
                     className="px-3 py-1.5 rounded-xl text-xs font-bold capitalize transition-all"
-                    style={{ background:filter===f?"var(--orange)":"rgba(255,255,255,0.05)", color:filter===f?"white":"rgba(255,255,255,0.4)" }}>
+                    style={{ background:filter===f?"var(--orange)":"rgba(0,0,0,0.05)", color:filter===f?"white":"rgba(0,0,0,0.55)" }}>
               {f}
             </button>
           ))}
@@ -52,23 +51,23 @@ export default function MessagesSection({ messages, markRead, deleteMsg }: Props
 
       <div className="grid gap-2">
         {visible.length === 0 && (
-          <div className="py-12 text-center rounded-2xl" style={{ background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.06)", color:"rgba(255,255,255,0.3)", fontSize:13 }}>
+          <div className="py-12 text-center rounded-2xl" style={{ background:"rgba(0,0,0,0.02)", border:"1px solid rgba(0,0,0,0.07)", color:"rgba(0,0,0,0.4)", fontSize:13 }}>
             No messages in this category
           </div>
         )}
         {visible.map(m=>(
           <div key={m.id} onClick={()=>open(m)} className="flex items-start gap-4 p-4 rounded-2xl cursor-pointer transition-all"
-               style={{ background:m.read?"rgba(255,255,255,0.02)":"rgba(249,115,22,0.06)", border:`1px solid ${m.read?"rgba(255,255,255,0.05)":"rgba(249,115,22,0.15)"}` }}
-               onMouseEnter={e=>(e.currentTarget.style.background=m.read?"rgba(255,255,255,0.04)":"rgba(249,115,22,0.1)")}
-               onMouseLeave={e=>(e.currentTarget.style.background=m.read?"rgba(255,255,255,0.02)":"rgba(249,115,22,0.06)")}>
+               style={{ background:m.read?"rgba(0,0,0,0.02)":"rgba(249,115,22,0.05)", border:`1px solid ${m.read?"rgba(0,0,0,0.07)":"rgba(249,115,22,0.2)"}` }}
+               onMouseEnter={e=>(e.currentTarget.style.background=m.read?"rgba(0,0,0,0.04)":"rgba(249,115,22,0.09)")}
+               onMouseLeave={e=>(e.currentTarget.style.background=m.read?"rgba(0,0,0,0.02)":"rgba(249,115,22,0.05)")}>
             <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
-                 style={{ background:"rgba(255,255,255,0.05)" }}>
-              {m.read ? <MailOpen size={15} style={{ color:"rgba(255,255,255,0.3)" }}/> : <Mail size={15} style={{ color:"var(--orange)" }}/>}
+                 style={{ background:"rgba(0,0,0,0.05)" }}>
+              {m.read ? <MailOpen size={15} style={{ color:"rgba(0,0,0,0.35)" }}/> : <Mail size={15} style={{ color:"var(--orange)" }}/>}
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between gap-2 mb-1">
                 <div className="flex items-center gap-2">
-                  <span className={`text-sm font-bold ${m.read?"":"text-white"}`} style={{ color:m.read?"rgba(255,255,255,0.6)":undefined }}>
+                  <span className={`text-sm font-bold ${m.read?"":"text-gray-900"}`} style={{ color:m.read?"rgba(0,0,0,0.55)":undefined }}>
                     {m.name}
                   </span>
                   <span className="px-2 py-0.5 rounded-full text-[9px] font-bold"
@@ -78,7 +77,7 @@ export default function MessagesSection({ messages, markRead, deleteMsg }: Props
                   {!m.read && <div className="w-1.5 h-1.5 rounded-full" style={{ background:"var(--orange)" }}/>}
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-[10px]" style={{ color:"rgba(255,255,255,0.2)" }}>{m.date}</span>
+                  <span className="text-[10px]" style={{ color:"rgba(0,0,0,0.3)" }}>{m.date}</span>
                   <button onClick={e=>{e.stopPropagation(); if(confirm("Delete this message?")) deleteMsg(m.id);}}
                           className="p-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-all"
                           style={{ background:"rgba(239,68,68,0.1)" }}
@@ -88,8 +87,8 @@ export default function MessagesSection({ messages, markRead, deleteMsg }: Props
                   </button>
                 </div>
               </div>
-              <p className="text-[10px]" style={{ color:"rgba(255,255,255,0.3)" }}>{m.email}</p>
-              <p className="text-[11px] mt-1.5 line-clamp-2 leading-relaxed" style={{ color:"rgba(255,255,255,0.4)" }}>{m.message}</p>
+              <p className="text-[10px]" style={{ color:"rgba(0,0,0,0.4)" }}>{m.email}</p>
+              <p className="text-[11px] mt-1.5 line-clamp-2 leading-relaxed" style={{ color:"rgba(0,0,0,0.55)" }}>{m.message}</p>
             </div>
           </div>
         ))}
@@ -101,18 +100,18 @@ export default function MessagesSection({ messages, markRead, deleteMsg }: Props
           <div className="flex flex-col gap-4">
             <div className="flex items-start justify-between">
               <div>
-                <div className="font-bold text-white text-base">{selected.name}</div>
-                <div className="text-xs mt-0.5" style={{ color:"rgba(255,255,255,0.4)" }}>{selected.email}</div>
+                <div className="font-bold text-gray-900 text-base">{selected.name}</div>
+                <div className="text-xs mt-0.5" style={{ color:"rgba(0,0,0,0.5)" }}>{selected.email}</div>
               </div>
               <div className="text-right">
                 <div className="px-2.5 py-1 rounded-full text-[10px] font-bold"
                      style={{ background:`${TYPE_COLORS[selected.type]||"#6b7280"}15`, color:TYPE_COLORS[selected.type]||"#6b7280" }}>
                   {selected.type}
                 </div>
-                <div className="text-[10px] mt-1" style={{ color:"rgba(255,255,255,0.25)" }}>{selected.date}</div>
+                <div className="text-[10px] mt-1" style={{ color:"rgba(0,0,0,0.35)" }}>{selected.date}</div>
               </div>
             </div>
-            <div className="p-4 rounded-xl text-sm leading-relaxed" style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.07)", color:"rgba(255,255,255,0.75)" }}>
+            <div className="p-4 rounded-xl text-sm leading-relaxed" style={{ background:"rgba(0,0,0,0.03)", border:"1px solid rgba(0,0,0,0.08)", color:"rgba(0,0,0,0.75)" }}>
               {selected.message}
             </div>
             <div className="flex gap-3">

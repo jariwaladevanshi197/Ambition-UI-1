@@ -59,8 +59,8 @@ export default function ActivitiesSection({ activities, add, update, remove }: P
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-black text-white">Activities</h1>
-          <p className="text-xs mt-0.5" style={{ color:"rgba(255,255,255,0.3)" }}>{activities.length} total · {activities.filter(a=>a.published).length} published</p>
+          <h1 className="text-xl font-black text-gray-900">Activities</h1>
+          <p className="text-xs mt-0.5" style={{ color:"rgba(0,0,0,0.4)" }}>{activities.length} total · {activities.filter(a=>a.published).length} published</p>
         </div>
         <button onClick={openAdd} className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold text-white transition-all"
                 style={{ background:"var(--orange)" }}
@@ -74,11 +74,11 @@ export default function ActivitiesSection({ activities, add, update, remove }: P
       <div className="flex flex-wrap gap-3 mb-5">
         <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search activities…"
                className="px-3 py-2 rounded-xl text-xs outline-none flex-1 min-w-[180px]"
-               style={{ background:"rgba(255,255,255,0.05)", border:"1px solid rgba(255,255,255,0.08)", color:"white" }} />
+               style={{ background:"rgba(0,0,0,0.04)", border:"1px solid rgba(0,0,0,0.1)", color:"#111111" }} />
         <div className="flex gap-1.5 flex-wrap">
           {cats.map(c=>(
             <button key={c} onClick={()=>setCat(c)} className="px-3 py-2 rounded-xl text-xs font-bold transition-all"
-                    style={{ background:catFilter===c?"var(--orange)":"rgba(255,255,255,0.05)", color:catFilter===c?"white":"rgba(255,255,255,0.4)" }}>
+                    style={{ background:catFilter===c?"var(--orange)":"rgba(0,0,0,0.05)", color:catFilter===c?"white":"rgba(0,0,0,0.55)" }}>
               {c}
             </button>
           ))}
@@ -86,34 +86,34 @@ export default function ActivitiesSection({ activities, add, update, remove }: P
       </div>
 
       {/* Table */}
-      <div className="rounded-2xl overflow-hidden" style={{ border:"1px solid rgba(255,255,255,0.07)" }}>
+      <div className="rounded-2xl overflow-hidden" style={{ border:"1px solid rgba(0,0,0,0.08)" }}>
         <div className="grid text-[10px] font-bold tracking-widest px-5 py-3"
-             style={{ gridTemplateColumns:"2fr 1fr 1fr auto auto", background:"rgba(255,255,255,0.03)", color:"rgba(255,255,255,0.3)", borderBottom:"1px solid rgba(255,255,255,0.07)" }}>
+             style={{ gridTemplateColumns:"2fr 1fr 1fr auto auto", background:"rgba(0,0,0,0.03)", color:"rgba(0,0,0,0.4)", borderBottom:"1px solid rgba(0,0,0,0.08)" }}>
           <span>TITLE</span><span>CATEGORY</span><span>DATE</span><span>STATUS</span><span>ACTIONS</span>
         </div>
         {visible.length === 0 && (
-          <div className="py-12 text-center text-sm" style={{ color:"rgba(255,255,255,0.3)" }}>No activities found</div>
+          <div className="py-12 text-center text-sm" style={{ color:"rgba(0,0,0,0.4)" }}>No activities found</div>
         )}
         {visible.map(a=>(
           <div key={a.id} className="grid items-center px-5 py-3.5 transition-colors"
-               style={{ gridTemplateColumns:"2fr 1fr 1fr auto auto", borderBottom:"1px solid rgba(255,255,255,0.04)" }}
-               onMouseEnter={e=>(e.currentTarget.style.background="rgba(255,255,255,0.02)")}
+               style={{ gridTemplateColumns:"2fr 1fr 1fr auto auto", borderBottom:"1px solid rgba(0,0,0,0.05)" }}
+               onMouseEnter={e=>(e.currentTarget.style.background="rgba(0,0,0,0.02)")}
                onMouseLeave={e=>(e.currentTarget.style.background="")}>
             <div className="flex items-center gap-2.5 pr-4">
               <span className="text-lg">{a.emoji}</span>
               <div>
-                <div className="text-sm font-semibold text-white flex items-center gap-1.5">
+                <div className="text-sm font-semibold text-gray-900 flex items-center gap-1.5">
                   {a.title}
                   {a.featured && <Star size={10} fill="var(--orange)" style={{ color:"var(--orange)" }} />}
                 </div>
-                <div className="text-[10px] mt-0.5 line-clamp-1" style={{ color:"rgba(255,255,255,0.3)" }}>{a.description}</div>
+                <div className="text-[10px] mt-0.5 line-clamp-1" style={{ color:"rgba(0,0,0,0.4)" }}>{a.description}</div>
               </div>
             </div>
             <span className="px-2.5 py-1 rounded-full text-[10px] font-bold w-fit"
                   style={{ background:"rgba(249,115,22,0.1)", color:"var(--orange)" }}>{a.category}</span>
-            <span className="text-xs" style={{ color:"rgba(255,255,255,0.4)" }}>{a.date}</span>
+            <span className="text-xs" style={{ color:"rgba(0,0,0,0.5)" }}>{a.date}</span>
             <button onClick={()=>update({...a,published:!a.published})} className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[10px] font-bold transition-colors"
-                    style={{ background:a.published?"rgba(34,197,94,0.1)":"rgba(255,255,255,0.05)", color:a.published?"#22c55e":"rgba(255,255,255,0.3)" }}>
+                    style={{ background:a.published?"rgba(34,197,94,0.1)":"rgba(0,0,0,0.05)", color:a.published?"#22c55e":"rgba(0,0,0,0.4)" }}>
               {a.published ? <Eye size={10}/> : <EyeOff size={10}/>} {a.published?"Live":"Draft"}
             </button>
             <div className="flex gap-2 justify-end">
@@ -144,7 +144,7 @@ export default function ActivitiesSection({ activities, add, update, remove }: P
                 {EMOJIS.map(e=>(
                   <button type="button" key={e} onClick={()=>f("emoji",e)}
                           className="w-9 h-9 rounded-lg text-lg transition-all"
-                          style={{ background:form.emoji===e?"rgba(249,115,22,0.2)":"rgba(255,255,255,0.05)", border:`1px solid ${form.emoji===e?"var(--orange)":"transparent"}` }}>
+                          style={{ background:form.emoji===e?"rgba(249,115,22,0.15)":"rgba(0,0,0,0.04)", border:`1px solid ${form.emoji===e?"var(--orange)":"transparent"}` }}>
                     {e}
                   </button>
                 ))}

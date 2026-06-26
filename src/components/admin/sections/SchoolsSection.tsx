@@ -90,8 +90,8 @@ export default function SchoolsSection({ schools, add, update, remove }: Props) 
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-black text-white">CSR Projects</h1>
-          <p className="text-xs mt-0.5" style={{ color:"rgba(255,255,255,0.3)" }}>
+          <h1 className="text-xl font-black text-gray-900">CSR Projects</h1>
+          <p className="text-xs mt-0.5" style={{ color:"rgba(0,0,0,0.4)" }}>
             {schools.length} projects · {totalBeneficiaries.toLocaleString()} total beneficiaries
           </p>
         </div>
@@ -111,11 +111,11 @@ export default function SchoolsSection({ schools, add, update, remove }: Props) 
           return (
             <button key={t} onClick={()=>setTypeFilter(typeFilter===t?"All":t)}
                     className="p-3.5 rounded-2xl text-left transition-all"
-                    style={{ background:typeFilter===t?"rgba(249,115,22,0.12)":"rgba(255,255,255,0.03)", border:`1px solid ${typeFilter===t?"rgba(249,115,22,0.3)":"rgba(255,255,255,0.07)"}` }}>
+                    style={{ background:typeFilter===t?"rgba(249,115,22,0.1)":"#ffffff", border:`1px solid ${typeFilter===t?"rgba(249,115,22,0.3)":"rgba(0,0,0,0.08)"}` }}>
               <div className="text-2xl mb-2">{PROJECT_EMOJIS[t]}</div>
-              <div className="text-sm font-black" style={{ color:typeFilter===t?"var(--orange)":"white" }}>{count}</div>
-              <div className="text-[10px] font-bold mt-0.5" style={{ color:typeFilter===t?"var(--orange)":"rgba(255,255,255,0.4)" }}>{t}</div>
-              <div className="text-[9px] mt-0.5" style={{ color:"rgba(255,255,255,0.2)" }}>{bene.toLocaleString()} beneficiaries</div>
+              <div className="text-sm font-black" style={{ color:typeFilter===t?"var(--orange)":"#111111" }}>{count}</div>
+              <div className="text-[10px] font-bold mt-0.5" style={{ color:typeFilter===t?"var(--orange)":"rgba(0,0,0,0.5)" }}>{t}</div>
+              <div className="text-[9px] mt-0.5" style={{ color:"rgba(0,0,0,0.35)" }}>{bene.toLocaleString()} beneficiaries</div>
             </button>
           );
         })}
@@ -125,10 +125,10 @@ export default function SchoolsSection({ schools, add, update, remove }: Props) 
       <div className="flex gap-3 mb-4">
         <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search by name or location…"
                className="flex-1 px-3 py-2 rounded-xl text-xs outline-none"
-               style={{ background:"rgba(255,255,255,0.05)", border:"1px solid rgba(255,255,255,0.08)", color:"white" }}/>
+               style={{ background:"rgba(0,0,0,0.04)", border:"1px solid rgba(0,0,0,0.1)", color:"#111111" }}/>
         {typeFilter!=="All" && (
           <button onClick={()=>setTypeFilter("All")} className="px-3 py-2 rounded-xl text-xs font-bold"
-                  style={{ background:"rgba(249,115,22,0.12)", color:"var(--orange)" }}>
+                  style={{ background:"rgba(249,115,22,0.1)", color:"var(--orange)" }}>
             ✕ {typeFilter}
           </button>
         )}
@@ -137,15 +137,15 @@ export default function SchoolsSection({ schools, add, update, remove }: Props) 
       {/* Project list */}
       <div className="grid gap-3">
         {visible.length===0 && (
-          <div className="py-12 text-center rounded-2xl text-sm" style={{ background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.06)", color:"rgba(255,255,255,0.3)" }}>
+          <div className="py-12 text-center rounded-2xl text-sm" style={{ background:"rgba(0,0,0,0.02)", border:"1px solid rgba(0,0,0,0.07)", color:"rgba(0,0,0,0.4)" }}>
             No projects found
           </div>
         )}
         {visible.map(s=>(
           <div key={s.id} className="rounded-2xl p-5 transition-colors"
-               style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)" }}
-               onMouseEnter={e=>(e.currentTarget.style.background="rgba(255,255,255,0.05)")}
-               onMouseLeave={e=>(e.currentTarget.style.background="rgba(255,255,255,0.03)")}>
+               style={{ background:"#ffffff", border:"1px solid rgba(0,0,0,0.08)" }}
+               onMouseEnter={e=>(e.currentTarget.style.background="rgba(0,0,0,0.02)")}
+               onMouseLeave={e=>(e.currentTarget.style.background="#ffffff")}>
             <div className="flex items-start justify-between gap-4">
               <div className="flex items-start gap-3 flex-1 min-w-0">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0"
@@ -154,17 +154,17 @@ export default function SchoolsSection({ schools, add, update, remove }: Props) 
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center flex-wrap gap-2 mb-1">
-                    <span className="font-bold text-white text-sm">{s.name}</span>
+                    <span className="font-bold text-gray-900 text-sm">{s.name}</span>
                     <span className="px-2 py-0.5 rounded-full text-[9px] font-bold"
                           style={{ background:"rgba(249,115,22,0.1)", color:"var(--orange)" }}>
                       {s.projectType}
                     </span>
-                    <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold`}
+                    <span className="px-2 py-0.5 rounded-full text-[9px] font-bold"
                           style={{ background:s.status==="Active"?"rgba(34,197,94,0.1)":"rgba(239,68,68,0.1)", color:s.status==="Active"?"#22c55e":"#ef4444" }}>
                       {s.status}
                     </span>
                   </div>
-                  <div className="flex items-center gap-4 text-[11px] mb-1.5" style={{ color:"rgba(255,255,255,0.4)" }}>
+                  <div className="flex items-center gap-4 text-[11px] mb-1.5" style={{ color:"rgba(0,0,0,0.5)" }}>
                     <span className="flex items-center gap-1"><MapPin size={10}/> {s.location}{s.state ? `, ${s.state}` : ""}</span>
                     {s.beneficiaries > 0 && (
                       <span className="flex items-center gap-1">
@@ -173,7 +173,7 @@ export default function SchoolsSection({ schools, add, update, remove }: Props) 
                     )}
                   </div>
                   {s.description && (
-                    <p className="text-[11px] leading-relaxed" style={{ color:"rgba(255,255,255,0.35)" }}>{s.description}</p>
+                    <p className="text-[11px] leading-relaxed" style={{ color:"rgba(0,0,0,0.45)" }}>{s.description}</p>
                   )}
                 </div>
               </div>
@@ -205,7 +205,7 @@ export default function SchoolsSection({ schools, add, update, remove }: Props) 
                 {PROJECT_TYPES.map(t=>(
                   <button type="button" key={t} onClick={()=>f("projectType",t)}
                           className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-xs font-bold transition-all"
-                          style={{ background:form.projectType===t?"rgba(249,115,22,0.15)":"rgba(255,255,255,0.04)", border:`1px solid ${form.projectType===t?"var(--orange)":"transparent"}`, color:form.projectType===t?"var(--orange)":"rgba(255,255,255,0.5)" }}>
+                          style={{ background:form.projectType===t?"rgba(249,115,22,0.12)":"rgba(0,0,0,0.04)", border:`1px solid ${form.projectType===t?"var(--orange)":"transparent"}`, color:form.projectType===t?"var(--orange)":"rgba(0,0,0,0.55)" }}>
                     <span>{PROJECT_EMOJIS[t]}</span> {t}
                   </button>
                 ))}
