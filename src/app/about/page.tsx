@@ -1,6 +1,8 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
+import { Zap, Globe, ShieldCheck, Package, Clock, Scale } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import ImageCarousel from "@/components/about/ImageCarousel";
 
 const milestones = [
@@ -30,13 +32,14 @@ const leaders = [
   },
 ];
 
-const whyUs = [
-  { icon:"⚡", title:"Competitive Pricing",     text:"We keep prices as low as possible while maintaining the high quality our customers demand." },
-  { icon:"🌐", title:"Global Sourcing",          text:"Direct mine relationships in Indonesia, South Africa, Kenya & Zimbabwe for best-quality coal." },
-  { icon:"🛡️", title:"Quality Assurance",       text:"Independent international testing institutes verify quality at every step — mine to mother vessel." },
-  { icon:"🤝", title:"One Stop Coal Solution",   text:"From sourcing to stevedoring, road transport, unloading and stacking — we manage it all." },
-  { icon:"📊", title:"On-Time Delivery",         text:"We recognize the importance of delivery ahead of schedule. Customer satisfaction is our sole motive." },
-  { icon:"🌱", title:"Ethical Business",         text:"We strictly follow ethical business principles and abide by existing laws and regulations." },
+interface WhyCard { Icon: LucideIcon; color: string; title: string; text: string; }
+const whyUs: WhyCard[] = [
+  { Icon:Zap,        color:"#F97316", title:"Competitive Pricing",     text:"We keep prices as low as possible while maintaining the high quality our customers demand." },
+  { Icon:Globe,      color:"#3b82f6", title:"Global Sourcing",          text:"Direct mine relationships in Indonesia, South Africa, Kenya & Zimbabwe for best-quality coal." },
+  { Icon:ShieldCheck,color:"#6366f1", title:"Quality Assurance",       text:"Independent international testing institutes verify quality at every step — mine to mother vessel." },
+  { Icon:Package,    color:"#22c55e", title:"One Stop Coal Solution",   text:"From sourcing to stevedoring, road transport, unloading and stacking — we manage it all." },
+  { Icon:Clock,      color:"#D97706", title:"On-Time Delivery",         text:"We recognize the importance of delivery ahead of schedule. Customer satisfaction is our sole motive." },
+  { Icon:Scale,      color:"#16a34a", title:"Ethical Business",         text:"We strictly follow ethical business principles and abide by existing laws and regulations." },
 ];
 
 export default function AboutPage() {
@@ -384,8 +387,8 @@ export default function AboutPage() {
               >
                 {/* Icon box */}
                 <div className="w-11 h-11 rounded-lg flex items-center justify-center mb-5 transition-colors duration-250"
-                     style={{ background:"rgba(249,115,22,0.08)", border:"1px solid rgba(249,115,22,0.15)" }}>
-                  <span className="text-xl">{w.icon}</span>
+                     style={{ background:`${w.color}12`, border:`1px solid ${w.color}28` }}>
+                  <w.Icon size={20} style={{ color: w.color }} strokeWidth={1.75}/>
                 </div>
 
                 {/* Orange accent line */}

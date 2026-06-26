@@ -28,14 +28,14 @@ function AssociateBadge({
   name: string; abbr: string; domain: string;
 }) {
   const [imgOk, setImgOk] = useState(true);
-  const url = `https://logo.clearbit.com/${domain}`;
+  const url = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
 
   return (
     <div
-      className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 overflow-hidden"
+      className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 overflow-hidden"
       style={{
-        background: imgOk ? "#ffffff" : "rgba(249,115,22,0.12)",
-        border: imgOk ? "1px solid rgba(255,255,255,0.15)" : "1px solid rgba(249,115,22,0.2)",
+        background: imgOk ? "#f8f9fa" : "rgba(249,115,22,0.1)",
+        border: "1px solid rgba(0,0,0,0.08)",
       }}
     >
       {imgOk ? (
@@ -43,8 +43,8 @@ function AssociateBadge({
         <img
           src={url}
           alt={name}
-          width={30}
-          height={30}
+          width={32}
+          height={32}
           style={{ objectFit:"contain", display:"block" }}
           onError={() => setImgOk(false)}
         />
@@ -56,7 +56,7 @@ function AssociateBadge({
             lineHeight: 1,
             textAlign: "center",
             padding: "0 2px",
-            fontSize: abbr.length > 3 ? "7px" : abbr.length === 3 ? "9px" : "11px",
+            fontSize: abbr.length > 3 ? "8px" : abbr.length === 3 ? "10px" : "12px",
           }}
         >
           {abbr}
@@ -117,11 +117,11 @@ export default function AssociatesSection() {
           {ITEMS.map((a, i) => (
             <div
               key={i}
-              className="flex items-center gap-3 px-4 py-3 rounded-2xl shrink-0 transition-all duration-200"
+              className="flex items-center gap-3 px-5 py-3.5 rounded-2xl shrink-0 transition-all duration-200"
               style={{
                 background: "rgba(0,0,0,0.03)",
                 border:     "1px solid rgba(0,0,0,0.08)",
-                minWidth:   200,
+                minWidth:   220,
               }}
               onMouseEnter={e => {
                 const el = e.currentTarget as HTMLDivElement;

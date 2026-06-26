@@ -96,14 +96,14 @@ const saltProducts = [
     name: "Industrial Grade Salt",
     desc: "High-purity sodium chloride for chemical processing, water treatment, oil & gas, and industrial manufacturing.",
     specs: ["NaCl: 98–99.5%", "Moisture: <0.5%", "Bulk / Packed"],
-    image: "/images/salt1.jpg",
+    image: "/images/salt-industrial.jpg",
     fallback: "#1a1a1a",
   },
   {
     name: "Edible Salt",
     desc: "Food-grade iodised and non-iodised salt for FMCG, food processing and consumer retail under a dedicated brand.",
     specs: ["Food Grade", "Iodised / Plain", "Branded Packs"],
-    image: "/images/salt2.jpg",
+    image: "/images/salt-white.jpg",
     fallback: "#f0f0f0",
   },
 ];

@@ -43,7 +43,7 @@ const services = [
   {
     title: "Salt — Coming Soon",
     desc: "Industrial Grade Salt and Edible Salt. A new vertical under Ambition — expanding beyond coal into essential commodities.",
-    image: "/images/salt1.jpg",
+    image: "/images/salt-industrial.jpg",
     tag: "New Product",
     tagColor: "#64748b",
     comingSoon: true,
