@@ -54,7 +54,7 @@ export default function NetworkMap() {
     const ctx = canvas.getContext("2d")!;
     const W = canvas.width, H = canvas.height;
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = "#080808"; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#f5f5f5"; ctx.fillRect(0, 0, W, H);
 
     const HEX = 17, hW = HEX * Math.sqrt(3), hH = HEX * 1.5;
     const { x: mx, y: my } = mouseRef.current;
@@ -74,7 +74,7 @@ export default function NetworkMap() {
         const total = Math.min(1, lit + ripLit);
         const fill  = total > 0.02
           ? `rgba(249,115,22,${0.03 + total * 0.26})`
-          : "rgba(255,255,255,0.022)";
+          : "rgba(0,0,0,0.05)";
         const stroke = total > 0.05
           ? `rgba(249,115,22,${total * 0.38})`
           : "rgba(249,115,22,0.05)";
@@ -114,7 +114,7 @@ export default function NetworkMap() {
       ctx.fillStyle = n.color; ctx.fill();
       ctx.beginPath(); ctx.arc(n.x, n.y, n.size + 4, 0, Math.PI * 2);
       ctx.strokeStyle = n.color + "55"; ctx.lineWidth = 1.5; ctx.stroke();
-      ctx.fillStyle = "rgba(255,255,255,0.85)"; ctx.font = "11px system-ui";
+      ctx.fillStyle = "rgba(0,0,0,0.75)"; ctx.font = "11px system-ui";
       ctx.textAlign = "center"; ctx.fillText(n.label, n.x, n.y + n.size + 15);
     });
 
@@ -174,7 +174,7 @@ export default function NetworkMap() {
   ];
 
   return (
-    <section ref={sectionRef} className="py-24" style={{ background: "#090909" }}>
+    <section ref={sectionRef} className="py-24" style={{ background: "#f9f9f9" }}>
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           initial={{ opacity:0, y:20 }} animate={inView?{opacity:1,y:0}:{}}
@@ -184,14 +184,14 @@ export default function NetworkMap() {
           <h2 className="text-3xl md:text-4xl font-black mb-3">
             Our <span style={{ color:"var(--orange)" }}>Network</span>
           </h2>
-          <p className="text-sm" style={{ color:"rgba(255,255,255,0.4)" }}>
+          <p className="text-sm" style={{ color:"rgba(0,0,0,0.5)" }}>
             Move your cursor over the map · Click to send energy ripples
           </p>
         </motion.div>
 
         {/* Toggle */}
         <div className="flex justify-center mb-8">
-          <div className="flex rounded-lg overflow-hidden" style={{ border:"1px solid rgba(255,255,255,0.1)", background:"rgba(255,255,255,0.04)" }}>
+          <div className="flex rounded-lg overflow-hidden" style={{ border:"1px solid rgba(0,0,0,0.12)", background:"rgba(0,0,0,0.04)" }}>
             {(["global","india"] as const).map((m) => (
               <button
                 key={m}
@@ -199,7 +199,7 @@ export default function NetworkMap() {
                 className="px-5 py-2.5 text-xs font-bold transition-all duration-200"
                 style={{
                   background: mode===m ? "var(--orange)" : "transparent",
-                  color:      mode===m ? "white" : "rgba(255,255,255,0.45)",
+                  color:      mode===m ? "white" : "rgba(0,0,0,0.55)",
                 }}
               >
                 {m==="global" ? "🌍 Global Network" : "🇮🇳 Pan India Network"}
@@ -221,7 +221,7 @@ export default function NetworkMap() {
         {/* Legend */}
         <div className="flex flex-wrap gap-5 justify-center mt-6">
           {legend.map((l) => (
-            <div key={l.label} className="flex items-center gap-2 text-xs" style={{ color:"rgba(255,255,255,0.45)" }}>
+            <div key={l.label} className="flex items-center gap-2 text-xs" style={{ color:"rgba(0,0,0,0.6)" }}>
               <div className="w-2.5 h-2.5 rounded-full" style={{ background:l.color, boxShadow:`0 0 6px ${l.color}` }} />
               {l.label}
             </div>

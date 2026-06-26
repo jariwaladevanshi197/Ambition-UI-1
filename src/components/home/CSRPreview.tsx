@@ -16,7 +16,7 @@ export default function CSRPreview() {
   const inView = useInView(ref, { once: true, margin:"-80px" });
 
   return (
-    <section ref={ref} className="py-24" style={{ background:"#0d0d0d" }}>
+    <section ref={ref} className="py-24" style={{ background:"#ffffff" }}>
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           initial={{ opacity:0, y:20 }} animate={inView?{opacity:1,y:0}:{}}
@@ -36,8 +36,8 @@ export default function CSRPreview() {
               transition={{ duration:0.5, delay: i*0.1 }}
               className="relative overflow-hidden rounded-2xl p-7 group cursor-none"
               style={{
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.07)",
+                background: "rgba(0,0,0,0.02)",
+                border: "1px solid rgba(0,0,0,0.08)",
                 transition: "all .3s",
               }}
               onMouseEnter={(e) => {
@@ -48,7 +48,7 @@ export default function CSRPreview() {
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLDivElement;
-                el.style.borderColor = "rgba(255,255,255,0.07)";
+                el.style.borderColor = "rgba(0,0,0,0.08)";
                 el.style.transform   = "";
                 el.style.boxShadow   = "";
               }}
@@ -58,7 +58,7 @@ export default function CSRPreview() {
                 style={{ background: `linear-gradient(90deg, transparent, ${c.color}, transparent)` }}
               />
               <div className="text-4xl mb-4">{c.emoji}</div>
-              <h3 className="font-bold text-sm text-white mb-2">{c.title}</h3>
+              <h3 className="font-bold text-sm text-gray-900 mb-2">{c.title}</h3>
               <p className="text-xs" style={{ color: c.color }}>{c.sub}</p>
             </motion.div>
           ))}

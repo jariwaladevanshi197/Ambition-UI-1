@@ -211,7 +211,7 @@ export default function ContactPage() {
       <div className="grid grid-cols-1 md:grid-cols-2" style={{ minHeight:"calc(100vh - 64px)" }}>
 
         {/* Map side */}
-        <div className="relative" style={{ background:"#0a0a0a", minHeight:400 }}>
+        <div className="relative" style={{ background:"#e8e8e8", minHeight:400 }}>
           <ContactMap />
           <div className="absolute top-6 left-6">
             <div className="section-tag">OUR LOCATIONS</div>

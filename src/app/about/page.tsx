@@ -59,14 +59,14 @@ export default function AboutPage() {
     <>
       {/* Hero */}
       <section className="pt-32 pb-20 text-center px-6"
-               style={{ background:"linear-gradient(135deg, #0a0a0a, #1a0800 50%, #0a0a0a)" }}>
+               style={{ background:"linear-gradient(135deg, #ffffff, #fff7f0 50%, #ffffff)" }}>
         <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.6 }}>
           <div className="section-tag mb-4">OUR STORY</div>
           <h1 className="font-black mb-4" style={{ fontSize:"clamp(32px,5vw,60px)", lineHeight:1.1 }}>
             Pioneers in{" "}
             <span style={{ color:"var(--orange)" }}>Imported Coal.</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-base" style={{ color:"rgba(255,255,255,0.45)" }}>
+          <p className="max-w-2xl mx-auto text-base" style={{ color:"rgba(0,0,0,0.55)" }}>
             Ambition Coal Pvt. Ltd. — a Non-govt company registered at Ahmedabad, promoted by
             Mr. Jayesh Mahesh Agrawal & Yashika Jayesh Agrawal, with more than a decade of experience
             supplying imported coal across Gujarat, Karnataka, Andhra Pradesh & Chhattisgarh.
@@ -224,7 +224,7 @@ export default function AboutPage() {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-20 px-6" style={{ background:"#0d0d0d" }}>
+      <section className="py-20 px-6" style={{ background:"#f9f9f9" }}>
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
           {[
             { label:"MISSION", title:"Why We Exist", icon:"🎯",
@@ -239,19 +239,19 @@ export default function AboutPage() {
               viewport={{ once:true }}
               transition={{ duration:0.6, delay:0.1*i }}
               className="rounded-2xl p-8"
-              style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.08)" }}
+              style={{ background:"rgba(0,0,0,0.03)", border:"1px solid rgba(0,0,0,0.08)" }}
             >
               <div className="text-4xl mb-4">{item.icon}</div>
               <div className="section-tag">{item.label}</div>
               <h3 className="text-xl font-black mb-3">{item.title}</h3>
-              <p className="text-sm leading-relaxed" style={{ color:"rgba(255,255,255,0.45)" }}>{item.text}</p>
+              <p className="text-sm leading-relaxed" style={{ color:"rgba(0,0,0,0.55)" }}>{item.text}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
       {/* Leadership */}
-      <section ref={leaderRef} id="leadership" className="py-20 px-6" style={{ background:"var(--charcoal)" }}>
+      <section ref={leaderRef} id="leadership" className="py-20 px-6" style={{ background:"#ffffff" }}>
         <div className="max-w-5xl mx-auto">
           <motion.div initial={{ opacity:0,y:20 }} animate={t2?{opacity:1,y:0}:{}} transition={{ duration:0.5 }}
                       className="text-center mb-14">
@@ -265,7 +265,7 @@ export default function AboutPage() {
                 initial={{ opacity:0, y:30 }} animate={t2?{opacity:1,y:0}:{}}
                 transition={{ duration:0.5, delay: i*0.08 }}
                 className="rounded-2xl p-7 text-center"
-                style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", transition:"all .3s" }}
+                style={{ background:"rgba(0,0,0,0.02)", border:"1px solid rgba(0,0,0,0.08)", transition:"all .3s" }}
                 onMouseMove={(e) => {
                   const el = e.currentTarget as HTMLDivElement;
                   const r  = el.getBoundingClientRect();
@@ -284,7 +284,7 @@ export default function AboutPage() {
                   {l.initials}
                 </div>
                 <div className="font-bold text-sm mb-1">{l.name}</div>
-                <div className="text-xs" style={{ color:"rgba(255,255,255,0.35)" }}>{l.role}</div>
+                <div className="text-xs" style={{ color:"rgba(0,0,0,0.45)" }}>{l.role}</div>
               </motion.div>
             ))}
           </div>

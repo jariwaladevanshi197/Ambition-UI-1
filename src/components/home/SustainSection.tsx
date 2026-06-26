@@ -85,7 +85,7 @@ export default function SustainSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24" style={{ background:"var(--charcoal)", overflow:"hidden" }}>
+    <section ref={sectionRef} className="py-24" style={{ background:"#f9f9f9", overflow:"hidden" }}>
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity:0, y:20 }} animate={inView ? { opacity:1, y:0 } : {}}
@@ -95,7 +95,7 @@ export default function SustainSection() {
           <h2 className="text-3xl md:text-4xl font-black">
             Our <span style={{ color:"var(--orange)" }}>Commitment</span>
           </h2>
-          <p className="mt-3 text-sm" style={{ color:"rgba(255,255,255,0.4)" }}>
+          <p className="mt-3 text-sm" style={{ color:"rgba(0,0,0,0.5)" }}>
             Move your mouse left or right to explore our sustainability pillars
           </p>
         </motion.div>
@@ -116,8 +116,8 @@ export default function SustainSection() {
               transition={{ duration:0.5, delay: i * 0.08 }}
               className="flex-shrink-0 w-64 rounded-2xl p-7 transition-all duration-300"
               style={{
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.07)",
+                background: "rgba(0,0,0,0.02)",
+                border: "1px solid rgba(0,0,0,0.08)",
               }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget as HTMLDivElement;
@@ -127,14 +127,14 @@ export default function SustainSection() {
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLDivElement;
-                el.style.borderColor = "rgba(255,255,255,0.07)";
+                el.style.borderColor = "rgba(0,0,0,0.08)";
                 el.style.transform   = "";
                 el.style.boxShadow   = "";
               }}
             >
               <div className="text-3xl mb-4">{c.icon}</div>
-              <h3 className="font-bold text-sm mb-3 text-white">{c.title}</h3>
-              <p className="text-xs leading-relaxed" style={{ color:"rgba(255,255,255,0.4)" }}>{c.text}</p>
+              <h3 className="font-bold text-sm mb-3 text-gray-900">{c.title}</h3>
+              <p className="text-xs leading-relaxed" style={{ color:"rgba(0,0,0,0.5)" }}>{c.text}</p>
             </motion.div>
           ))}
         </div>

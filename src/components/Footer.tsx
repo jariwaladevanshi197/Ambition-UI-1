@@ -34,7 +34,7 @@ const cols = [
 
 export default function Footer() {
   return (
-    <footer style={{ background: "#0a0a0a", borderTop: "1px solid rgba(249,115,22,0.12)" }}>
+    <footer style={{ background: "#f5f5f5", borderTop: "1px solid rgba(249,115,22,0.3)" }}>
       {/* Main grid */}
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
@@ -44,15 +44,15 @@ export default function Footer() {
               <AmbitionLogo size={48} />
               <div className="leading-none ml-1">
                 <div className="font-black text-sm tracking-tight">
-                  <span className="text-white">AMBITION </span>
+                  <span className="text-gray-900">AMBITION </span>
                   <span style={{ color:"var(--orange)" }}>COAL</span>
                 </div>
-                <div className="text-[8px] tracking-widest font-semibold mt-0.5" style={{ color:"rgba(255,255,255,0.35)", letterSpacing:"0.15em" }}>
+                <div className="text-[8px] tracking-widest font-semibold mt-0.5" style={{ color:"rgba(0,0,0,0.4)", letterSpacing:"0.15em" }}>
                   PVT. LTD.
                 </div>
               </div>
             </Link>
-            <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.38)" }}>
+            <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(0,0,0,0.55)" }}>
               Pioneers in supplying Imported Coal across Gujarat, Karnataka, Andhra Pradesh &
               Chhattisgarh. Promoted by Mr. Jayesh Mahesh Agrawal & Yashika Jayesh Agrawal.
             </p>
@@ -63,7 +63,7 @@ export default function Footer() {
                 { Icon: Phone,   text: "+91 22 XXXX XXXX"                    },
                 { Icon: Mail,    text: "info@ambitioncoal.co.in"             },
               ].map(({ Icon, text }) => (
-                <div key={text} className="flex items-start gap-2 text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
+                <div key={text} className="flex items-start gap-2 text-xs" style={{ color: "rgba(0,0,0,0.5)" }}>
                   <Icon size={13} className="mt-0.5 shrink-0" style={{ color: "var(--orange)" }} />
                   {text}
                 </div>
@@ -83,7 +83,7 @@ export default function Footer() {
                     <Link
                       href={l.href}
                       className="text-sm transition-colors duration-200"
-                      style={{ color: "rgba(255,255,255,0.38)" }}
+                      style={{ color: "rgba(0,0,0,0.55)" }}
                     >
                       {l.label}
                     </Link>
@@ -96,9 +96,9 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+      <div style={{ borderTop: "1px solid rgba(0,0,0,0.1)" }}>
         <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs" style={{ color: "rgba(255,255,255,0.25)" }}>
+          <p className="text-xs" style={{ color: "rgba(0,0,0,0.4)" }}>
             © {new Date().getFullYear()} Ambition Coal Pvt. Ltd. All Rights Reserved.
           </p>
           <div className="flex items-center gap-3">
@@ -108,9 +108,9 @@ export default function Footer() {
                 aria-label={["LinkedIn","Twitter","YouTube"][i]}
                 className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold transition-all duration-200"
                 style={{
-                  background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(255,255,255,0.09)",
-                  color: "rgba(255,255,255,0.4)",
+                  background: "rgba(0,0,0,0.05)",
+                  border: "1px solid rgba(0,0,0,0.1)",
+                  color: "rgba(0,0,0,0.5)",
                 }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLButtonElement).style.background = "var(--orange)";
@@ -118,9 +118,9 @@ export default function Footer() {
                   (e.currentTarget as HTMLButtonElement).style.color = "white";
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.05)";
-                  (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(255,255,255,0.09)";
-                  (e.currentTarget as HTMLButtonElement).style.color = "rgba(255,255,255,0.4)";
+                  (e.currentTarget as HTMLButtonElement).style.background = "rgba(0,0,0,0.05)";
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(0,0,0,0.1)";
+                  (e.currentTarget as HTMLButtonElement).style.color = "rgba(0,0,0,0.5)";
                 }}
               >
                 {icon}

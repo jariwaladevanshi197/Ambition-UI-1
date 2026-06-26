@@ -31,7 +31,7 @@ export default function StatsSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} className="py-24" style={{ background: "#0d0d0d" }}>
+    <section ref={ref} className="py-24" style={{ background: "#f9f9f9" }}>
       <div className="max-w-5xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -55,8 +55,8 @@ export default function StatsSection() {
               transition={{ duration: 0.5, delay: i * 0.1 }}
               className="relative overflow-hidden rounded-2xl p-7 text-center group"
               style={{
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.07)",
+                background: "rgba(0,0,0,0.03)",
+                border: "1px solid rgba(0,0,0,0.08)",
               }}
               onMouseMove={(e) => {
                 const el = e.currentTarget as HTMLDivElement;
@@ -90,8 +90,8 @@ export default function StatsSection() {
               >
                 <CountUp target={s.num} suffix={s.suffix} active={inView} />
               </div>
-              <div className="font-semibold text-sm text-white mb-1">{s.label}</div>
-              <div className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>{s.desc}</div>
+              <div className="font-semibold text-sm text-gray-900 mb-1">{s.label}</div>
+              <div className="text-xs" style={{ color: "rgba(0,0,0,0.45)" }}>{s.desc}</div>
             </motion.div>
           ))}
         </div>

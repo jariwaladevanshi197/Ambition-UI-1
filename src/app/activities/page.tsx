@@ -50,7 +50,7 @@ export default function ActivitiesPage() {
     <>
       {/* Hero */}
       <section className="relative pt-32 pb-20 text-center px-6 overflow-hidden"
-               style={{ background:"linear-gradient(135deg, #0d0d0d, #1a0800 50%, #0a0a0a)" }}>
+               style={{ background:"linear-gradient(135deg, #ffffff, #fff7f0 50%, #ffffff)" }}>
         <div className="absolute inset-0 pointer-events-none"
              style={{ background:"radial-gradient(circle 500px at 50% 60%, rgba(249,115,22,0.06), transparent)" }}/>
         <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.6 }}>
@@ -58,7 +58,7 @@ export default function ActivitiesPage() {
           <h1 className="font-black mb-4" style={{ fontSize:"clamp(30px,5vw,60px)", lineHeight:1.1 }}>
             Our <span style={{ color:"var(--orange)" }}>Activities</span>
           </h1>
-          <p className="max-w-xl mx-auto text-base mb-8" style={{ color:"rgba(255,255,255,0.45)" }}>
+          <p className="max-w-xl mx-auto text-base mb-8" style={{ color:"rgba(0,0,0,0.55)" }}>
             From plantation drives to medical camps — every initiative is a step toward a better India.
           </p>
           <Link href="/csr"
@@ -72,7 +72,7 @@ export default function ActivitiesPage() {
       </section>
 
       {/* Activity list */}
-      <section ref={listRef} className="py-20 px-6" style={{ background:"#0d0d0d" }}>
+      <section ref={listRef} className="py-20 px-6" style={{ background:"#f9f9f9" }}>
         <div className="max-w-5xl mx-auto">
           <motion.div initial={{ opacity:0,y:20 }} animate={l1?{opacity:1,y:0}:{}} transition={{ duration:0.5 }}
                       className="text-center mb-10">
@@ -85,7 +85,7 @@ export default function ActivitiesPage() {
             {ALL_CATS.map(c=>(
               <button key={c} onClick={()=>setActCat(c)}
                       className="px-4 py-2 rounded-full text-xs font-bold transition-all duration-200"
-                      style={{ background:actCat===c?"var(--orange)":"rgba(255,255,255,0.06)", color:actCat===c?"white":"rgba(255,255,255,0.45)", border:"1px solid", borderColor:actCat===c?"var(--orange)":"rgba(255,255,255,0.08)" }}>
+                      style={{ background:actCat===c?"var(--orange)":"rgba(0,0,0,0.05)", color:actCat===c?"white":"rgba(0,0,0,0.6)", border:"1px solid", borderColor:actCat===c?"var(--orange)":"rgba(0,0,0,0.1)" }}>
                 {c}
               </button>
             ))}
@@ -98,8 +98,8 @@ export default function ActivitiesPage() {
                 initial={{ opacity:0, y:24 }} animate={l1?{opacity:1,y:0}:{}}
                 transition={{ duration:0.45, delay: i*0.06 }}
                 className="rounded-2xl p-5 flex flex-col gap-3 transition-all duration-300"
-                style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)" }}
-                onMouseEnter={e=>{const el=e.currentTarget as HTMLDivElement;el.style.borderColor="rgba(249,115,22,0.3)";el.style.transform="translateY(-4px)";el.style.boxShadow="0 16px 40px rgba(0,0,0,0.3)";}}
+                style={{ background:"rgba(0,0,0,0.02)", border:"1px solid rgba(0,0,0,0.08)" }}
+                onMouseEnter={e=>{const el=e.currentTarget as HTMLDivElement;el.style.borderColor="rgba(249,115,22,0.3)";el.style.transform="translateY(-4px)";el.style.boxShadow="0 16px 40px rgba(0,0,0,0.08)";}}
                 onMouseLeave={e=>{const el=e.currentTarget as HTMLDivElement;el.style.borderColor="";el.style.transform="";el.style.boxShadow="";}}
               >
                 <div className="flex items-start justify-between gap-2">
@@ -110,11 +110,11 @@ export default function ActivitiesPage() {
                   </span>
                 </div>
                 <div>
-                  <div className="font-bold text-sm text-white mb-1">{a.title}</div>
-                  <div className="text-[10px] mb-2" style={{ color:"rgba(255,255,255,0.3)" }}>{a.date}</div>
-                  <p className="text-xs leading-relaxed" style={{ color:"rgba(255,255,255,0.4)" }}>{a.desc}</p>
+                  <div className="font-bold text-sm text-gray-900 mb-1">{a.title}</div>
+                  <div className="text-[10px] mb-2" style={{ color:"rgba(0,0,0,0.4)" }}>{a.date}</div>
+                  <p className="text-xs leading-relaxed" style={{ color:"rgba(0,0,0,0.55)" }}>{a.desc}</p>
                 </div>
-                <div className="mt-auto pt-3" style={{ borderTop:"1px solid rgba(255,255,255,0.06)" }}>
+                <div className="mt-auto pt-3" style={{ borderTop:"1px solid rgba(0,0,0,0.08)" }}>
                   <span className="text-xs font-black" style={{ color:"var(--orange)" }}>{a.highlight}</span>
                 </div>
               </motion.div>
@@ -151,7 +151,7 @@ export default function ActivitiesPage() {
                 initial={{ opacity:0, scale:0.95 }} animate={{ opacity:1, scale:1 }}
                 transition={{ duration:0.35, delay: i*0.05 }}
                 className="relative rounded-2xl overflow-hidden group"
-                style={{ aspectRatio: i%3===1 ? "3/4" : "1/1", background:"linear-gradient(135deg, #2a1800, #1a0d00)" }}
+                style={{ aspectRatio: i%3===1 ? "3/4" : "1/1", background:"linear-gradient(135deg, #fde8d0, #fcd5aa)" }}
               >
                 <div className="absolute inset-0 flex items-center justify-center text-5xl">{item.emoji}</div>
                 <div className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"

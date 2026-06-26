@@ -20,8 +20,8 @@ html {
 }
 
 body {
-  background: var(--charcoal);
-  color: white;
+  background: #ffffff;
+  color: #111111;
   font-family: var(--font-inter), 'Segoe UI', system-ui, sans-serif;
   overflow-x: hidden;
   cursor: none;
@@ -37,12 +37,12 @@ button, a, [role="button"] {
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-track { background: #f0f0f0; }
 ::-webkit-scrollbar-thumb { background: rgba(249,115,22,0.35); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--orange); }
 
 /* Selection */
-::selection { background: rgba(249,115,22,0.3); color: white; }
+::selection { background: rgba(249,115,22,0.3); color: #111111; }
 
 /* Utility: orange gradient text */
 .gradient-text {
@@ -54,9 +54,9 @@ button, a, [role="button"] {
 
 /* Utility: glassmorphism card */
 .glass {
-  background: rgba(255,255,255,0.04);
+  background: rgba(0,0,0,0.04);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(0,0,0,0.08);
 }
 
 /* Utility: orange glow */

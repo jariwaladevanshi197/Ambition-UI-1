@@ -102,7 +102,7 @@ export default function HeroSection() {
       ref={heroRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       style={{
-        background: "linear-gradient(135deg, #090909 0%, #1a0800 45%, #0a0a0a 100%)",
+        background: "linear-gradient(135deg, #ffffff 0%, #fff7f0 45%, #ffffff 100%)",
       }}
     >
       {/* Grid overlay */}
@@ -155,7 +155,7 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
           className="text-lg mb-10 mx-auto max-w-2xl leading-relaxed"
-          style={{ color: "rgba(255,255,255,0.5)" }}
+          style={{ color: "rgba(0,0,0,0.55)" }}
         >
           Building sustainable energy and logistics solutions across India and global markets.
           Trusted by industries, driven by purpose.
@@ -189,16 +189,16 @@ export default function HeroSection() {
             className="mag-btn px-7 py-3.5 rounded-md text-sm font-bold transition-all duration-200"
             style={{
               background: "transparent",
-              color: "white",
-              border: "1px solid rgba(255,255,255,0.2)",
+              color: "#111111",
+              border: "1px solid rgba(0,0,0,0.2)",
             }}
             onMouseEnter={(e) => {
               (e.currentTarget as HTMLAnchorElement).style.borderColor = "var(--orange)";
               (e.currentTarget as HTMLAnchorElement).style.color        = "var(--orange)";
             }}
             onMouseLeave={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(255,255,255,0.2)";
-              (e.currentTarget as HTMLAnchorElement).style.color        = "white";
+              (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(0,0,0,0.2)";
+              (e.currentTarget as HTMLAnchorElement).style.color        = "#111111";
             }}
           >
             Our Network
@@ -212,7 +212,7 @@ export default function HeroSection() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        style={{ color: "rgba(255,255,255,0.3)" }}
+        style={{ color: "rgba(0,0,0,0.35)" }}
       >
         <span className="text-[10px] tracking-[3px] uppercase">Scroll</span>
         <ChevronDown size={16} className="animate-bounce" />

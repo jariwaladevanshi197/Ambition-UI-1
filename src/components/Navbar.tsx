@@ -29,9 +29,9 @@ export default function Navbar() {
     <header
       className="fixed top-0 inset-x-0 z-50 transition-all duration-300"
       style={{
-        background: scrolled ? "rgba(17,17,17,0.95)" : "rgba(17,17,17,0.6)",
+        background: scrolled ? "rgba(255,255,255,0.97)" : "rgba(255,255,255,0.85)",
         backdropFilter: "blur(20px)",
-        borderBottom: scrolled ? "1px solid rgba(249,115,22,0.18)" : "1px solid transparent",
+        borderBottom: scrolled ? "1px solid rgba(249,115,22,0.3)" : "1px solid transparent",
       }}
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -40,10 +40,10 @@ export default function Navbar() {
           <AmbitionLogo size={44} />
           <div className="leading-none ml-1">
             <div className="font-black text-sm tracking-tight">
-              <span className="text-white">AMBITION </span>
+              <span className="text-gray-900">AMBITION </span>
               <span style={{ color:"var(--orange)" }}>COAL</span>
             </div>
-            <div className="text-[8px] tracking-widest font-semibold mt-0.5" style={{ color:"rgba(255,255,255,0.35)", letterSpacing:"0.15em" }}>
+            <div className="text-[8px] tracking-widest font-semibold mt-0.5" style={{ color:"rgba(0,0,0,0.4)", letterSpacing:"0.15em" }}>
               PVT. LTD.
             </div>
           </div>
@@ -56,7 +56,7 @@ export default function Navbar() {
               key={l.href}
               href={l.href}
               className="text-sm font-medium transition-colors duration-200"
-              style={{ color: pathname === l.href ? "var(--orange)" : "rgba(255,255,255,0.6)" }}
+              style={{ color: pathname === l.href ? "var(--orange)" : "rgba(0,0,0,0.65)" }}
             >
               {l.label}
             </Link>
@@ -75,7 +75,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile hamburger */}
-        <button className="md:hidden text-white" onClick={() => setOpen(!open)} aria-label="Toggle menu">
+        <button className="md:hidden text-gray-900" onClick={() => setOpen(!open)} aria-label="Toggle menu">
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
@@ -83,11 +83,11 @@ export default function Navbar() {
       {/* Mobile menu */}
       {open && (
         <div className="md:hidden px-6 pb-5 pt-2 flex flex-col gap-4"
-             style={{ background:"rgba(17,17,17,0.97)", borderTop:"1px solid rgba(255,255,255,0.06)" }}>
+             style={{ background:"rgba(255,255,255,0.98)", borderTop:"1px solid rgba(0,0,0,0.08)" }}>
           {links.map((l) => (
             <Link key={l.href} href={l.href} onClick={() => setOpen(false)}
                   className="text-sm font-medium py-1"
-                  style={{ color: pathname === l.href ? "var(--orange)" : "rgba(255,255,255,0.65)" }}>
+                  style={{ color: pathname === l.href ? "var(--orange)" : "rgba(0,0,0,0.65)" }}>
               {l.label}
             </Link>
           ))}

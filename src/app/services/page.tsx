@@ -75,13 +75,13 @@ export default function ServicesPage() {
     <>
       {/* Hero */}
       <section className="pt-32 pb-16 text-center px-6"
-               style={{ background:"linear-gradient(135deg, #0a0a0a, #140800 50%, #0a0a0a)" }}>
+               style={{ background:"linear-gradient(135deg, #ffffff, #fff7f0 50%, #ffffff)" }}>
         <motion.div initial={{ opacity:0,y:20 }} animate={{ opacity:1,y:0 }} transition={{ duration:0.6 }}>
           <div className="section-tag mb-4">WHAT WE DO</div>
           <h1 className="font-black mb-4" style={{ fontSize:"clamp(32px,5vw,60px)", lineHeight:1.1 }}>
             Industrial <span style={{ color:"var(--orange)" }}>Solutions</span>
           </h1>
-          <p className="max-w-lg mx-auto text-base" style={{ color:"rgba(255,255,255,0.45)" }}>
+          <p className="max-w-lg mx-auto text-base" style={{ color:"rgba(0,0,0,0.55)" }}>
             Comprehensive energy and logistics services tailored for every industrial need.
           </p>
         </motion.div>
@@ -134,7 +134,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Products table */}
-      <section ref={productRef} className="py-20 px-6" style={{ background:"var(--charcoal)" }}>
+      <section ref={productRef} className="py-20 px-6" style={{ background:"#f9f9f9" }}>
         <div className="max-w-5xl mx-auto">
           <motion.div initial={{ opacity:0,y:20 }} animate={t2?{opacity:1,y:0}:{}} transition={{ duration:0.5 }}
                       className="text-center mb-12">
@@ -148,7 +148,7 @@ export default function ServicesPage() {
                 initial={{ opacity:0,y:30 }} animate={t2?{opacity:1,y:0}:{}}
                 transition={{ duration:0.5, delay: i*0.1 }}
                 className="rounded-2xl p-6 transition-all duration-300"
-                style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.08)" }}
+                style={{ background:"rgba(0,0,0,0.02)", border:"1px solid rgba(0,0,0,0.08)" }}
                 onMouseEnter={(e) => {
                   const el = e.currentTarget as HTMLDivElement;
                   el.style.borderColor="rgba(249,115,22,0.3)"; el.style.transform="translateY(-4px)";
@@ -166,14 +166,14 @@ export default function ServicesPage() {
                     { label:"Moisture", value:p.moisture },
                   ].map((spec) => (
                     <div key={spec.label} className="rounded-xl p-3 text-center"
-                         style={{ background:"rgba(255,255,255,0.04)" }}>
-                      <div className="text-xs font-bold mb-1" style={{ color:"rgba(255,255,255,0.3)" }}>{spec.label}</div>
-                      <div className="text-xs font-bold text-white">{spec.value}</div>
+                         style={{ background:"rgba(0,0,0,0.04)" }}>
+                      <div className="text-xs font-bold mb-1" style={{ color:"rgba(0,0,0,0.4)" }}>{spec.label}</div>
+                      <div className="text-xs font-bold text-gray-900">{spec.value}</div>
                     </div>
                   ))}
                 </div>
-                <div className="mt-4 text-xs" style={{ color:"rgba(255,255,255,0.35)" }}>
-                  <span className="font-bold" style={{ color:"rgba(255,255,255,0.5)" }}>Applications: </span>
+                <div className="mt-4 text-xs" style={{ color:"rgba(0,0,0,0.5)" }}>
+                  <span className="font-bold" style={{ color:"rgba(0,0,0,0.65)" }}>Applications: </span>
                   {p.use}
                 </div>
               </motion.div>

@@ -98,13 +98,13 @@ export default function AssociatesSection() {
   }, []);
 
   return (
-    <section className="py-16 overflow-hidden" style={{ background:"#0a0a0a", borderTop:"1px solid rgba(255,255,255,0.05)" }}>
+    <section className="py-16 overflow-hidden" style={{ background:"#f5f5f5", borderTop:"1px solid rgba(0,0,0,0.08)" }}>
       <div className="max-w-5xl mx-auto px-6 mb-10 text-center">
         <div className="section-tag">OUR ASSOCIATES</div>
-        <h2 className="text-2xl font-black text-white">
+        <h2 className="text-2xl font-black text-gray-900">
           Trusted by <span style={{ color:"var(--orange)" }}>Industry Leaders</span>
         </h2>
-        <p className="text-xs mt-2" style={{ color:"rgba(255,255,255,0.3)" }}>
+        <p className="text-xs mt-2" style={{ color:"rgba(0,0,0,0.45)" }}>
           Long-term supply relationships with India's biggest power, steel, cement & textile companies
         </p>
       </div>
@@ -119,8 +119,8 @@ export default function AssociatesSection() {
               key={i}
               className="flex items-center gap-3 px-4 py-3 rounded-2xl shrink-0 transition-all duration-200"
               style={{
-                background: "rgba(255,255,255,0.03)",
-                border:     "1px solid rgba(255,255,255,0.07)",
+                background: "rgba(0,0,0,0.03)",
+                border:     "1px solid rgba(0,0,0,0.08)",
                 minWidth:   200,
               }}
               onMouseEnter={e => {
@@ -130,18 +130,18 @@ export default function AssociatesSection() {
               }}
               onMouseLeave={e => {
                 const el = e.currentTarget as HTMLDivElement;
-                el.style.borderColor = "rgba(255,255,255,0.07)";
-                el.style.background  = "rgba(255,255,255,0.03)";
+                el.style.borderColor = "rgba(0,0,0,0.08)";
+                el.style.background  = "rgba(0,0,0,0.03)";
               }}
             >
               <AssociateBadge name={a.name} abbr={a.abbr} domain={a.domain} />
-              <span className="text-xs font-semibold text-white leading-tight">{a.name}</span>
+              <span className="text-xs font-semibold text-gray-900 leading-tight">{a.name}</span>
             </div>
           ))}
         </div>
       </div>
 
-      <p className="text-center text-[10px] mt-6" style={{ color:"rgba(255,255,255,0.2)" }}>
+      <p className="text-center text-[10px] mt-6" style={{ color:"rgba(0,0,0,0.35)" }}>
         + Cement makers · Power utilities · Steel plants · Textile & paper industries
       </p>
     </section>
