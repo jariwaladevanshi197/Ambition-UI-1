@@ -12,8 +12,22 @@ const milestones = [
 ];
 
 const leaders = [
-  { initials:"JA", name:"Jayesh Mahesh Agrawal", role:"Director & Promoter"           },
-  { initials:"YA", name:"Yashika Jayesh Agrawal",role:"Director & Promoter"           },
+  {
+    initials:"JA",
+    name:"Jayesh Mahesh Agrawal",
+    role:"Director & Promoter",
+    bio:"With over two decades of experience in coal trading and bulk cargo logistics, Jayesh has steered Ambition Coal from a Mumbai trading desk to a pan-India energy powerhouse. His deep relationships with global mines and port operators underpin the company's sourcing strength.",
+    expertise:["Coal Trading","Port Logistics","Global Sourcing","Strategic Partnerships"],
+    color:"#F97316",
+  },
+  {
+    initials:"YA",
+    name:"Yashika Jayesh Agrawal",
+    role:"Director & Promoter",
+    bio:"Yashika brings strategic clarity and operational discipline to Ambition Coal's growth. Focused on CSR, compliance, and sustainable business practices, she ensures the company's impact extends beyond commerce — powering communities alongside industries.",
+    expertise:["Operations","CSR & Sustainability","Compliance","Finance"],
+    color:"#D97706",
+  },
 ];
 
 const whyUs = [
@@ -251,40 +265,85 @@ export default function AboutPage() {
       </section>
 
       {/* Leadership */}
-      <section ref={leaderRef} id="leadership" className="py-20 px-6" style={{ background:"#ffffff" }}>
-        <div className="max-w-5xl mx-auto">
+      <section ref={leaderRef} id="leadership" className="py-20 px-6 relative overflow-hidden" style={{ background:"#ffffff" }}>
+        {/* Decorative background */}
+        <div className="absolute inset-0 pointer-events-none" style={{
+          backgroundImage:"radial-gradient(circle at 20% 50%, rgba(249,115,22,0.04) 0%, transparent 60%), radial-gradient(circle at 80% 50%, rgba(249,115,22,0.04) 0%, transparent 60%)"
+        }}/>
+        <div className="max-w-5xl mx-auto relative">
           <motion.div initial={{ opacity:0,y:20 }} animate={t2?{opacity:1,y:0}:{}} transition={{ duration:0.5 }}
                       className="text-center mb-14">
             <div className="section-tag">OUR PEOPLE</div>
             <h2 className="text-3xl font-black">Leadership <span style={{ color:"var(--orange)" }}>Team</span></h2>
+            <p className="text-sm mt-3 max-w-lg mx-auto" style={{ color:"rgba(0,0,0,0.45)" }}>
+              Guided by experience and driven by a shared vision for India's energy future.
+            </p>
           </motion.div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+
+          <div className="grid md:grid-cols-2 gap-6">
             {leaders.map((l, i) => (
               <motion.div
                 key={l.name}
-                initial={{ opacity:0, y:30 }} animate={t2?{opacity:1,y:0}:{}}
-                transition={{ duration:0.5, delay: i*0.08 }}
-                className="rounded-2xl p-7 text-center"
-                style={{ background:"rgba(0,0,0,0.02)", border:"1px solid rgba(0,0,0,0.08)", transition:"all .3s" }}
-                onMouseMove={(e) => {
+                initial={{ opacity:0, y:40 }} animate={t2?{opacity:1,y:0}:{}}
+                transition={{ duration:0.6, delay: i*0.12 }}
+                className="rounded-3xl p-8 relative overflow-hidden group"
+                style={{ background:"#ffffff", border:"1px solid rgba(0,0,0,0.08)", transition:"all .35s", boxShadow:"0 4px 20px rgba(0,0,0,0.04)" }}
+                onMouseEnter={(e) => {
                   const el = e.currentTarget as HTMLDivElement;
-                  const r  = el.getBoundingClientRect();
-                  const x  = e.clientX - r.left, y = e.clientY - r.top;
-                  el.style.transform = `perspective(700px) rotateX(${-((y-r.height/2)/r.height)*16}deg) rotateY(${((x-r.width/2)/r.width)*16}deg) scale(1.04)`;
-                  el.style.borderColor = "rgba(249,115,22,0.3)";
-                  el.style.boxShadow   = "0 24px 60px rgba(0,0,0,0.3)";
+                  el.style.borderColor = "rgba(249,115,22,0.35)";
+                  el.style.boxShadow   = "0 20px 60px rgba(249,115,22,0.12)";
+                  el.style.transform   = "translateY(-6px)";
                 }}
                 onMouseLeave={(e) => {
                   const el = e.currentTarget as HTMLDivElement;
-                  el.style.transform = ""; el.style.borderColor = ""; el.style.boxShadow = "";
+                  el.style.borderColor = "rgba(0,0,0,0.08)";
+                  el.style.boxShadow   = "0 4px 20px rgba(0,0,0,0.04)";
+                  el.style.transform   = "";
                 }}
               >
-                <div className="w-16 h-16 rounded-full flex items-center justify-center text-xl font-black mx-auto mb-4"
-                     style={{ background:"linear-gradient(135deg, var(--orange), var(--gold))" }}>
-                  {l.initials}
+                {/* Subtle top accent */}
+                <div className="absolute top-0 left-0 right-0 h-1 rounded-t-3xl"
+                     style={{ background:`linear-gradient(90deg, ${l.color}, transparent)` }}/>
+
+                {/* Avatar + Name row */}
+                <div className="flex items-center gap-5 mb-6">
+                  {/* Avatar with ring */}
+                  <div className="relative shrink-0">
+                    <div className="w-20 h-20 rounded-2xl flex items-center justify-center text-2xl font-black text-white shadow-lg"
+                         style={{ background:`linear-gradient(135deg, ${l.color}, ${l.color}bb)` }}>
+                      {l.initials}
+                    </div>
+                    {/* decorative ring */}
+                    <div className="absolute -inset-1.5 rounded-2xl -z-10"
+                         style={{ border:`2px solid ${l.color}25` }}/>
+                  </div>
+                  <div>
+                    <div className="font-black text-base mb-1" style={{ color:"#111111" }}>{l.name}</div>
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold"
+                         style={{ background:`${l.color}12`, color:l.color }}>
+                      <span className="w-1.5 h-1.5 rounded-full" style={{ background:l.color }}/>
+                      {l.role}
+                    </div>
+                  </div>
                 </div>
-                <div className="font-bold text-sm mb-1">{l.name}</div>
-                <div className="text-xs" style={{ color:"rgba(0,0,0,0.45)" }}>{l.role}</div>
+
+                {/* Bio */}
+                <p className="text-sm leading-relaxed mb-6" style={{ color:"rgba(0,0,0,0.55)" }}>
+                  {l.bio}
+                </p>
+
+                {/* Expertise tags */}
+                <div>
+                  <div className="text-[10px] font-black tracking-widest mb-2.5" style={{ color:"rgba(0,0,0,0.35)" }}>AREAS OF EXPERTISE</div>
+                  <div className="flex flex-wrap gap-2">
+                    {l.expertise.map(tag => (
+                      <span key={tag} className="px-2.5 py-1 rounded-lg text-xs font-semibold"
+                            style={{ background:"rgba(0,0,0,0.04)", color:"rgba(0,0,0,0.6)", border:"1px solid rgba(0,0,0,0.06)" }}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>

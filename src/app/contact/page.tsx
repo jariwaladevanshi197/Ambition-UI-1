@@ -62,7 +62,7 @@ function ContactMap() {
       const W = canvas.width  = canvas.offsetWidth;
       const H = canvas.height = canvas.offsetHeight;
       ctx.clearRect(0, 0, W, H);
-      ctx.fillStyle = "#0a0a0a"; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = "#f8f8f8"; ctx.fillRect(0, 0, W, H);
 
       const { x:mx, y:my, inside } = mouseRef.current;
 
@@ -80,8 +80,8 @@ function ContactMap() {
                   : ctx.lineTo(cx+(HEX-1)*Math.cos(a), cy+(HEX-1)*Math.sin(a));
           }
           ctx.closePath();
-          ctx.fillStyle   = lit > 0.02 ? `rgba(249,115,22,${0.02 + lit*0.22})` : "rgba(255,255,255,0.018)";
-          ctx.strokeStyle = lit > 0.05 ? `rgba(249,115,22,${lit*0.5})`          : "rgba(249,115,22,0.05)";
+          ctx.fillStyle   = lit > 0.02 ? `rgba(249,115,22,${0.03 + lit*0.18})` : "rgba(0,0,0,0.012)";
+          ctx.strokeStyle = lit > 0.05 ? `rgba(249,115,22,${lit*0.5})`          : "rgba(0,0,0,0.06)";
           ctx.lineWidth = 0.5;
           ctx.fill(); ctx.stroke();
         }
@@ -153,7 +153,7 @@ function ContactMap() {
         ctx.fillStyle = loc.color; ctx.fill();
 
         // label — brighter when hovered
-        ctx.fillStyle = prox>0.3 ? "white" : "rgba(255,255,255,0.8)";
+        ctx.fillStyle = prox>0.3 ? "#111111" : "rgba(0,0,0,0.65)";
         ctx.font = `${prox>0.3?"bold ":""}${10+prox*2}px system-ui`;
         ctx.textAlign = "center";
         ctx.fillText(loc.label, nx, ny+dotR+12);
@@ -211,7 +211,7 @@ export default function ContactPage() {
       <div className="grid grid-cols-1 md:grid-cols-2" style={{ minHeight:"calc(100vh - 64px)" }}>
 
         {/* Map side */}
-        <div className="relative" style={{ background:"#e8e8e8", minHeight:400 }}>
+        <div className="relative" style={{ background:"#f8f8f8", minHeight:400 }}>
           <ContactMap />
           <div className="absolute top-6 left-6">
             <div className="section-tag">OUR LOCATIONS</div>

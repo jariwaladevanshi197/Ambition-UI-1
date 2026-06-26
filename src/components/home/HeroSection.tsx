@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown, Flame, Globe, Truck } from "lucide-react";
 
 interface Particle {
   x: number; y: number;
@@ -70,7 +70,6 @@ export default function HeroSection() {
         ctx.fill();
         ctx.globalAlpha = 1;
       });
-      // connection lines
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const d = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
@@ -100,7 +99,7 @@ export default function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center overflow-hidden"
       style={{
         background: "linear-gradient(135deg, #ffffff 0%, #fff7f0 45%, #ffffff 100%)",
       }}
@@ -121,88 +120,174 @@ export default function HeroSection() {
       {/* Spotlight */}
       <div ref={spotRef} className="absolute inset-0 pointer-events-none transition-all duration-75" />
 
-      {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full text-xs font-bold tracking-widest uppercase"
-          style={{
-            background: "rgba(249,115,22,0.1)",
-            border: "1px solid rgba(249,115,22,0.3)",
-            color: "var(--orange)",
-          }}
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
-          Est. 2003 · Pan India · Global Reach
-        </motion.div>
+      {/* 2-column content */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-2 gap-12 items-center py-24">
 
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.15 }}
-          className="font-black leading-[1.05] mb-6"
-          style={{ fontSize: "clamp(36px, 6vw, 76px)", letterSpacing: "-2px" }}
-        >
-          Powering Industries.
-          <br />
-          <span style={{ color: "var(--orange)" }}>Connecting the World.</span>
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-lg mb-10 mx-auto max-w-2xl leading-relaxed"
-          style={{ color: "rgba(0,0,0,0.55)" }}
-        >
-          Building sustainable energy and logistics solutions across India and global markets.
-          Trusted by industries, driven by purpose.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.45 }}
-          className="flex flex-wrap gap-4 justify-center"
-        >
-          <Link
-            href="/services"
-            className="mag-btn group flex items-center gap-2 px-7 py-3.5 rounded-md text-sm font-bold transition-all duration-200"
-            style={{ background: "var(--orange)", color: "white" }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 12px 40px rgba(249,115,22,0.4)";
-              (e.currentTarget as HTMLAnchorElement).style.transform  = "translateY(-2px)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.boxShadow = "";
-              (e.currentTarget as HTMLAnchorElement).style.transform  = "";
-            }}
-          >
-            Explore Solutions
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-          </Link>
-
-          <Link
-            href="/about"
-            className="mag-btn px-7 py-3.5 rounded-md text-sm font-bold transition-all duration-200"
+        {/* ── Left: Text ── */}
+        <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full text-xs font-bold tracking-widest uppercase"
             style={{
-              background: "transparent",
-              color: "#111111",
-              border: "1px solid rgba(0,0,0,0.2)",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.borderColor = "var(--orange)";
-              (e.currentTarget as HTMLAnchorElement).style.color        = "var(--orange)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(0,0,0,0.2)";
-              (e.currentTarget as HTMLAnchorElement).style.color        = "#111111";
+              background: "rgba(249,115,22,0.1)",
+              border: "1px solid rgba(249,115,22,0.3)",
+              color: "var(--orange)",
             }}
           >
-            Our Network
-          </Link>
+            <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
+            Est. 2003 · Pan India · Global Reach
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="font-black leading-[1.05] mb-6"
+            style={{ fontSize: "clamp(36px, 5vw, 68px)", letterSpacing: "-2px" }}
+          >
+            Powering Industries.
+            <br />
+            <span style={{ color: "var(--orange)" }}>Connecting the World.</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-lg mb-10 leading-relaxed max-w-xl"
+            style={{ color: "rgba(0,0,0,0.55)" }}
+          >
+            Building sustainable energy and logistics solutions across India and global markets.
+            Trusted by industries, driven by purpose.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.45 }}
+            className="flex flex-wrap gap-4 mb-12"
+          >
+            <Link
+              href="/services"
+              className="mag-btn group flex items-center gap-2 px-7 py-3.5 rounded-md text-sm font-bold transition-all duration-200"
+              style={{ background: "var(--orange)", color: "white" }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 12px 40px rgba(249,115,22,0.4)";
+                (e.currentTarget as HTMLAnchorElement).style.transform  = "translateY(-2px)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.boxShadow = "";
+                (e.currentTarget as HTMLAnchorElement).style.transform  = "";
+              }}
+            >
+              Explore Solutions
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+
+            <Link
+              href="/about"
+              className="mag-btn px-7 py-3.5 rounded-md text-sm font-bold transition-all duration-200"
+              style={{
+                background: "transparent",
+                color: "#111111",
+                border: "1px solid rgba(0,0,0,0.2)",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = "var(--orange)";
+                (e.currentTarget as HTMLAnchorElement).style.color        = "var(--orange)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(0,0,0,0.2)";
+                (e.currentTarget as HTMLAnchorElement).style.color        = "#111111";
+              }}
+            >
+              Our Network
+            </Link>
+          </motion.div>
+
+          {/* Mini stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="flex gap-8"
+          >
+            {[
+              { icon: <Flame size={15} />, value: "20+", label: "Years" },
+              { icon: <Truck size={15} />, value: "1M+", label: "Tons Delivered" },
+              { icon: <Globe size={15} />, value: "50+", label: "Cities" },
+            ].map((s) => (
+              <div key={s.label}>
+                <div className="flex items-center gap-1.5 text-xl font-black mb-0.5" style={{ color: "var(--orange)" }}>
+                  {s.icon} {s.value}
+                </div>
+                <div className="text-xs" style={{ color: "rgba(0,0,0,0.45)" }}>{s.label}</div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* ── Right: Visual ── */}
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="hidden lg:block relative"
+        >
+          {/* Main image */}
+          <div className="relative rounded-3xl overflow-hidden shadow-2xl"
+               style={{ aspectRatio: "4/3" }}>
+            <img
+              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80&fit=crop"
+              alt="Ambition Coal — industrial operations"
+              className="w-full h-full object-cover"
+            />
+            {/* orange tint overlay */}
+            <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(249,115,22,0.15) 0%, transparent 60%)" }} />
+            {/* bottom gradient for readability */}
+            <div className="absolute bottom-0 left-0 right-0 h-1/3" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55), transparent)" }} />
+
+            {/* Badge on image */}
+            <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between">
+              <div className="px-3 py-1.5 rounded-full text-xs font-bold text-white backdrop-blur-sm"
+                   style={{ background: "rgba(249,115,22,0.85)" }}>
+                🏭 Pan India Operations
+              </div>
+              <div className="px-3 py-1.5 rounded-full text-xs font-bold text-white backdrop-blur-sm"
+                   style={{ background: "rgba(0,0,0,0.5)" }}>
+                Est. 2003
+              </div>
+            </div>
+          </div>
+
+          {/* Floating card — top right */}
+          <div className="absolute -top-4 -right-4 p-4 rounded-2xl shadow-xl"
+               style={{ background: "white", border: "1px solid rgba(249,115,22,0.15)", minWidth: 150 }}>
+            <div className="text-2xl font-black" style={{ color: "var(--orange)" }}>5+</div>
+            <div className="text-xs font-bold mt-0.5" style={{ color: "rgba(0,0,0,0.55)" }}>Countries Sourced</div>
+            <div className="flex gap-1 mt-2">
+              {["🇦🇺","🇮🇩","🇿🇦","🇰🇪","🇿🇼"].map(f => (
+                <span key={f} className="text-sm">{f}</span>
+              ))}
+            </div>
+          </div>
+
+          {/* Floating card — bottom left */}
+          <div className="absolute -bottom-4 -left-4 p-4 rounded-2xl shadow-xl"
+               style={{ background: "white", border: "1px solid rgba(249,115,22,0.15)" }}>
+            <div className="flex items-center gap-2 mb-1">
+              <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: "#22c55e" }} />
+              <span className="text-xs font-bold" style={{ color: "#22c55e" }}>Live Operations</span>
+            </div>
+            <div className="text-xl font-black" style={{ color: "#111111" }}>1M+</div>
+            <div className="text-xs" style={{ color: "rgba(0,0,0,0.45)" }}>Tons / Year</div>
+          </div>
+
+          {/* Decorative ring */}
+          <div className="absolute -z-10 inset-0 rounded-3xl"
+               style={{ border: "1.5px solid rgba(249,115,22,0.15)", transform: "translate(12px, 12px)" }} />
         </motion.div>
       </div>
 
