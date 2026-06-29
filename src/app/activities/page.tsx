@@ -287,10 +287,9 @@ export default function ActivitiesPage() {
                     exit={{ opacity:0, scale:0.95 }}
                     transition={{ duration:0.38, delay: i*0.05 }}
                     className="rounded-2xl overflow-hidden flex flex-col"
-                    style={{ background:"#ffffff", border:"1px solid rgba(0,0,0,0.07)", boxShadow:"0 2px 8px rgba(0,0,0,0.04)" }}
+                    style={{ background:"#ffffff", border:"1px solid rgba(0,0,0,0.07)", boxShadow:"0 2px 8px rgba(0,0,0,0.04)", transition:"all 0.25s" }}
                     onMouseEnter={e=>{const el=e.currentTarget as HTMLDivElement;el.style.borderColor=`${color}40`;el.style.boxShadow=`0 12px 32px ${color}18`;el.style.transform="translateY(-3px)";}}
                     onMouseLeave={e=>{const el=e.currentTarget as HTMLDivElement;el.style.borderColor="rgba(0,0,0,0.07)";el.style.boxShadow="0 2px 8px rgba(0,0,0,0.04)";el.style.transform="";}}
-                    style2={{ transition:"all 0.25s" }}
                   >
                     {/* Coloured top bar */}
                     <div className="h-1 w-full" style={{ background:`linear-gradient(90deg, ${color}, ${color}88)` }}/>
