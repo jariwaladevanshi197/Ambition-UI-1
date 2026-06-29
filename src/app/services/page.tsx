@@ -74,7 +74,7 @@ const coalProducts = [
     name:"Steam Coal — South Africa",
     gcv:"5800–6200 kcal/kg", ash:"12–16%", moisture:"8–11%",
     use:"Power utilities, West & East coast India",
-    image:"/images/factory.jpg",
+    image:"/images/coal2.jpg",
   },
   {
     name:"Steam Coal — Kenya / Zimbabwe",
@@ -141,7 +141,7 @@ export default function ServicesPage() {
           </motion.div>
           <motion.div initial={{ opacity:0,x:40 }} animate={{ opacity:1,x:0 }} transition={{ duration:0.7, delay:0.15 }}
                       className="hidden lg:block rounded-xl overflow-hidden shadow-lg" style={{ height:380 }}>
-            <img src="/images/factory.jpg"
+            <img src="/images/coal2.jpg"
                  alt="Ambition Coal operations" className="w-full h-full object-cover"/>
           </motion.div>
         </div>

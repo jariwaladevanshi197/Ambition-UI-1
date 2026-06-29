@@ -4,7 +4,7 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
   Trees, HeartPulse, BookOpen, Users, Recycle, Handshake, Palette, Pill, Leaf,
-  ArrowRight, Calendar, TrendingUp
+  ArrowRight, Calendar, TrendingUp, X, ChevronLeft, ChevronRight
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -43,6 +43,154 @@ const heroStats = [
   { value:"5",    label:"States Covered" },
   { value:"20+",  label:"Active Projects" },
 ];
+
+const galleryItems = [
+  { src:"/images/coal-mining.jpg",   label:"Open Pit Mining",        cat:"Mining"    },
+  { src:"/images/coal-dark.jpg",     label:"Coal Processing",        cat:"Coal"      },
+  { src:"/images/port.jpg",          label:"Port Operations",        cat:"Logistics" },
+  { src:"/images/mining.jpg",        label:"Mining Operations",      cat:"Mining"    },
+  { src:"/images/shipping.jpg",      label:"Shipping & Export",      cat:"Logistics" },
+  { src:"/images/truck.jpg",         label:"Coal Transport",         cat:"Logistics" },
+  { src:"/images/coal2.jpg",         label:"Coal Yard",              cat:"Coal"      },
+  { src:"/images/minerals.jpg",      label:"Mineral Processing",     cat:"Coal"      },
+  { src:"/images/coal-dark.jpg",     label:"Bulk Cargo Handling",    cat:"Logistics" },
+];
+
+function Gallery() {
+  const ref = useRef<HTMLElement>(null);
+  const inV = useInView(ref, { once:true, margin:"-60px" });
+  const [lightbox, setLightbox] = useState<number|null>(null);
+  const [filter, setFilter]     = useState("All");
+
+  const cats = ["All", "Mining", "Coal", "Logistics"];
+  const visible = filter === "All" ? galleryItems : galleryItems.filter(g => g.cat === filter);
+
+  const prev = () => setLightbox(i => i !== null ? (i - 1 + visible.length) % visible.length : null);
+  const next = () => setLightbox(i => i !== null ? (i + 1) % visible.length : null);
+
+  return (
+    <section ref={ref} className="py-24 px-6" style={{ background:"#0f0f0f" }}>
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <motion.div initial={{ opacity:0, y:20 }} animate={inV?{opacity:1,y:0}:{}} transition={{ duration:0.5 }}
+                    className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-4"
+               style={{ background:"rgba(249,115,22,0.12)", border:"1px solid rgba(249,115,22,0.25)", color:"var(--orange)" }}>
+            Photo Gallery
+          </div>
+          <h2 className="text-3xl font-black text-white mb-2">
+            Our <span style={{ color:"var(--orange)" }}>Operations</span> in Pictures
+          </h2>
+          <p className="text-sm" style={{ color:"rgba(255,255,255,0.4)" }}>
+            A visual journey through our mining, logistics & port activities
+          </p>
+        </motion.div>
+
+        {/* Filter tabs */}
+        <div className="flex justify-center gap-2 mb-10 flex-wrap">
+          {cats.map(c => (
+            <button key={c} onClick={() => setFilter(c)}
+                    className="px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-200"
+                    style={{
+                      background: filter===c ? "var(--orange)" : "rgba(255,255,255,0.06)",
+                      color:      filter===c ? "white" : "rgba(255,255,255,0.5)",
+                      border:     `1px solid ${filter===c ? "var(--orange)" : "rgba(255,255,255,0.1)"}`,
+                    }}>
+              {c}
+            </button>
+          ))}
+        </div>
+
+        {/* Masonry-style grid */}
+        <AnimatePresence mode="popLayout">
+          <motion.div layout className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {visible.map((g, i) => (
+              <motion.div
+                key={g.src + g.label + i}
+                layout
+                initial={{ opacity:0, scale:0.95 }}
+                animate={{ opacity:1, scale:1 }}
+                exit={{ opacity:0, scale:0.9 }}
+                transition={{ duration:0.35, delay:i*0.04 }}
+                className="relative group cursor-pointer overflow-hidden rounded-2xl"
+                style={{ aspectRatio: i % 5 === 0 ? "16/10" : "4/3" }}
+                onClick={() => setLightbox(i)}
+              >
+                <img src={g.src} alt={g.label}
+                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                     style={{ filter:"brightness(0.8)" }}/>
+                {/* hover overlay */}
+                <div className="absolute inset-0 flex flex-col justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                     style={{ background:"linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 60%)" }}>
+                  <span className="text-white text-sm font-bold">{g.label}</span>
+                  <span className="text-[10px] font-semibold mt-0.5" style={{ color:"var(--orange)" }}>{g.cat}</span>
+                </div>
+                {/* category pill */}
+                <div className="absolute top-3 left-3 px-2 py-0.5 rounded-full text-[9px] font-bold backdrop-blur-sm"
+                     style={{ background:"rgba(249,115,22,0.75)", color:"white" }}>
+                  {g.cat}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightbox !== null && (
+          <motion.div
+            initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center"
+            style={{ background:"rgba(0,0,0,0.92)", backdropFilter:"blur(12px)" }}
+            onClick={() => setLightbox(null)}
+          >
+            <motion.div
+              initial={{ scale:0.88 }} animate={{ scale:1 }} exit={{ scale:0.88 }}
+              transition={{ duration:0.25 }}
+              className="relative max-w-4xl w-full mx-6"
+              onClick={e => e.stopPropagation()}
+            >
+              <img src={visible[lightbox].src} alt={visible[lightbox].label}
+                   className="w-full rounded-2xl object-cover"
+                   style={{ maxHeight:"80vh" }}/>
+              <div className="absolute bottom-0 left-0 right-0 p-5 rounded-b-2xl"
+                   style={{ background:"linear-gradient(to top, rgba(0,0,0,0.8), transparent)" }}>
+                <div className="text-white font-bold">{visible[lightbox].label}</div>
+                <div className="text-xs mt-0.5" style={{ color:"var(--orange)" }}>{visible[lightbox].cat}</div>
+              </div>
+              {/* Close */}
+              <button onClick={() => setLightbox(null)}
+                      className="absolute -top-4 -right-4 w-9 h-9 rounded-full flex items-center justify-center"
+                      style={{ background:"rgba(255,255,255,0.1)", border:"1px solid rgba(255,255,255,0.2)" }}>
+                <X size={16} className="text-white"/>
+              </button>
+              {/* Prev / Next */}
+              <button onClick={prev}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center transition-all"
+                      style={{ background:"rgba(255,255,255,0.1)", border:"1px solid rgba(255,255,255,0.2)" }}
+                      onMouseEnter={e=>(e.currentTarget.style.background="rgba(249,115,22,0.7)")}
+                      onMouseLeave={e=>(e.currentTarget.style.background="rgba(255,255,255,0.1)")}>
+                <ChevronLeft size={20} className="text-white"/>
+              </button>
+              <button onClick={next}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center transition-all"
+                      style={{ background:"rgba(255,255,255,0.1)", border:"1px solid rgba(255,255,255,0.2)" }}
+                      onMouseEnter={e=>(e.currentTarget.style.background="rgba(249,115,22,0.7)")}
+                      onMouseLeave={e=>(e.currentTarget.style.background="rgba(255,255,255,0.1)")}>
+                <ChevronRight size={20} className="text-white"/>
+              </button>
+              {/* Counter */}
+              <div className="absolute bottom-4 right-5 text-xs font-bold" style={{ color:"rgba(255,255,255,0.5)" }}>
+                {lightbox + 1} / {visible.length}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+}
 
 export default function ActivitiesPage() {
   const [actCat, setActCat] = useState("All");
@@ -188,6 +336,8 @@ export default function ActivitiesPage() {
           </AnimatePresence>
         </div>
       </section>
+
+      <Gallery />
     </>
   );
 }

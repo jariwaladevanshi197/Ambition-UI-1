@@ -74,24 +74,7 @@ export default function AboutPage() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="pt-32 pb-20 text-center px-6"
-               style={{ background:"linear-gradient(135deg, #ffffff, #fff7f0 50%, #ffffff)" }}>
-        <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.6 }}>
-          <div className="section-tag mb-4">OUR STORY</div>
-          <h1 className="font-black mb-4" style={{ fontSize:"clamp(32px,5vw,60px)", lineHeight:1.1 }}>
-            Pioneers in{" "}
-            <span style={{ color:"var(--orange)" }}>Imported Coal.</span>
-          </h1>
-          <p className="max-w-2xl mx-auto text-base" style={{ color:"rgba(0,0,0,0.55)" }}>
-            Ambition Coal Pvt. Ltd. — a Non-govt company registered at Ahmedabad, promoted by
-            Mr. Jayesh Mahesh Agrawal & Yashika Jayesh Agrawal, with more than a decade of experience
-            supplying imported coal across Gujarat, Karnataka, Andhra Pradesh & Chhattisgarh.
-          </p>
-        </motion.div>
-      </section>
-
-      {/* Image Carousel */}
+      {/* Hero Carousel */}
       <ImageCarousel />
 
       {/* Timeline */}

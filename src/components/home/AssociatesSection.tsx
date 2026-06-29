@@ -30,6 +30,11 @@ function AssociateBadge({
   const [imgOk, setImgOk] = useState(true);
   const url = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
 
+  const handleLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    // Google returns a 16×16 generic globe when no real favicon exists
+    if ((e.currentTarget as HTMLImageElement).naturalWidth <= 16) setImgOk(false);
+  };
+
   return (
     <div
       className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 overflow-hidden"
@@ -46,6 +51,7 @@ function AssociateBadge({
           width={32}
           height={32}
           style={{ objectFit:"contain", display:"block" }}
+          onLoad={handleLoad}
           onError={() => setImgOk(false)}
         />
       ) : (

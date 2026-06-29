@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const SLIDES = [
   {
@@ -60,18 +59,17 @@ const SLIDES = [
     stat1: { val:"5K+",  label:"Beneficiaries" },
     stat2: { val:"20+",  label:"CSR Projects" },
     icon:  "🤝",
-    image: "/images/factory.jpg",
+    image: "/images/truck.jpg",
     imageAlt: "Community CSR initiatives",
   },
 ];
 
-const DURATION = 5000;
+const DURATION = 3000;
 
 export default function ImageCarousel() {
   const [current,  setCurrent]  = useState(0);
   const [prev,     setPrev]     = useState<number|null>(null);
   const [dir,      setDir]      = useState<1|-1>(1);
-  const [paused,   setPaused]   = useState(false);
   const [progress, setProgress] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval>|null>(null);
   const elapsedRef = useRef(0);
@@ -88,7 +86,6 @@ export default function ImageCarousel() {
   const prev2 = useCallback(() => goTo((current - 1 + SLIDES.length) % SLIDES.length, -1), [current, goTo]);
 
   useEffect(() => {
-    if (paused) return;
     const TICK = 30;
     timerRef.current = setInterval(() => {
       elapsedRef.current += TICK;
@@ -105,16 +102,14 @@ export default function ImageCarousel() {
       }
     }, TICK);
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
-  }, [paused, current]);
+  }, [current]);
 
   const slide = SLIDES[current];
 
   return (
     <div
       className="relative overflow-hidden"
-      style={{ height: "clamp(340px, 50vw, 520px)" }}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
+      style={{ height: "clamp(480px, 90vh, 720px)" }}
     >
       {/* Slides */}
       {SLIDES.map((s, i) => {
@@ -149,7 +144,7 @@ export default function ImageCarousel() {
             <div className="relative z-10 h-full grid lg:grid-cols-[1fr_42%]">
 
               {/* Left — text */}
-              <div className="flex flex-col justify-center px-10 lg:px-16">
+              <div className="flex flex-col justify-center px-10 lg:px-16 pt-20 pb-10">
                 <div
                   className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-black tracking-widest mb-5 w-fit"
                   style={{ background:`${s.accent}18`, border:`1px solid ${s.accent}30`, color:s.accent }}
@@ -229,28 +224,6 @@ export default function ImageCarousel() {
         ))}
       </div>
 
-      {/* Prev / Next arrows */}
-      <button onClick={prev2}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200"
-              style={{ background:"rgba(255,255,255,0.08)", backdropFilter:"blur(8px)", border:"1px solid rgba(255,255,255,0.12)" }}
-              onMouseEnter={e=>(e.currentTarget.style.background="rgba(255,255,255,0.2)")}
-              onMouseLeave={e=>(e.currentTarget.style.background="rgba(255,255,255,0.08)")}>
-        <ChevronLeft size={18} className="text-white"/>
-      </button>
-      <button onClick={next}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200"
-              style={{ background:"rgba(255,255,255,0.08)", backdropFilter:"blur(8px)", border:"1px solid rgba(255,255,255,0.12)" }}
-              onMouseEnter={e=>(e.currentTarget.style.background="rgba(255,255,255,0.2)")}
-              onMouseLeave={e=>(e.currentTarget.style.background="rgba(255,255,255,0.08)")}>
-        <ChevronRight size={18} className="text-white"/>
-      </button>
-
-      {paused && (
-        <div className="absolute top-4 right-16 z-20 px-2.5 py-1 rounded-full text-[10px] font-bold"
-             style={{ background:"rgba(0,0,0,0.5)", color:"rgba(255,255,255,0.5)", backdropFilter:"blur(4px)" }}>
-          ⏸ Paused
-        </div>
-      )}
 
       <style>{`
         @keyframes float0 { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-20px) scale(1.05)} }
