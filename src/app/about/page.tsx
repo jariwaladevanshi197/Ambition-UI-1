@@ -1,7 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
-import { Zap, Globe, ShieldCheck, Package, Clock, Scale } from "lucide-react";
+import { BadgeDollarSign, Globe2, FlaskConical, Layers, TimerReset, Handshake } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import ImageCarousel from "@/components/about/ImageCarousel";
 
@@ -34,12 +34,12 @@ const leaders = [
 
 interface WhyCard { Icon: LucideIcon; color: string; title: string; text: string; }
 const whyUs: WhyCard[] = [
-  { Icon:Zap,        color:"#F97316", title:"Competitive Pricing",     text:"We keep prices as low as possible while maintaining the high quality our customers demand." },
-  { Icon:Globe,      color:"#3b82f6", title:"Global Sourcing",          text:"Direct mine relationships in Indonesia, South Africa, Kenya & Zimbabwe for best-quality coal." },
-  { Icon:ShieldCheck,color:"#6366f1", title:"Quality Assurance",       text:"Independent international testing institutes verify quality at every step — mine to mother vessel." },
-  { Icon:Package,    color:"#22c55e", title:"One Stop Coal Solution",   text:"From sourcing to stevedoring, road transport, unloading and stacking — we manage it all." },
-  { Icon:Clock,      color:"#D97706", title:"On-Time Delivery",         text:"We recognize the importance of delivery ahead of schedule. Customer satisfaction is our sole motive." },
-  { Icon:Scale,      color:"#16a34a", title:"Ethical Business",         text:"We strictly follow ethical business principles and abide by existing laws and regulations." },
+  { Icon:BadgeDollarSign, color:"#F97316", title:"Competitive Pricing",    text:"We keep prices as low as possible while maintaining the high quality our customers demand." },
+  { Icon:Globe2,          color:"#3b82f6", title:"Global Sourcing",         text:"Direct mine relationships in Indonesia, South Africa, Kenya & Zimbabwe for best-quality coal." },
+  { Icon:FlaskConical,    color:"#6366f1", title:"Quality Assurance",      text:"Independent international testing institutes verify quality at every step — mine to mother vessel." },
+  { Icon:Layers,          color:"#22c55e", title:"One Stop Coal Solution",  text:"From sourcing to stevedoring, road transport, unloading and stacking — we manage it all." },
+  { Icon:TimerReset,      color:"#D97706", title:"On-Time Delivery",        text:"We recognize the importance of delivery ahead of schedule. Customer satisfaction is our sole motive." },
+  { Icon:Handshake,       color:"#16a34a", title:"Ethical Business",        text:"We strictly follow ethical business principles and abide by existing laws and regulations." },
 ];
 
 export default function AboutPage() {
@@ -369,9 +369,9 @@ export default function AboutPage() {
                 onMouseLeave={e => (e.currentTarget as HTMLDivElement).style.background = "#ffffff"}
               >
                 {/* Icon box */}
-                <div className="w-11 h-11 rounded-lg flex items-center justify-center mb-5 transition-colors duration-250"
-                     style={{ background:`${w.color}12`, border:`1px solid ${w.color}28` }}>
-                  <w.Icon size={20} style={{ color: w.color }} strokeWidth={1.75}/>
+                <div className="w-13 h-13 rounded-xl flex items-center justify-center mb-5 transition-all duration-300 group-hover:scale-110"
+                     style={{ width:52, height:52, background:`${w.color}12`, border:`1px solid ${w.color}30`, boxShadow:`0 4px 16px ${w.color}15` }}>
+                  <w.Icon size={24} style={{ color: w.color }} strokeWidth={1.6}/>
                 </div>
 
                 {/* Orange accent line */}
