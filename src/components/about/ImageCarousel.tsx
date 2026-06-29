@@ -11,7 +11,7 @@ const SLIDES = [
     stat1: { val:"1M+", label:"Tonnes/Year" },
     stat2: { val:"50+", label:"Cities Served" },
     icon:  "⛏️",
-    image: "/images/coal-dark.jpg",
+    image: "/images/Gemini_Generated_Image_680jx7680jx7680j.png",
     imageAlt: "Industrial coal operations",
   },
   {
@@ -59,7 +59,7 @@ const SLIDES = [
     stat1: { val:"5K+",  label:"Beneficiaries" },
     stat2: { val:"20+",  label:"CSR Projects" },
     icon:  "🤝",
-    image: "/images/truck.jpg",
+    image: "/images/Gemini_Generated_Image_urm0uqurm0uqurm0.png",
     imageAlt: "Community CSR initiatives",
   },
 ];

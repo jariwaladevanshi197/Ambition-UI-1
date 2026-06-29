@@ -8,7 +8,7 @@ const services = [
   {
     title: "Coal Trading & Sourcing",
     desc: "End-to-end procurement of Steam Coal from Indonesia, South Africa and East Africa. Quality assured from mine to mother vessel.",
-    image: "/images/coal-dark.jpg",
+    image: "/images/Gemini_Generated_Image_680jx7680jx7680j.png",
     tag: "Core Business",
     tagColor: "#F97316",
   },
@@ -29,21 +29,21 @@ const services = [
   {
     title: "Road Transportation",
     desc: "Doorstep delivery network covering 50+ cities. Loading, unloading, packing and dispatch managed end-to-end.",
-    image: "/images/truck.jpg",
+    image: "/images/Gemini_Generated_Image_maelcimaelcimael.png",
     tag: "Supply Chain",
     tagColor: "#22c55e",
   },
   {
     title: "Minerals Trading",
     desc: "Manganese ore, Chrome ore and Silica ore sourced from major origins across Indonesia, South Africa and Zimbabwe.",
-    image: "/images/minerals.jpg",
+    image: "/images/Gemini_Generated_Image_imewt4imewt4imew.png",
     tag: "Minerals",
     tagColor: "#D97706",
   },
   {
     title: "Salt — Coming Soon",
     desc: "Industrial Grade Salt and Edible Salt. A new vertical under Ambition — expanding beyond coal into essential commodities.",
-    image: "/images/salt-industrial.jpg",
+    image: "/images/Gemini_Generated_Image_kt7gkdkt7gkdkt7gb.png",
     tag: "New Product",
     tagColor: "#64748b",
     comingSoon: true,

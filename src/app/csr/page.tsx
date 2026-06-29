@@ -23,7 +23,7 @@ const projects: Project[] = [
     desc:"Adopted 4 government schools across Jharkhand, Maharashtra, Chhattisgarh and Andhra Pradesh. Provided infrastructure upgrades, libraries, computer labs and mid-day meal support.",
     stats:[{ val:"4",    label:"Schools" },{ val:"1,810", label:"Students" }],
     items:["Govt. Primary School, Dhanbad — 450 students","Zilla Parishad School, Nagpur — 320 students","Model School, Korba — 580 students","Municipal School, Visakhapatnam — 460 students"],
-    image:"/images/mining.jpg",
+    image:"/images/Gemini_Generated_Image_9jp8wd9jp8wd9jp8.png",
   },
   {
     type:"Healthcare",         Icon:HeartPulse,    color:"#22c55e",
@@ -31,7 +31,7 @@ const projects: Project[] = [
     desc:"Monthly free medical camps in tribal and mining-adjacent communities. Over 1,200 patients served per year with doctors from partner hospitals.",
     stats:[{ val:"12",   label:"Camps/Year" },{ val:"1,200+", label:"Patients" }],
     items:["Free OPD in Dhanbad, Korba & Raipur","Medicine distribution to 12 PHCs","Eye & dental check-up camps","Mental health awareness drives"],
-    image:"/images/coal-mining.jpg",
+    image:"/images/Gemini_Generated_Image_y1eikuy1eikuy1ei.png",
   },
   {
     type:"Water & Sanitation", Icon:Droplets,      color:"#0ea5e9",
@@ -47,7 +47,7 @@ const projects: Project[] = [
     desc:"Skill development workshops in weaving, tailoring, digital literacy and self-help group formation. 180 women trained and linked to livelihood opportunities.",
     stats:[{ val:"180",  label:"Women Trained" },{ val:"8",  label:"SHGs Formed" }],
     items:["Tailoring & weaving workshops","Digital literacy programs","Micro-finance & SHG support","Entrepreneurship mentoring"],
-    image:"/images/truck.jpg",
+    image:"/images/Gemini_Generated_Image_6wi0526wi0526wi0.png",
   },
   {
     type:"Environment",        Icon:Leaf,          color:"#16a34a",
@@ -130,14 +130,14 @@ function CounterCard({ num, suffix, label, Icon, color, active }: Counter & { ac
 }
 
 const csrGallery = [
-  { src:"/images/coal-mining.jpg", label:"Community Outreach",       tag:"Education"         },
-  { src:"/images/mining.jpg",      label:"Mining Site Operations",   tag:"Environment"       },
-  { src:"/images/port.jpg",        label:"Port Logistics",           tag:"Water & Sanitation" },
-  { src:"/images/coal-dark.jpg",   label:"Coal Processing Plant",    tag:"Healthcare"        },
-  { src:"/images/shipping.jpg",    label:"Shipping & Export",        tag:"Environment"       },
-  { src:"/images/truck.jpg",       label:"Coal Transport",           tag:"Community"         },
-  { src:"/images/coal2.jpg",       label:"Coal Yard Operations",     tag:"Education"         },
-  { src:"/images/minerals.jpg",    label:"Mineral Processing",       tag:"Women Empowerment" },
+  { src:"/images/Gemini_Generated_Image_9jp8wd9jp8wd9jp8.png",     label:"Community Outreach",       tag:"Education"         },
+  { src:"/images/Gemini_Generated_Image_680jx7680jx7680j.png",     label:"Mining Site Operations",   tag:"Environment"       },
+  { src:"/images/port.jpg",                                         label:"Port Logistics",           tag:"Water & Sanitation" },
+  { src:"/images/Gemini_Generated_Image_y1eikuy1eikuy1ei.png",     label:"Coal Processing Plant",    tag:"Healthcare"        },
+  { src:"/images/shipping.jpg",                                     label:"Shipping & Export",        tag:"Environment"       },
+  { src:"/images/Gemini_Generated_Image_maelcimaelcimael.png",     label:"Coal Transport",           tag:"Community"         },
+  { src:"/images/Gemini_Generated_Image_urm0uqurm0uqurm0.png",    label:"Coal Yard Operations",     tag:"Education"         },
+  { src:"/images/Gemini_Generated_Image_imewt4imewt4imew.png",     label:"Mineral Processing",       tag:"Women Empowerment" },
 ];
 
 const TAG_COLORS: Record<string,string> = {

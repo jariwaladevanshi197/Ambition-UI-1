@@ -45,15 +45,15 @@ const heroStats = [
 ];
 
 const galleryItems = [
-  { src:"/images/coal-mining.jpg",   label:"Open Pit Mining",        cat:"Mining"    },
-  { src:"/images/coal-dark.jpg",     label:"Coal Processing",        cat:"Coal"      },
-  { src:"/images/port.jpg",          label:"Port Operations",        cat:"Logistics" },
-  { src:"/images/mining.jpg",        label:"Mining Operations",      cat:"Mining"    },
-  { src:"/images/shipping.jpg",      label:"Shipping & Export",      cat:"Logistics" },
-  { src:"/images/truck.jpg",         label:"Coal Transport",         cat:"Logistics" },
-  { src:"/images/coal2.jpg",         label:"Coal Yard",              cat:"Coal"      },
-  { src:"/images/minerals.jpg",      label:"Mineral Processing",     cat:"Coal"      },
-  { src:"/images/coal-dark.jpg",     label:"Bulk Cargo Handling",    cat:"Logistics" },
+  { src:"/images/Gemini_Generated_Image_680jx7680jx7680j.png",    label:"Open Pit Mining",        cat:"Mining"    },
+  { src:"/images/Gemini_Generated_Image_9jp8wd9jp8wd9jp8.png",    label:"Coal Processing",        cat:"Coal"      },
+  { src:"/images/port.jpg",                                        label:"Port Operations",        cat:"Logistics" },
+  { src:"/images/Gemini_Generated_Image_y1eikuy1eikuy1ei.png",    label:"Mining Operations",      cat:"Mining"    },
+  { src:"/images/shipping.jpg",                                    label:"Shipping & Export",      cat:"Logistics" },
+  { src:"/images/Gemini_Generated_Image_maelcimaelcimael.png",    label:"Coal Transport",         cat:"Logistics" },
+  { src:"/images/Gemini_Generated_Image_urm0uqurm0uqurm0.png",   label:"Coal Yard",              cat:"Coal"      },
+  { src:"/images/Gemini_Generated_Image_imewt4imewt4imew.png",    label:"Mineral Processing",     cat:"Coal"      },
+  { src:"/images/Gemini_Generated_Image_6wi0526wi0526wi0.png",    label:"Bulk Cargo Handling",    cat:"Logistics" },
 ];
 
 function Gallery() {

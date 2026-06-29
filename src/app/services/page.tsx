@@ -10,7 +10,7 @@ const services = [
     title: "Coal Trading & Sourcing",
     desc:  "Our core focus — sourcing and supplying Steam Coal from Indonesia, South Africa and East Africa. Independent international testing at every stage: mine, mother vessel and final delivery. Competitive pricing with quality you can rely on.",
     tags:  ["Steam Coal", "Indonesia", "South Africa", "East Africa"],
-    image: "/images/coal-dark.jpg",
+    image: "/images/Gemini_Generated_Image_680jx7680jx7680j.png",
     badge: "Core Business",
     badgeColor: "#F97316",
     wide: true,
@@ -37,7 +37,7 @@ const services = [
     title: "Road Transportation",
     desc:  "Doorstep delivery covering 50+ cities. Our experienced network ensures proper quality and quantity dispatch, with loading, unloading and packing available on request.",
     tags:  ["Doorstep Delivery", "50+ Cities", "Packing", "Dispatch"],
-    image: "/images/truck.jpg",
+    image: "/images/Gemini_Generated_Image_maelcimaelcimael.png",
     badge: "Supply Chain",
     badgeColor: "#22c55e",
     wide: false,
@@ -55,7 +55,7 @@ const services = [
     title: "Minerals Trading",
     desc:  "Beyond coal — Manganese ore, Chrome ore and Silica ore sourced from major origins including Indonesia, South Africa, Kenya and Zimbabwe.",
     tags:  ["Manganese", "Chrome Ore", "Silica Ore"],
-    image: "/images/minerals.jpg",
+    image: "/images/Gemini_Generated_Image_imewt4imewt4imew.png",
     badge: "Minerals",
     badgeColor: "#64748b",
     wide: false,
@@ -141,7 +141,7 @@ export default function ServicesPage() {
           </motion.div>
           <motion.div initial={{ opacity:0,x:40 }} animate={{ opacity:1,x:0 }} transition={{ duration:0.7, delay:0.15 }}
                       className="hidden lg:block rounded-xl overflow-hidden shadow-lg" style={{ height:380 }}>
-            <img src="/images/coal2.jpg"
+            <img src="/images/Gemini_Generated_Image_9jp8wd9jp8wd9jp8.png"
                  alt="Ambition Coal operations" className="w-full h-full object-cover"/>
           </motion.div>
         </div>
