@@ -68,25 +68,25 @@ const coalProducts = [
     name:"Steam Coal — Indonesia",
     gcv:"5500–6500 kcal/kg", ash:"10–18%", moisture:"8–12%",
     use:"Power plants, cement, steel, textile & paper mills",
-    image:"/images/coal-dark.jpg",
+    image:"/images/Gemini_Generated_Image_6wi0526wi0526wi0.png",
   },
   {
     name:"Steam Coal — South Africa",
     gcv:"5800–6200 kcal/kg", ash:"12–16%", moisture:"8–11%",
     use:"Power utilities, West & East coast India",
-    image:"/images/coal2.jpg",
+    image:"/images/Gemini_Generated_Image_imewt4imewt4imew.png",
   },
   {
     name:"Steam Coal — Kenya / Zimbabwe",
     gcv:"5000–6000 kcal/kg", ash:"14–20%", moisture:"9–13%",
     use:"Industrial boilers, captive power plants",
-    image:"/images/mining.jpg",
+    image:"/images/Gemini_Generated_Image_maelcimaelcimael.png",
   },
   {
     name:"Coking Coal",
     gcv:"6000–7500 kcal/kg", ash:"8–12%", moisture:"8–10%",
     use:"Steel & metallurgy customers across India",
-    image:"/images/minerals.jpg",
+    image:"/images/Gemini_Generated_Image_urm0uqurm0uqurm0.png",
   },
 ];
 

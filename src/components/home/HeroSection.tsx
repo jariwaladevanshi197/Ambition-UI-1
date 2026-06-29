@@ -240,7 +240,7 @@ export default function HeroSection() {
           <div className="relative rounded-3xl overflow-hidden shadow-2xl"
                style={{ aspectRatio: "4/3" }}>
             <img
-              src="/images/coal-dark.jpg"
+              src="/images/Gemini_Generated_Image_680jx7680jx7680j.png"
               alt="Ambition Coal — industrial operations"
               className="w-full h-full object-cover"
             />
