@@ -11,12 +11,9 @@ const locations = [
   { label:"Dhanbad — Mining",color:"#D97706", px:0.60, py:0.38 },
 ];
 
-interface Particle { x:number; y:number; vx:number; vy:number; life:number; maxLife:number; color:string; size:number; }
-
 function ContactMap() {
   const canvasRef  = useRef<HTMLCanvasElement>(null);
   const mouseRef   = useRef({ x:-999, y:-999, inside:false });
-  const particlesRef = useRef<Particle[]>([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -37,26 +34,6 @@ function ContactMap() {
     const onLeave = () => { mouseRef.current = { x:-999, y:-999, inside:false }; };
     canvas.addEventListener("mousemove", onMove);
     canvas.addEventListener("mouseleave", onLeave);
-
-    /* ── spawn particles near cursor ── */
-    const spawnParticles = (mx:number, my:number, W:number, H:number) => {
-      if (!mouseRef.current.inside) return;
-      const colors = ["#F97316","#D97706","#fb923c","#fed7aa"];
-      for (let i = 0; i < 2; i++) {
-        particlesRef.current.push({
-          x: mx + (Math.random()-0.5)*16,
-          y: my + (Math.random()-0.5)*16,
-          vx: (Math.random()-0.5)*1.2,
-          vy: (Math.random()-0.5)*1.2 - 0.4,
-          life: 0,
-          maxLife: 40 + Math.random()*30,
-          color: colors[Math.floor(Math.random()*colors.length)],
-          size:  1.5 + Math.random()*2,
-        });
-      }
-      // cap
-      if (particlesRef.current.length > 200) particlesRef.current.splice(0, 20);
-    };
 
     const draw = () => {
       const W = canvas.width  = canvas.offsetWidth;
@@ -159,21 +136,7 @@ function ContactMap() {
         ctx.fillText(loc.label, nx, ny+dotR+12);
       });
 
-      /* ── 6. Particles ── */
-      spawnParticles(mx, my, W, H);
-      particlesRef.current = particlesRef.current.filter(p => p.life < p.maxLife);
-      particlesRef.current.forEach(p => {
-        p.life++;
-        p.x  += p.vx;  p.y  += p.vy;
-        p.vy += 0.03;   // gentle gravity
-        p.vx *= 0.97;
-        const alpha = 1 - p.life/p.maxLife;
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.size*(1-p.life/p.maxLife*0.5), 0, Math.PI*2);
-        ctx.fillStyle = p.color + Math.floor(alpha*255).toString(16).padStart(2,"0");
-        ctx.fill();
-      });
-
-      /* ── 7. Cursor crosshair dot ── */
+      /* ── 6. Cursor crosshair dot ── */
       if (inside) {
         ctx.beginPath(); ctx.arc(mx, my, 4, 0, Math.PI*2);
         ctx.fillStyle = "rgba(249,115,22,0.9)"; ctx.fill();

@@ -2,7 +2,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Ship, ArrowRightLeft, Layers, Boxes, Truck, Train, Globe } from "lucide-react";
 
 /* ── Services ─────────────────────────────────────────────── */
 const services = [
@@ -90,6 +90,36 @@ const coalProducts = [
   },
 ];
 
+/* ── Port operations capabilities ────────────────────────────── */
+const portCapabilities = [
+  { icon: Ship,          title: "Bulk Vessel Unloading", desc: "High-capacity unloading of bulk carriers at major Indian ports with modern grabs and conveyor systems." },
+  { icon: ArrowRightLeft,title: "Internal Shifting",      desc: "Efficient movement of cargo within port premises between berths, yards and storage zones." },
+  { icon: Layers,        title: "Stacking",               desc: "Systematic stacking of coal and minerals to optimise yard space and preserve material quality." },
+  { icon: Boxes,         title: "Heaping",                desc: "Controlled heaping operations that guard against oxidation and moisture ingress in stored cargo." },
+  { icon: Truck,         title: "Dispatch by Road",       desc: "Doorstep dispatch via our road transport network covering 50+ cities across India." },
+  { icon: Train,         title: "Dispatch by Rail",       desc: "Bulk dispatch via railway rakes for long-distance, high-volume cargo movement." },
+];
+
+/* ── Minerals ─────────────────────────────────────────────────── */
+const mineralProducts = [
+  {
+    name: "Manganese Ore",
+    desc: "High-grade manganese ore for steel and ferro-alloy manufacturing.",
+    specs: ["Mn: 38–48%", "Lumpy / Fines", "Bulk / Packed"],
+  },
+  {
+    name: "Silica Ore",
+    desc: "Premium silica ore for glass, ceramics and foundry industries.",
+    specs: ["SiO2: 95–99%", "Lumpy / Fines", "Bulk / Packed"],
+  },
+  {
+    name: "Zinc Ore",
+    desc: "Quality zinc ore concentrate for smelting and industrial applications.",
+    specs: ["Zn: 40–55%", "Concentrate", "Bulk / Packed"],
+  },
+];
+const mineralOrigins = ["Zimbabwe", "Kenya", "Mozambique"];
+
 /* ── Salt products (coming soon) ───────────────────────────── */
 const saltProducts = [
   {
@@ -98,6 +128,7 @@ const saltProducts = [
     specs: ["NaCl: 98–99.5%", "Moisture: <0.5%", "Bulk / Packed"],
     image: "/images/Gemini_Generated_Image_kt7gkdkt7gkdkt7gb.png",
     fallback: "#1a1a1a",
+    comingSoon: false,
   },
   {
     name: "Edible Salt",
@@ -105,15 +136,20 @@ const saltProducts = [
     specs: ["Food Grade", "Iodised / Plain", "Branded Packs"],
     image: "/images/Gemini_Generated_Image_kt7gkdkt7gkdkt7gd.png",
     fallback: "#f0f0f0",
+    comingSoon: true,
   },
 ];
 
 export default function ServicesPage() {
   const servRef    = useRef<HTMLElement>(null);
   const coalRef    = useRef<HTMLElement>(null);
+  const portRef    = useRef<HTMLElement>(null);
+  const mineralRef = useRef<HTMLElement>(null);
   const saltRef    = useRef<HTMLElement>(null);
   const s1 = useInView(servRef, { once:true, margin:"-60px" });
   const s2 = useInView(coalRef, { once:true, margin:"-60px" });
+  const s4 = useInView(portRef, { once:true, margin:"-60px" });
+  const s5 = useInView(mineralRef, { once:true, margin:"-60px" });
   const s3 = useInView(saltRef, { once:true, margin:"-60px" });
 
   return (
@@ -270,6 +306,94 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      {/* ── Port Operations ─────────────────────────────────── */}
+      <section ref={portRef} className="py-20 px-6" style={{ background:"#f5f5f5" }}>
+        <div className="max-w-6xl mx-auto">
+          <motion.div initial={{ opacity:0,y:20 }} animate={s4?{opacity:1,y:0}:{}} transition={{ duration:0.5 }}
+                      className="mb-12">
+            <div className="section-tag mb-2">PORT LOGISTICS</div>
+            <h2 className="text-3xl font-black" style={{ color:"#111111" }}>
+              Port <span style={{ color:"var(--orange)" }}>Operations</span>
+            </h2>
+            <p className="mt-2 text-sm max-w-lg" style={{ color:"#666666" }}>
+              End-to-end handling at major Indian ports — from vessel to final dispatch.
+            </p>
+          </motion.div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {portCapabilities.map((c,i)=>(
+              <motion.div key={c.title}
+                initial={{ opacity:0,y:30 }} animate={s4?{opacity:1,y:0}:{}}
+                transition={{ duration:0.5, delay:i*0.08 }}
+                className="rounded-xl p-6 bg-white"
+                style={{ border:"1px solid #e5e5e5", transition:"box-shadow .25s, transform .25s" }}
+                onMouseEnter={e=>{const el=e.currentTarget as HTMLDivElement;el.style.boxShadow="0 12px 32px rgba(0,0,0,0.08)";el.style.transform="translateY(-3px)";}}
+                onMouseLeave={e=>{const el=e.currentTarget as HTMLDivElement;el.style.boxShadow="";el.style.transform="";}}>
+                <div className="w-11 h-11 rounded-lg flex items-center justify-center mb-4"
+                     style={{ background:"rgba(249,115,22,0.1)" }}>
+                  <c.icon size={20} style={{ color:"var(--orange)" }}/>
+                </div>
+                <h3 className="font-bold text-sm mb-2" style={{ color:"#111111" }}>{c.title}</h3>
+                <p className="text-xs leading-relaxed" style={{ color:"#666666" }}>{c.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Minerals ─────────────────────────────────────────── */}
+      <section ref={mineralRef} className="py-20 px-6" style={{ background:"#ffffff" }}>
+        <div className="max-w-6xl mx-auto">
+          <motion.div initial={{ opacity:0,y:20 }} animate={s5?{opacity:1,y:0}:{}} transition={{ duration:0.5 }}
+                      className="mb-12">
+            <div className="section-tag mb-2">BEYOND COAL</div>
+            <h2 className="text-3xl font-black" style={{ color:"#111111" }}>
+              Minerals <span style={{ color:"var(--orange)" }}>Trading</span>
+            </h2>
+            <p className="mt-2 text-sm max-w-lg" style={{ color:"#666666" }}>
+              Manganese, Silica and Zinc ore sourced from trusted origins across Africa.
+            </p>
+          </motion.div>
+
+          <div className="grid sm:grid-cols-3 gap-6 mb-10">
+            {mineralProducts.map((m,i)=>(
+              <motion.div key={m.name}
+                initial={{ opacity:0,y:30 }} animate={s5?{opacity:1,y:0}:{}}
+                transition={{ duration:0.5, delay:i*0.1 }}
+                className="rounded-xl overflow-hidden"
+                style={{ background:"white", border:"1px solid #e5e5e5" }}>
+                <div className="overflow-hidden" style={{ height:150 }}>
+                  <img src="/images/minerals.jpg" alt={m.name} className="w-full h-full object-cover" style={{ filter:"brightness(0.85)" }}/>
+                </div>
+                <div className="p-5">
+                  <h3 className="font-bold text-sm mb-2" style={{ color:"#111111" }}>{m.name}</h3>
+                  <p className="text-xs leading-relaxed mb-3" style={{ color:"#666666" }}>{m.desc}</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {m.specs.map(sp=>(
+                      <span key={sp} className="px-2 py-0.5 rounded text-[10px] font-semibold"
+                            style={{ background:"#f5f5f5", border:"1px solid #e5e5e5", color:"#555555" }}>{sp}</span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div initial={{ opacity:0,y:20 }} animate={s5?{opacity:1,y:0}:{}} transition={{ duration:0.5, delay:0.3 }}
+                      className="rounded-xl p-7" style={{ background:"#f5f5f5", border:"1px solid #e5e5e5" }}>
+            <div className="font-bold text-sm mb-3" style={{ color:"#111111" }}>Sourced From</div>
+            <div className="flex flex-wrap gap-3">
+              {mineralOrigins.map(o=>(
+                <span key={o} className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-semibold bg-white"
+                      style={{ border:"1px solid #e0e0e0", color:"#444444" }}>
+                  <Globe size={12} style={{ color:"var(--orange)" }}/> {o}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ── Salt — Coming Soon ──────────────────────────────── */}
       <section ref={saltRef} className="py-20 px-6" style={{ background:"#f5f5f5" }}>
         <div className="max-w-6xl mx-auto">
@@ -277,14 +401,12 @@ export default function ServicesPage() {
                       className="mb-12">
             <div className="flex items-center gap-3 mb-3">
               <div className="section-tag">NEW VERTICAL</div>
-              <span className="px-2.5 py-1 rounded text-[10px] font-black text-white"
-                    style={{ background:"#64748b", letterSpacing:"0.06em" }}>COMING SOON</span>
             </div>
             <h2 className="text-3xl font-black" style={{ color:"#111111" }}>
               Salt Products
             </h2>
             <p className="mt-2 text-sm max-w-lg" style={{ color:"#666666" }}>
-              Ambition is expanding into essential commodities. Industrial Grade Salt and a dedicated Edible Salt brand will be launching soon under the Ambition umbrella.
+              Ambition is expanding into essential commodities. Industrial Grade Salt is now available, with a dedicated Edible Salt brand launching soon under the Ambition umbrella.
             </p>
           </motion.div>
 
@@ -295,14 +417,17 @@ export default function ServicesPage() {
                 transition={{ duration:0.5, delay:i*0.1 }}
                 className="rounded-xl overflow-hidden relative"
                 style={{ background:"white", border:"1px solid #e5e5e5" }}>
-                {/* Coming soon overlay badge */}
-                <div className="absolute top-4 right-4 z-10 px-2.5 py-1 rounded text-[10px] font-black"
-                     style={{ background:"#64748b", color:"white", letterSpacing:"0.06em" }}>
-                  COMING SOON
-                </div>
+                {/* Coming soon overlay badge — only for products not yet launched */}
+                {s.comingSoon && (
+                  <div className="absolute top-4 right-4 z-10 px-2.5 py-1 rounded text-[10px] font-black"
+                       style={{ background:"#64748b", color:"white", letterSpacing:"0.06em" }}>
+                    COMING SOON
+                  </div>
+                )}
                 <div className="relative overflow-hidden" style={{ height:200 }}>
                   <img src={s.image}
-                       alt={s.name} className="w-full h-full object-cover" style={{ filter:"grayscale(0.2) brightness(0.8)" }}/>
+                       alt={s.name} className="w-full h-full object-cover"
+                       style={{ filter: s.comingSoon ? "grayscale(0.2) brightness(0.8)" : "none" }}/>
                   <div className="absolute inset-0" style={{ background:"linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 60%)" }}/>
                 </div>
                 <div className="p-6">

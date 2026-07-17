@@ -31,7 +31,7 @@ export default function StatsSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} className="py-24" style={{ background: "#f9f9f9" }}>
+    <section ref={ref} className="pt-24 pb-12" style={{ background: "#f9f9f9" }}>
       <div className="max-w-5xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -1,10 +1,9 @@
 "use client";
 import { useState, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 import {
-  Trees, HeartPulse, BookOpen, Users, Recycle, Handshake, Palette, Pill, Leaf,
-  ArrowRight, Calendar, TrendingUp, X, ChevronLeft, ChevronRight
+  Ship, Layers, ArrowRightLeft, Globe2, FlaskConical, Boxes, Truck, Train, Pickaxe,
+  Calendar, TrendingUp, X, ChevronLeft, ChevronRight
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -18,30 +17,31 @@ interface Activity {
   highlightLabel: string;
 }
 
-const activities: Activity[] = [
-  { Icon:Trees,      cat:"Environment",       title:"Annual Plantation Drive",          date:"Jun 2024", desc:"Planted 2,000 saplings across 5 locations in Jharkhand with community volunteers.",          highlight:"2,000", highlightLabel:"Saplings Planted" },
-  { Icon:HeartPulse, cat:"Healthcare",        title:"Free Medical Camp — Dhanbad",      date:"May 2024", desc:"Free health check-ups for 800+ villagers. Doctors from 3 hospitals participated.",           highlight:"800+",  highlightLabel:"Beneficiaries" },
-  { Icon:BookOpen,   cat:"Education",         title:"School Supply Distribution",       date:"Apr 2024", desc:"Distributed stationery kits to 450 students across 3 of our adopted schools.",               highlight:"450",   highlightLabel:"Students" },
-  { Icon:Users,      cat:"Women Empowerment", title:"Women Skill Development Workshop", date:"Mar 2024", desc:"2-day workshop on weaving, tailoring and digital literacy for 120 women.",                   highlight:"120",   highlightLabel:"Women Trained" },
-  { Icon:Recycle,    cat:"Environment",       title:"E-Waste Collection Drive",         date:"Feb 2024", desc:"Collected and responsibly disposed of 1.2 tonnes of electronic waste from our offices.",     highlight:"1.2T",  highlightLabel:"E-Waste Disposed" },
-  { Icon:Handshake,  cat:"Community",         title:"Village Infrastructure Support",   date:"Jan 2024", desc:"Funded repair of 3 community halls and 2 bore-well installations in rural Chhattisgarh.",   highlight:"5",     highlightLabel:"Villages Helped" },
-  { Icon:Palette,    cat:"Education",         title:"Children Art & Science Festival",  date:"Dec 2023", desc:"Organised inter-school festival for 600 students. Prizes and scholarships awarded.",          highlight:"600",   highlightLabel:"Students" },
-  { Icon:Pill,       cat:"Healthcare",        title:"Medicine Distribution Drive",      date:"Nov 2023", desc:"Distributed essential medicines worth ₹4 lakh to 12 primary health centres.",               highlight:"12",    highlightLabel:"PHCs Served" },
-  { Icon:Leaf,       cat:"Environment",       title:"Sapling Distribution — Diwali",   date:"Oct 2023", desc:"Distributed 5,000 saplings across employees, schools and partner organisations.",            highlight:"5,000", highlightLabel:"Saplings" },
-];
+const OPS_CATEGORIES = ["Port Operations", "Trading", "Logistics", "Minerals"];
 
-const ALL_CATS = ["All","Education","Healthcare","Environment","Community","Women Empowerment"];
-
-const CAT_COLORS: Record<string,string> = {
-  Education:"#3b82f6", Healthcare:"#22c55e", Environment:"#16a34a",
-  Community:"#8b5cf6", "Women Empowerment":"#ec4899",
+const OPS_CATEGORY_COLORS: Record<string,string> = {
+  "Port Operations":"#3b82f6", Trading:"#F97316", Logistics:"#22c55e", Minerals:"#64748b",
 };
 
+const activities: Activity[] = [
+  { Icon:Ship,           cat:"Port Operations", title:"Bulk Vessel Unloading",       date:"Ongoing", desc:"High-capacity unloading of bulk carriers at 15+ major Indian ports including Paradip, Haldia and Vizag.",                     highlight:"15+",       highlightLabel:"Ports Operated" },
+  { Icon:Layers,         cat:"Port Operations", title:"Stacking & Heaping",          date:"Ongoing", desc:"Systematic stacking and heaping of coal and minerals to prevent oxidation and preserve material quality.",                    highlight:"20+",       highlightLabel:"Active Yards" },
+  { Icon:ArrowRightLeft, cat:"Port Operations", title:"Internal Shifting",           date:"Ongoing", desc:"Efficient movement of cargo within port premises between berths, yards and storage zones.",                                  highlight:"24/7",      highlightLabel:"Yard Operations" },
+  { Icon:Globe2,         cat:"Trading",         title:"International Coal Sourcing", date:"Ongoing", desc:"Direct sourcing partnerships across Indonesia, South Africa, Kenya and Zimbabwe with independent quality testing.",           highlight:"4",         highlightLabel:"Sourcing Countries" },
+  { Icon:FlaskConical,   cat:"Trading",         title:"Quality Assurance Testing",   date:"Ongoing", desc:"Independent international testing at mine, mother vessel and final delivery — for every shipment, every time.",               highlight:"3-Stage",   highlightLabel:"Testing Process" },
+  { Icon:Boxes,          cat:"Trading",         title:"Salt Trading",                date:"New",     desc:"Industrial Grade Salt available now, with a dedicated Edible Salt brand launching soon.",                                     highlight:"2",         highlightLabel:"Product Lines" },
+  { Icon:Truck,          cat:"Logistics",       title:"Road Dispatch",               date:"Ongoing", desc:"Doorstep delivery covering 50+ cities through our dedicated road transport network.",                                        highlight:"50+",       highlightLabel:"Cities Served" },
+  { Icon:Train,          cat:"Logistics",       title:"Rail Dispatch",               date:"Ongoing", desc:"Bulk cargo movement via railway rakes for long-distance, high-volume delivery.",                                              highlight:"Pan-India", highlightLabel:"Rail Network" },
+  { Icon:Pickaxe,        cat:"Minerals",        title:"Minerals Sourcing",           date:"Ongoing", desc:"Manganese, Silica and Zinc ore sourced from Zimbabwe, Kenya and Mozambique.",                                                 highlight:"3",         highlightLabel:"Ore Types" },
+];
+
+const ALL_CATS = ["All", ...OPS_CATEGORIES];
+
 const heroStats = [
-  { value:"9+",   label:"Initiatives in 2024" },
-  { value:"5K+",  label:"Beneficiaries" },
-  { value:"5",    label:"States Covered" },
-  { value:"20+",  label:"Active Projects" },
+  { value:"20+",  label:"Years Experience" },
+  { value:"15+",  label:"Ports Operated" },
+  { value:"50+",  label:"Cities Served" },
+  { value:"1M+",  label:"Tons Delivered" },
 ];
 
 const galleryItems = [
@@ -219,15 +219,8 @@ export default function ActivitiesPage() {
                 Our <span style={{ color:"var(--orange)" }}>Activities</span>
               </h1>
               <p className="text-base mb-8 leading-relaxed" style={{ color:"rgba(0,0,0,0.55)", maxWidth:480 }}>
-                From plantation drives to medical camps — every initiative is a measurable step toward a better India.
+                From bulk vessel unloading to nationwide dispatch — here's how we keep India's coal, minerals and salt supply moving.
               </p>
-              <Link href="/csr"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-all"
-                    style={{ background:"var(--orange)", color:"white" }}
-                    onMouseEnter={e=>{(e.currentTarget as HTMLAnchorElement).style.boxShadow="0 8px 24px rgba(249,115,22,0.4)";}}
-                    onMouseLeave={e=>{(e.currentTarget as HTMLAnchorElement).style.boxShadow="";}}>
-                View CSR Impact & Schools <ArrowRight size={15}/>
-              </Link>
             </motion.div>
 
             {/* Right — stat grid */}
@@ -247,15 +240,15 @@ export default function ActivitiesPage() {
         </div>
       </section>
 
-      {/* ── Recent Initiatives ───────────────────────────────── */}
+      {/* ── Core Operations ─────────────────────────────────── */}
       <section ref={listRef} className="py-20 px-6" style={{ background:"#f9f9f9" }}>
         <div className="max-w-6xl mx-auto">
 
           <motion.div initial={{ opacity:0, y:20 }} animate={l1?{opacity:1,y:0}:{}} transition={{ duration:0.5 }}
                       className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-10">
             <div>
-              <div className="section-tag">PROGRAMS</div>
-              <h2 className="text-3xl font-black">Recent <span style={{ color:"var(--orange)" }}>Initiatives</span></h2>
+              <div className="section-tag">CAPABILITIES</div>
+              <h2 className="text-3xl font-black">Our Core <span style={{ color:"var(--orange)" }}>Operations</span></h2>
             </div>
             {/* Category filter */}
             <div className="flex flex-wrap gap-2">
@@ -263,9 +256,9 @@ export default function ActivitiesPage() {
                 <button key={c} onClick={()=>setActCat(c)}
                         className="px-3.5 py-1.5 rounded-full text-[11px] font-bold transition-all duration-200"
                         style={{
-                          background: actCat===c ? (CAT_COLORS[c]||"var(--orange)") : "white",
+                          background: actCat===c ? (OPS_CATEGORY_COLORS[c]||"var(--orange)") : "white",
                           color:      actCat===c ? "white" : "rgba(0,0,0,0.55)",
-                          border:     `1px solid ${actCat===c ? (CAT_COLORS[c]||"var(--orange)") : "rgba(0,0,0,0.1)"}`,
+                          border:     `1px solid ${actCat===c ? (OPS_CATEGORY_COLORS[c]||"var(--orange)") : "rgba(0,0,0,0.1)"}`,
                         }}>
                   {c}
                 </button>
@@ -277,7 +270,7 @@ export default function ActivitiesPage() {
           <AnimatePresence mode="popLayout">
             <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {visible.map((a, i) => {
-                const color = CAT_COLORS[a.cat] || "#666";
+                const color = OPS_CATEGORY_COLORS[a.cat] || "#666";
                 return (
                   <motion.div
                     key={a.title}

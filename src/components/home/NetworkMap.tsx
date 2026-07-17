@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
+import { Globe, MapPin } from "lucide-react";
 
 interface Node { x: number; y: number; color: string; label: string; size: number; }
 interface Ripple { x: number; y: number; t: number; }
@@ -174,7 +175,7 @@ export default function NetworkMap() {
   ];
 
   return (
-    <section ref={sectionRef} className="py-24" style={{ background: "#f9f9f9" }}>
+    <section ref={sectionRef} className="pt-12 pb-24" style={{ background: "#f9f9f9" }}>
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           initial={{ opacity:0, y:20 }} animate={inView?{opacity:1,y:0}:{}}
@@ -196,13 +197,14 @@ export default function NetworkMap() {
               <button
                 key={m}
                 onClick={() => setMode(m)}
-                className="px-5 py-2.5 text-xs font-bold transition-all duration-200"
+                className="flex items-center gap-2 px-5 py-2.5 text-xs font-bold transition-all duration-200"
                 style={{
                   background: mode===m ? "var(--orange)" : "transparent",
                   color:      mode===m ? "white" : "rgba(0,0,0,0.55)",
                 }}
               >
-                {m==="global" ? "🌍 Global Network" : "🇮🇳 Pan India Network"}
+                {m==="global" ? <Globe size={14} /> : <MapPin size={14} />}
+                {m==="global" ? "Global Network" : "Pan India Network"}
               </button>
             ))}
           </div>

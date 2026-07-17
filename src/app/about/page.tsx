@@ -1,7 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
-import { BadgeDollarSign, Globe2, FlaskConical, Layers, TimerReset, Handshake } from "lucide-react";
+import { BadgeDollarSign, Globe2, FlaskConical, Layers, TimerReset, Handshake, Target, Telescope } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import ImageCarousel from "@/components/about/ImageCarousel";
 
@@ -227,9 +227,9 @@ export default function AboutPage() {
       <section className="py-20 px-6" style={{ background:"#f9f9f9" }}>
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
           {[
-            { label:"MISSION", title:"Why We Exist", icon:"🎯",
+            { label:"MISSION", title:"Why We Exist", Icon: Target, color:"var(--orange)",
               text:"To supply an energy mix that is competitive, environment-friendly and adds value to customers — and hence become a trusted preferred supplier. Customer satisfaction is our sole motive." },
-            { label:"VISION",  title:"Where We're Going", icon:"🔭",
+            { label:"VISION",  title:"Where We're Going", Icon: Telescope, color:"#3b82f6",
               text:"To earn the consistent trust of our customers by providing quality, quantity and service consistency in every aspect of coal supply — growing day by day as a one-stop coal solution." },
           ].map((item, i) => (
             <motion.div
@@ -241,7 +241,10 @@ export default function AboutPage() {
               className="rounded-2xl p-8"
               style={{ background:"rgba(0,0,0,0.03)", border:"1px solid rgba(0,0,0,0.08)" }}
             >
-              <div className="text-4xl mb-4">{item.icon}</div>
+              <div className="rounded-xl flex items-center justify-center mb-5"
+                   style={{ width:52, height:52, background:`${item.color}12`, border:`1px solid ${item.color}30`, boxShadow:`0 4px 16px ${item.color}15` }}>
+                <item.Icon size={24} style={{ color: item.color }} strokeWidth={1.6}/>
+              </div>
               <div className="section-tag">{item.label}</div>
               <h3 className="text-xl font-black mb-3">{item.title}</h3>
               <p className="text-sm leading-relaxed" style={{ color:"rgba(0,0,0,0.55)" }}>{item.text}</p>

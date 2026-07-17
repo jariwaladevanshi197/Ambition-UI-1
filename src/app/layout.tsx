@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import FooterWrapper from "@/components/FooterWrapper";
-import CustomCursor from "@/components/CustomCursor";
 import SmoothScroll from "@/components/SmoothScroll";
 
 const inter = Inter({
@@ -25,7 +24,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="min-h-full flex flex-col antialiased">
-        <CustomCursor />
         <SmoothScroll>
           <Navbar />
           <main className="flex-1">{children}</main>

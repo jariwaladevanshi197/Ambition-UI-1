@@ -2,9 +2,10 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-import { MapPin, Users, Heart, Globe, CheckCircle, TreePine, BookOpen, HeartPulse, Droplets, GraduationCap, Leaf, X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
+import { Users, Heart, Globe, CheckCircle, TreePine, BookOpen, HeartPulse, Droplets, GraduationCap, Leaf, Trees, Recycle, Palette, Pill, Calendar, TrendingUp } from "lucide-react";
 import { AnimatePresence } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
+import { CSR_CATEGORIES, CSR_CATEGORY_COLORS } from "@/lib/csrCategories";
 
 interface Counter { num:number; suffix:string; label:string; Icon:LucideIcon; color:string; }
 interface Project { type:string; Icon:LucideIcon; color:string; title:string; desc:string; stats:{val:string;label:string}[]; items:string[]; image:string; }
@@ -18,7 +19,7 @@ const counters: Counter[] = [
 
 const projects: Project[] = [
   {
-    type:"Education",          Icon:BookOpen,      color:"#3b82f6",
+    type:"Education",          Icon:BookOpen,      color:CSR_CATEGORY_COLORS["Education"],
     title:"School Adoption Program",
     desc:"Adopted 4 government schools across Jharkhand, Maharashtra, Chhattisgarh and Andhra Pradesh. Provided infrastructure upgrades, libraries, computer labs and mid-day meal support.",
     stats:[{ val:"4",    label:"Schools" },{ val:"1,810", label:"Students" }],
@@ -26,7 +27,7 @@ const projects: Project[] = [
     image:"/images/Gemini_Generated_Image_9jp8wd9jp8wd9jp8.png",
   },
   {
-    type:"Healthcare",         Icon:HeartPulse,    color:"#22c55e",
+    type:"Healthcare",         Icon:HeartPulse,    color:CSR_CATEGORY_COLORS["Healthcare"],
     title:"Community Healthcare Initiative",
     desc:"Monthly free medical camps in tribal and mining-adjacent communities. Over 1,200 patients served per year with doctors from partner hospitals.",
     stats:[{ val:"12",   label:"Camps/Year" },{ val:"1,200+", label:"Patients" }],
@@ -34,7 +35,7 @@ const projects: Project[] = [
     image:"/images/Gemini_Generated_Image_y1eikuy1eikuy1ei.png",
   },
   {
-    type:"Water & Sanitation", Icon:Droplets,      color:"#0ea5e9",
+    type:"Water & Sanitation", Icon:Droplets,      color:CSR_CATEGORY_COLORS["Water & Sanitation"],
     title:"Clean Water Access",
     desc:"Installed bore-wells and water purification units in 6 villages around our operational areas. Over 3,000 villagers now have clean drinking water.",
     stats:[{ val:"12",   label:"Bore-wells" },{ val:"3,000+", label:"Villagers" }],
@@ -42,15 +43,15 @@ const projects: Project[] = [
     image:"/images/port.jpg",
   },
   {
-    type:"Women Empowerment",  Icon:GraduationCap, color:"#ec4899",
+    type:"Women Empowerment",  Icon:GraduationCap, color:CSR_CATEGORY_COLORS["Women Empowerment"],
     title:"Women Skill Development",
-    desc:"Skill development workshops in weaving, tailoring, digital literacy and self-help group formation. 180 women trained and linked to livelihood opportunities.",
+    desc:"Skill development workshops in weaving, tailoring, digital literacy and self-help group formation — including a 120-strong cohort trained in March 2024. 180 women trained to date and linked to livelihood opportunities.",
     stats:[{ val:"180",  label:"Women Trained" },{ val:"8",  label:"SHGs Formed" }],
     items:["Tailoring & weaving workshops","Digital literacy programs","Micro-finance & SHG support","Entrepreneurship mentoring"],
     image:"/images/Gemini_Generated_Image_6wi0526wi0526wi0.png",
   },
   {
-    type:"Environment",        Icon:Leaf,          color:"#16a34a",
+    type:"Environment",        Icon:Leaf,          color:CSR_CATEGORY_COLORS["Environment"],
     title:"Green India Drive",
     desc:"Annual plantation drives, e-waste collection and ESG-aligned operational practices. 50,000+ trees planted since 2015 across 5 states.",
     stats:[{ val:"50K+", label:"Trees Planted" },{ val:"5",  label:"States" }],
@@ -129,188 +130,82 @@ function CounterCard({ num, suffix, label, Icon, color, active }: Counter & { ac
   );
 }
 
-const csrGallery = [
-  { src:"/images/Gemini_Generated_Image_9jp8wd9jp8wd9jp8.png",     label:"Community Outreach",       tag:"Education"         },
-  { src:"/images/Gemini_Generated_Image_680jx7680jx7680j.png",     label:"Mining Site Operations",   tag:"Environment"       },
-  { src:"/images/port.jpg",                                         label:"Port Logistics",           tag:"Water & Sanitation" },
-  { src:"/images/Gemini_Generated_Image_y1eikuy1eikuy1ei.png",     label:"Coal Processing Plant",    tag:"Healthcare"        },
-  { src:"/images/shipping.jpg",                                     label:"Shipping & Export",        tag:"Environment"       },
-  { src:"/images/Gemini_Generated_Image_maelcimaelcimael.png",     label:"Coal Transport",           tag:"Community"         },
-  { src:"/images/Gemini_Generated_Image_urm0uqurm0uqurm0.png",    label:"Coal Yard Operations",     tag:"Education"         },
-  { src:"/images/Gemini_Generated_Image_imewt4imewt4imew.png",     label:"Mineral Processing",       tag:"Women Empowerment" },
+interface Initiative {
+  Icon: LucideIcon;
+  cat: string;
+  title: string;
+  date: string;
+  desc: string;
+  highlight: string;
+  highlightLabel: string;
+}
+
+const initiatives: Initiative[] = [
+  { Icon:Trees,      cat:"Environment",       title:"Annual Plantation Drive",          date:"Jun 2024", desc:"Planted 2,000 saplings across 5 locations in Jharkhand with community volunteers.",          highlight:"2,000", highlightLabel:"Saplings Planted" },
+  { Icon:HeartPulse, cat:"Healthcare",        title:"Free Medical Camp — Dhanbad",      date:"May 2024", desc:"Free health check-ups for 800+ villagers. Doctors from 3 hospitals participated.",           highlight:"800+",  highlightLabel:"Beneficiaries" },
+  { Icon:BookOpen,   cat:"Education",         title:"School Supply Distribution",       date:"Apr 2024", desc:"Distributed stationery kits to 450 students across 3 of our adopted schools.",               highlight:"450",   highlightLabel:"Students" },
+  { Icon:Users,      cat:"Women Empowerment", title:"Women Skill Development Workshop", date:"Mar 2024", desc:"2-day workshop on weaving, tailoring and digital literacy for 120 women — part of 180+ trained across all workshops to date.", highlight:"120",   highlightLabel:"Women Trained" },
+  { Icon:Recycle,    cat:"Environment",       title:"E-Waste Collection Drive",         date:"Feb 2024", desc:"Collected and responsibly disposed of 1.2 tonnes of electronic waste from our offices.",     highlight:"1.2T",  highlightLabel:"E-Waste Disposed" },
+  { Icon:Droplets,   cat:"Water & Sanitation",title:"Village Infrastructure Support",   date:"Jan 2024", desc:"Funded repair of 3 community halls and 2 bore-well installations in rural Chhattisgarh.",   highlight:"5",     highlightLabel:"Villages Helped" },
+  { Icon:Palette,    cat:"Education",         title:"Children Art & Science Festival",  date:"Dec 2023", desc:"Organised inter-school festival for 600 students. Prizes and scholarships awarded.",          highlight:"600",   highlightLabel:"Students" },
+  { Icon:Pill,       cat:"Healthcare",        title:"Medicine Distribution Drive",      date:"Nov 2023", desc:"Distributed essential medicines worth ₹4 lakh to 12 primary health centres.",               highlight:"12",    highlightLabel:"PHCs Served" },
+  { Icon:Leaf,       cat:"Environment",       title:"Sapling Distribution — Diwali",   date:"Oct 2023", desc:"Distributed 5,000 saplings across employees, schools and partner organisations.",            highlight:"5,000", highlightLabel:"Saplings" },
 ];
 
-const TAG_COLORS: Record<string,string> = {
-  Education:"#3b82f6", Healthcare:"#22c55e", "Water & Sanitation":"#0ea5e9",
-  "Women Empowerment":"#ec4899", Environment:"#16a34a", Community:"#8b5cf6",
-};
-
-function CSRGallery() {
-  const ref = useRef<HTMLElement>(null);
-  const inV = useInView(ref, { once:true, margin:"-60px" });
-  const [active, setActive] = useState<number|null>(null);
-
-  const prev = () => setActive(i => i !== null ? (i - 1 + csrGallery.length) % csrGallery.length : null);
-  const next = () => setActive(i => i !== null ? (i + 1) % csrGallery.length : null);
-
-  return (
-    <section ref={ref} className="py-24 px-6" style={{ background:"linear-gradient(135deg,#0f0f0f,#1a1a1a,#111)" }}>
-      <div className="max-w-6xl mx-auto">
-
-        {/* Header */}
-        <motion.div initial={{ opacity:0, y:20 }} animate={inV?{opacity:1,y:0}:{}} transition={{ duration:0.5 }}
-                    className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-4"
-               style={{ background:"rgba(249,115,22,0.12)", border:"1px solid rgba(249,115,22,0.25)", color:"var(--orange)" }}>
-            CSR Gallery
-          </div>
-          <h2 className="text-3xl font-black text-white mb-2">
-            Impact in <span style={{ color:"var(--orange)" }}>Pictures</span>
-          </h2>
-          <p className="text-sm" style={{ color:"rgba(255,255,255,0.4)" }}>
-            A glimpse into our community programs, environmental drives & operational activities
-          </p>
-        </motion.div>
-
-        {/* Bento-style grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[180px]">
-          {csrGallery.map((g, i) => {
-            const color = TAG_COLORS[g.tag] || "#F97316";
-            // Make first and 5th items span 2 rows for bento effect
-            const tall = i === 0 || i === 5;
-            return (
-              <motion.div
-                key={i}
-                initial={{ opacity:0, scale:0.94 }}
-                animate={inV ? { opacity:1, scale:1 } : {}}
-                transition={{ duration:0.4, delay:i*0.06 }}
-                className={`relative group cursor-pointer overflow-hidden rounded-2xl ${tall ? "row-span-2" : ""}`}
-                onClick={() => setActive(i)}
-              >
-                <img src={g.src} alt={g.label}
-                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                     style={{ filter:"brightness(0.75)" }} />
-
-                {/* Hover overlay */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center"
-                     style={{ background:"rgba(0,0,0,0.45)" }}>
-                  <div className="w-12 h-12 rounded-full flex items-center justify-center"
-                       style={{ background:"rgba(255,255,255,0.15)", border:"1px solid rgba(255,255,255,0.3)" }}>
-                    <ZoomIn size={20} className="text-white"/>
-                  </div>
-                </div>
-
-                {/* Bottom info */}
-                <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-1 group-hover:translate-y-0 transition-transform duration-300"
-                     style={{ background:"linear-gradient(to top, rgba(0,0,0,0.8), transparent)" }}>
-                  <div className="text-white text-xs font-bold leading-tight">{g.label}</div>
-                  <div className="text-[10px] font-semibold mt-0.5" style={{ color }}>● {g.tag}</div>
-                </div>
-
-                {/* Top color accent */}
-                <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background:color }}/>
-              </motion.div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Lightbox */}
-      <AnimatePresence>
-        {active !== null && (
-          <motion.div
-            initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center"
-            style={{ background:"rgba(0,0,0,0.93)", backdropFilter:"blur(14px)" }}
-            onClick={() => setActive(null)}
-          >
-            <motion.div
-              initial={{ scale:0.87, y:20 }} animate={{ scale:1, y:0 }} exit={{ scale:0.87 }}
-              transition={{ duration:0.28, ease:"easeOut" }}
-              className="relative max-w-4xl w-full mx-6"
-              onClick={e => e.stopPropagation()}
-            >
-              <img src={csrGallery[active].src} alt={csrGallery[active].label}
-                   className="w-full rounded-2xl object-cover shadow-2xl"
-                   style={{ maxHeight:"80vh" }}/>
-
-              {/* Caption */}
-              <div className="absolute bottom-0 left-0 right-0 p-5 rounded-b-2xl"
-                   style={{ background:"linear-gradient(to top,rgba(0,0,0,0.85),transparent)" }}>
-                <div className="text-white font-bold text-base">{csrGallery[active].label}</div>
-                <div className="text-xs mt-0.5 font-semibold" style={{ color:TAG_COLORS[csrGallery[active].tag]||"var(--orange)" }}>
-                  {csrGallery[active].tag}
-                </div>
-              </div>
-
-              {/* Counter */}
-              <div className="absolute top-4 left-5 px-3 py-1 rounded-full text-xs font-bold"
-                   style={{ background:"rgba(0,0,0,0.5)", color:"rgba(255,255,255,0.6)", backdropFilter:"blur(6px)" }}>
-                {active+1} / {csrGallery.length}
-              </div>
-
-              {/* Close */}
-              <button onClick={() => setActive(null)}
-                      className="absolute -top-4 -right-4 w-9 h-9 rounded-full flex items-center justify-center transition-all"
-                      style={{ background:"rgba(255,255,255,0.1)", border:"1px solid rgba(255,255,255,0.2)" }}
-                      onMouseEnter={e=>(e.currentTarget.style.background="rgba(249,115,22,0.8)")}
-                      onMouseLeave={e=>(e.currentTarget.style.background="rgba(255,255,255,0.1)")}>
-                <X size={16} className="text-white"/>
-              </button>
-
-              {/* Prev / Next */}
-              {[{ Icon:ChevronLeft, fn:prev, side:"left-3" }, { Icon:ChevronRight, fn:next, side:"right-3" }].map(({Icon,fn,side})=>(
-                <button key={side} onClick={fn}
-                        className={`absolute ${side} top-1/2 -translate-y-1/2 w-11 h-11 rounded-full flex items-center justify-center transition-all`}
-                        style={{ background:"rgba(255,255,255,0.08)", border:"1px solid rgba(255,255,255,0.18)" }}
-                        onMouseEnter={e=>(e.currentTarget.style.background="rgba(249,115,22,0.75)")}
-                        onMouseLeave={e=>(e.currentTarget.style.background="rgba(255,255,255,0.08)")}>
-                  <Icon size={22} className="text-white"/>
-                </button>
-              ))}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </section>
-  );
-}
+const ALL_INIT_CATS = ["All", ...CSR_CATEGORIES];
 
 export default function CSRPage() {
   const [activeProject, setActiveProject] = useState(0);
+  const [initCat, setInitCat] = useState("All");
   const counterRef  = useRef<HTMLElement>(null);
   const projectsRef = useRef<HTMLElement>(null);
+  const initRef     = useRef<HTMLElement>(null);
   const c1 = useInView(counterRef,  { once:true, margin:"-60px" });
   const c2 = useInView(projectsRef, { once:true, margin:"-60px" });
+  const c3 = useInView(initRef,     { once:true, margin:"-60px" });
+
+  const visibleInitiatives = initCat==="All" ? initiatives : initiatives.filter(a=>a.cat===initCat);
 
   const proj = projects[activeProject];
 
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-32 pb-20 text-center px-6 overflow-hidden"
-               style={{ background:"linear-gradient(135deg, #ffffff, #f0fff4 50%, #ffffff)" }}>
+      <section className="relative pt-28 pb-16 px-6 overflow-hidden"
+               style={{ background:"linear-gradient(160deg, #ffffff 0%, #fff7f0 55%, #ffffff 100%)" }}>
         <div className="absolute inset-0 pointer-events-none"
-             style={{ background:"radial-gradient(circle 500px at 50% 60%, rgba(34,197,94,0.06), transparent)" }}/>
-        <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.6 }}>
-          <div className="section-tag mb-4" style={{ color:"#22c55e", borderColor:"rgba(34,197,94,0.3)", background:"rgba(34,197,94,0.08)" }}>
-            CSR & IMPACT
+             style={{ background:"radial-gradient(circle 600px at 70% 40%, rgba(249,115,22,0.06), transparent)" }}/>
+
+        <div className="max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+
+            {/* Left — text */}
+            <motion.div initial={{ opacity:0, y:24 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.6 }}>
+              <div className="section-tag mb-4">CSR & IMPACT</div>
+              <h1 className="font-black mb-4 leading-tight" style={{ fontSize:"clamp(32px,5vw,58px)" }}>
+                Creating Impact<br/>
+                <span style={{ color:"var(--orange)" }}>Beyond Business.</span>
+              </h1>
+              <p className="text-base mb-2 leading-relaxed" style={{ color:"rgba(0,0,0,0.55)", maxWidth:480 }}>
+                Our commitment to community, education, environment and healthcare shapes every decision we make.
+              </p>
+            </motion.div>
+
+            {/* Right — stat grid */}
+            <motion.div initial={{ opacity:0, x:32 }} animate={{ opacity:1, x:0 }} transition={{ duration:0.65, delay:0.1 }}
+                        className="grid grid-cols-2 gap-4">
+              {counters.map((c, i) => (
+                <motion.div key={c.label}
+                            initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.5, delay:0.15+i*0.07 }}
+                            className="rounded-2xl p-6"
+                            style={{ background:"rgba(0,0,0,0.025)", border:"1px solid rgba(0,0,0,0.07)" }}>
+                  <div className="text-3xl font-black mb-1" style={{ color:c.color }}>{c.num.toLocaleString()}{c.suffix}</div>
+                  <div className="text-xs font-semibold" style={{ color:"rgba(0,0,0,0.5)" }}>{c.label}</div>
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
-          <h1 className="font-black mb-4" style={{ fontSize:"clamp(30px,5vw,60px)", lineHeight:1.1 }}>
-            Creating Impact<br/>
-            <span style={{ color:"var(--orange)" }}>Beyond Business.</span>
-          </h1>
-          <p className="max-w-xl mx-auto text-base mb-8" style={{ color:"rgba(0,0,0,0.55)" }}>
-            Our commitment to community, education, environment and healthcare shapes every decision we make.
-          </p>
-          <Link href="/activities"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-all"
-                style={{ background:"rgba(249,115,22,0.1)", border:"1px solid rgba(249,115,22,0.3)", color:"var(--orange)" }}
-                onMouseEnter={e=>(e.currentTarget.style.background="rgba(249,115,22,0.2)")}
-                onMouseLeave={e=>(e.currentTarget.style.background="rgba(249,115,22,0.1)")}>
-            See All Activities →
-          </Link>
-        </motion.div>
+        </div>
       </section>
 
       {/* Counters */}
@@ -452,8 +347,94 @@ export default function CSRPage() {
         </div>
       </section>
 
-      {/* CSR Gallery */}
-      <CSRGallery />
+      {/* Recent Initiatives */}
+      <section ref={initRef} className="py-20 px-6" style={{ background:"#f9f9f9" }}>
+        <div className="max-w-6xl mx-auto">
+
+          <motion.div initial={{ opacity:0, y:20 }} animate={c3?{opacity:1,y:0}:{}} transition={{ duration:0.5 }}
+                      className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-10">
+            <div>
+              <div className="section-tag">PROGRAMS</div>
+              <h2 className="text-3xl font-black">Recent <span style={{ color:"var(--orange)" }}>Initiatives</span></h2>
+            </div>
+            {/* Category filter */}
+            <div className="flex flex-wrap gap-2">
+              {ALL_INIT_CATS.map(c=>(
+                <button key={c} onClick={()=>setInitCat(c)}
+                        className="px-3.5 py-1.5 rounded-full text-[11px] font-bold transition-all duration-200"
+                        style={{
+                          background: initCat===c ? (CSR_CATEGORY_COLORS[c]||"var(--orange)") : "white",
+                          color:      initCat===c ? "white" : "rgba(0,0,0,0.55)",
+                          border:     `1px solid ${initCat===c ? (CSR_CATEGORY_COLORS[c]||"var(--orange)") : "rgba(0,0,0,0.1)"}`,
+                        }}>
+                  {c}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Cards — 2-col on md, 3-col on lg */}
+          <AnimatePresence mode="popLayout">
+            <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {visibleInitiatives.map((a, i) => {
+                const color = CSR_CATEGORY_COLORS[a.cat] || "#666";
+                return (
+                  <motion.div
+                    key={a.title}
+                    layout
+                    initial={{ opacity:0, y:28 }}
+                    animate={{ opacity:1, y:0 }}
+                    exit={{ opacity:0, scale:0.95 }}
+                    transition={{ duration:0.38, delay: i*0.05 }}
+                    className="rounded-2xl overflow-hidden flex flex-col"
+                    style={{ background:"#ffffff", border:"1px solid rgba(0,0,0,0.07)", boxShadow:"0 2px 8px rgba(0,0,0,0.04)", transition:"all 0.25s" }}
+                    onMouseEnter={e=>{const el=e.currentTarget as HTMLDivElement;el.style.borderColor=`${color}40`;el.style.boxShadow=`0 12px 32px ${color}18`;el.style.transform="translateY(-3px)";}}
+                    onMouseLeave={e=>{const el=e.currentTarget as HTMLDivElement;el.style.borderColor="rgba(0,0,0,0.07)";el.style.boxShadow="0 2px 8px rgba(0,0,0,0.04)";el.style.transform="";}}
+                  >
+                    {/* Coloured top bar */}
+                    <div className="h-1 w-full" style={{ background:`linear-gradient(90deg, ${color}, ${color}88)` }}/>
+
+                    <div className="p-6 flex flex-col gap-4 flex-1">
+                      {/* Icon + category */}
+                      <div className="flex items-center justify-between">
+                        <div className="w-11 h-11 rounded-xl flex items-center justify-center"
+                             style={{ background:`${color}14` }}>
+                          <a.Icon size={22} style={{ color }} strokeWidth={1.75}/>
+                        </div>
+                        <span className="px-2.5 py-1 rounded-full text-[10px] font-bold"
+                              style={{ background:`${color}12`, color }}>
+                          {a.cat}
+                        </span>
+                      </div>
+
+                      {/* Title + date */}
+                      <div>
+                        <h3 className="font-bold text-sm text-gray-900 mb-1 leading-snug">{a.title}</h3>
+                        <div className="flex items-center gap-1 text-[10px]" style={{ color:"rgba(0,0,0,0.38)" }}>
+                          <Calendar size={10}/>
+                          {a.date}
+                        </div>
+                      </div>
+
+                      {/* Description */}
+                      <p className="text-xs leading-relaxed flex-1" style={{ color:"rgba(0,0,0,0.55)" }}>{a.desc}</p>
+
+                      {/* Highlight metric */}
+                      <div className="flex items-center gap-3 pt-3" style={{ borderTop:`1px solid ${color}18` }}>
+                        <TrendingUp size={13} style={{ color }} />
+                        <div>
+                          <span className="text-base font-black" style={{ color }}>{a.highlight}</span>
+                          <span className="text-[10px] ml-1.5 font-semibold" style={{ color:"rgba(0,0,0,0.4)" }}>{a.highlightLabel}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </section>
 
       {/* CTA strip */}
       <section className="py-16 px-6 text-center" style={{ background:"#f9f9f9" }}>

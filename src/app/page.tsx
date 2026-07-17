@@ -4,7 +4,6 @@ import NetworkMap         from "@/components/home/NetworkMap";
 import ServicesSection    from "@/components/home/ServicesSection";
 import SustainSection     from "@/components/home/SustainSection";
 import CSRPreview         from "@/components/home/CSRPreview";
-import AssociatesSection  from "@/components/home/AssociatesSection";
 
 export default function HomePage() {
   return (
@@ -13,7 +12,6 @@ export default function HomePage() {
       <StatsSection />
       <NetworkMap />
       <ServicesSection />
-      <AssociatesSection />
       <SustainSection />
       <CSRPreview />
     </>
