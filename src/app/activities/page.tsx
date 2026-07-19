@@ -1,11 +1,12 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import {
   Ship, Layers, ArrowRightLeft, Globe2, FlaskConical, Boxes, Truck, Train, Pickaxe,
   Calendar, TrendingUp, X, ChevronLeft, ChevronRight
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 
 interface Activity {
   Icon: LucideIcon;

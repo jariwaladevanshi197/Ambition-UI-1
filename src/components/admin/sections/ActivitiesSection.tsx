@@ -4,13 +4,13 @@ import { Plus, Edit3, Trash2, Eye, EyeOff, Star } from "lucide-react";
 import Modal from "../Modal";
 import { Field, Input, Textarea, Select, Toggle, SaveBtn, DeleteBtn } from "../AdminField";
 import type { Activity } from "../types";
+import { ACTIVITY_ICONS, findIcon, IconChip } from "../iconRegistry";
 
-const EMOJIS = ["🌳","🏥","📚","👩","♻️","🤝","⚡","🎨","🏫","💊","🌱","🎒"];
 const CATEGORIES = ["Education","Healthcare","Environment","Community","Infrastructure","Women Empowerment"];
 
 const blank = (): Activity => ({
   id: Date.now().toString(), title:"", description:"", category:"Education",
-  date: new Date().toISOString().split("T")[0], featured:false, published:true, emoji:"📚",
+  date: new Date().toISOString().split("T")[0], featured:false, published:true, emoji:ACTIVITY_ICONS[0].key,
 });
 
 interface Props {
@@ -100,7 +100,7 @@ export default function ActivitiesSection({ activities, add, update, remove }: P
                onMouseEnter={e=>(e.currentTarget.style.background="rgba(0,0,0,0.02)")}
                onMouseLeave={e=>(e.currentTarget.style.background="")}>
             <div className="flex items-center gap-2.5 pr-4">
-              <span className="text-lg">{a.emoji}</span>
+              <IconChip option={findIcon(ACTIVITY_ICONS, a.emoji)} size={16} box={32}/>
               <div>
                 <div className="text-sm font-semibold text-gray-900 flex items-center gap-1.5">
                   {a.title}
@@ -112,7 +112,7 @@ export default function ActivitiesSection({ activities, add, update, remove }: P
             <span className="px-2.5 py-1 rounded-full text-[10px] font-bold w-fit"
                   style={{ background:"rgba(249,115,22,0.1)", color:"var(--orange)" }}>{a.category}</span>
             <span className="text-xs" style={{ color:"rgba(0,0,0,0.5)" }}>{a.date}</span>
-            <button onClick={()=>update({...a,published:!a.published})} className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[10px] font-bold transition-colors"
+            <button onClick={()=>{ if(a.published && !confirm("Take this activity offline? It will no longer be visible on the site.")) return; update({...a,published:!a.published}); }} className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[10px] font-bold transition-colors"
                     style={{ background:a.published?"rgba(34,197,94,0.1)":"rgba(0,0,0,0.05)", color:a.published?"#22c55e":"rgba(0,0,0,0.4)" }}>
               {a.published ? <Eye size={10}/> : <EyeOff size={10}/>} {a.published?"Live":"Draft"}
             </button>
@@ -138,14 +138,14 @@ export default function ActivitiesSection({ activities, add, update, remove }: P
       {modal && (
         <Modal title={modal==="add"?"Add New Activity":"Edit Activity"} onClose={()=>setModal(null)}>
           <form onSubmit={submit} className="flex flex-col gap-4">
-            {/* Emoji picker */}
+            {/* Icon picker — matches the live Activities page's card icons */}
             <Field label="ICON">
               <div className="flex flex-wrap gap-2">
-                {EMOJIS.map(e=>(
-                  <button type="button" key={e} onClick={()=>f("emoji",e)}
-                          className="w-9 h-9 rounded-lg text-lg transition-all"
-                          style={{ background:form.emoji===e?"rgba(249,115,22,0.15)":"rgba(0,0,0,0.04)", border:`1px solid ${form.emoji===e?"var(--orange)":"transparent"}` }}>
-                    {e}
+                {ACTIVITY_ICONS.map(opt=>(
+                  <button type="button" key={opt.key} title={opt.label} onClick={()=>f("emoji",opt.key)}
+                          className="rounded-xl transition-all"
+                          style={{ border:`2px solid ${form.emoji===opt.key?opt.color:"transparent"}` }}>
+                    <IconChip option={opt} size={18} box={36}/>
                   </button>
                 ))}
               </div>

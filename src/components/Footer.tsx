@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Mail, Phone, MapPin, Settings } from "lucide-react";
 import AmbitionLogo from "./AmbitionLogo";
+import { createClient } from "@/lib/supabase/server";
 
 const cols = [
   {
@@ -32,7 +33,28 @@ const cols = [
   },
 ];
 
-export default function Footer() {
+// Fallbacks match today's hardcoded copy exactly, so nothing changes
+// visually until these are edited in the admin panel's Settings section.
+const FALLBACK = {
+  address: "Ambition House, BKC, Mumbai 400051",
+  phone: "+91 22 XXXX XXXX",
+  email: "info@ambitioncoal.co.in",
+  linkedin: "", twitter: "", youtube: "",
+};
+
+export default async function Footer() {
+  const supabase = await createClient();
+  const { data: settings } = await supabase.from("settings").select("*").limit(1).maybeSingle();
+
+  const address  = settings?.address  || FALLBACK.address;
+  const phone    = settings?.phone    || FALLBACK.phone;
+  const email    = settings?.email    || FALLBACK.email;
+  const socials = [
+    { icon: "in", label: "LinkedIn", href: settings?.linkedin || FALLBACK.linkedin },
+    { icon: "𝕏",  label: "Twitter",  href: settings?.twitter  || FALLBACK.twitter  },
+    { icon: "▶",  label: "YouTube",  href: settings?.youtube  || FALLBACK.youtube  },
+  ];
+
   return (
     <footer style={{ background: "#f5f5f5", borderTop: "1px solid rgba(249,115,22,0.3)" }}>
       {/* Main grid */}
@@ -59,9 +81,9 @@ export default function Footer() {
             {/* Contact snippets */}
             <div className="flex flex-col gap-3">
               {[
-                { Icon: MapPin,  text: "Ambition House, BKC, Mumbai 400051" },
-                { Icon: Phone,   text: "+91 22 XXXX XXXX"                    },
-                { Icon: Mail,    text: "info@ambitioncoal.co.in"             },
+                { Icon: MapPin, text: address },
+                { Icon: Phone,  text: phone   },
+                { Icon: Mail,   text: email   },
               ].map(({ Icon, text }) => (
                 <div key={text} className="flex items-start gap-2 text-xs" style={{ color: "rgba(0,0,0,0.5)" }}>
                   <Icon size={13} className="mt-0.5 shrink-0" style={{ color: "var(--orange)" }} />
@@ -102,35 +124,26 @@ export default function Footer() {
             © {new Date().getFullYear()} Ambition Coal Pvt. Ltd. All Rights Reserved.
           </p>
           <div className="flex items-center gap-3">
-            {["in", "𝕏", "▶"].map((icon, i) => (
-              <button
-                key={i}
-                aria-label={["LinkedIn","Twitter","YouTube"][i]}
-                className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold transition-all duration-200"
+            {socials.map(({ icon, label, href }) => (
+              <a
+                key={label}
+                href={href || "#"}
+                target={href ? "_blank" : undefined}
+                rel={href ? "noopener noreferrer" : undefined}
+                aria-label={label}
+                className="social-icon-btn w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold transition-all duration-200"
                 style={{
                   background: "rgba(0,0,0,0.05)",
                   border: "1px solid rgba(0,0,0,0.1)",
                   color: "rgba(0,0,0,0.5)",
                 }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.background = "var(--orange)";
-                  (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--orange)";
-                  (e.currentTarget as HTMLButtonElement).style.color = "white";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.background = "rgba(0,0,0,0.05)";
-                  (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(0,0,0,0.1)";
-                  (e.currentTarget as HTMLButtonElement).style.color = "rgba(0,0,0,0.5)";
-                }}
               >
                 {icon}
-              </button>
+              </a>
             ))}
             <Link href="/admin"
                   className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-md transition-all duration-200"
-                  style={{ background:"rgba(0,0,0,0.06)", border:"1px solid rgba(0,0,0,0.1)", color:"rgba(0,0,0,0.45)" }}
-                  onMouseEnter={e=>{e.currentTarget.style.background="var(--orange)";e.currentTarget.style.color="white";e.currentTarget.style.borderColor="var(--orange)";}}
-                  onMouseLeave={e=>{e.currentTarget.style.background="rgba(0,0,0,0.06)";e.currentTarget.style.color="rgba(0,0,0,0.45)";e.currentTarget.style.borderColor="rgba(0,0,0,0.1)";}}>
+                  style={{ background:"rgba(0,0,0,0.06)", border:"1px solid rgba(0,0,0,0.1)", color:"rgba(0,0,0,0.45)" }}>
               <Settings size={11}/> Admin
             </Link>
           </div>

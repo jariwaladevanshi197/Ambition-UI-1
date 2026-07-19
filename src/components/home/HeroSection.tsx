@@ -249,12 +249,16 @@ export default function HeroSection() {
             {/* bottom gradient for readability */}
             <div className="absolute bottom-0 left-0 right-0 h-1/3" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55), transparent)" }} />
 
-            {/* Badge on image */}
-            <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between">
+            {/* Badge on image — top */}
+            <div className="absolute top-5 left-5 right-5 flex items-center justify-between">
               <div className="px-3 py-1.5 rounded-full text-xs font-bold text-white backdrop-blur-sm"
                    style={{ background: "rgba(249,115,22,0.85)" }}>
                 🏭 Pan India Operations
               </div>
+            </div>
+
+            {/* Badge on image — bottom */}
+            <div className="absolute bottom-5 left-5 right-5 flex items-center justify-end">
               <div className="px-3 py-1.5 rounded-full text-xs font-bold text-white backdrop-blur-sm"
                    style={{ background: "rgba(0,0,0,0.5)" }}>
                 Est. 2003

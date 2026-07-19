@@ -21,21 +21,24 @@ export interface School {
   emoji: string;
 }
 
+export type ProductCategory = "Coal" | "Minerals" | "Salt";
+
 export interface Product {
   id: string;
   name: string;
+  category: ProductCategory;
   type: string;
-  gcv: string;
-  ash: string;
-  moisture: string;
+  specs: string[];
   applications: string;
   featured: boolean;
+  comingSoon: boolean;
 }
 
 export interface Message {
   id: string;
   name: string;
   email: string;
+  phone: string;
   type: string;
   message: string;
   date: string;
@@ -52,13 +55,45 @@ export interface PageContent {
   lastEdited: string;
 }
 
+export type SectionType = "hero" | "stats" | "cards" | "text" | "cta" | "image-text" | "gallery";
+
+export interface StatItem  { value: string; label: string; }
+export interface CardItem  { title: string; desc: string; icon?: string; image?: string; }
+export interface GalleryItem { src: string; label: string; }
+
+export interface PageSection {
+  id: string;
+  type: SectionType;
+  label: string;
+  visible: boolean;
+  // hero / image-text
+  headline?: string;
+  subtext?: string;
+  ctaText?: string;
+  ctaLink?: string;
+  image?: string;
+  // stats
+  stats?: StatItem[];
+  // cards
+  cards?: CardItem[];
+  // text
+  heading?: string;
+  body?: string;
+  // cta
+  ctaHeading?: string;
+  ctaBody?: string;
+  ctaBtn?: string;
+  // gallery
+  gallery?: GalleryItem[];
+}
+
 export interface MediaFile {
   id: string;
   name: string;
   type: "image" | "video";
   folder: string;
   size: string;
-  emoji: string;
+  url: string;
   date: string;
 }
 

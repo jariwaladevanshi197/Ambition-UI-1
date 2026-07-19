@@ -1,32 +1,49 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Lock, Eye, EyeOff, ShieldCheck, Shield } from "lucide-react";
 import { Field, SaveBtn } from "../AdminField";
-
-const ADMIN_PWD_KEY = "ac_admin_pwd";
-const DEFAULT_PWD = "admin123";
+import { createClient } from "@/lib/supabase/client";
 
 export default function SecuritySection() {
+  const supabase = createClient();
+  const [email,      setEmail]      = useState("");
   const [current,    setCurrent]    = useState("");
   const [newPwd,     setNewPwd]     = useState("");
   const [confirm,    setConfirm]    = useState("");
   const [showPwd,    setShowPwd]    = useState(false);
   const [error,      setError]      = useState("");
+  const [saving,     setSaving]     = useState(false);
   const [toast,      setToast]      = useState("");
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => setEmail(data.user?.email ?? ""));
+  }, [supabase]);
 
   const showToast = (msg:string) => { setToast(msg); setTimeout(()=>setToast(""),3000); };
 
-  const storedPwd = () => {
-    try { return localStorage.getItem(ADMIN_PWD_KEY) || DEFAULT_PWD; } catch { return DEFAULT_PWD; }
-  };
-
-  const submit = (e:React.FormEvent) => {
+  const submit = async (e:React.FormEvent) => {
     e.preventDefault();
     setError("");
-    if(current !== storedPwd()) { setError("Current password is incorrect."); return; }
-    if(newPwd.length < 6)       { setError("New password must be at least 6 characters."); return; }
-    if(newPwd !== confirm)       { setError("Passwords don't match."); return; }
-    try { localStorage.setItem(ADMIN_PWD_KEY, newPwd); } catch { /**/ }
+    if (newPwd.length < 6)  { setError("New password must be at least 6 characters."); return; }
+    if (newPwd !== confirm) { setError("Passwords don't match."); return; }
+
+    setSaving(true);
+
+    // Re-verify the current password before allowing a change.
+    const { error: verifyErr } = await supabase.auth.signInWithPassword({ email, password: current });
+    if (verifyErr) {
+      setSaving(false);
+      setError("Current password is incorrect.");
+      return;
+    }
+
+    const { error: updateErr } = await supabase.auth.updateUser({ password: newPwd });
+    setSaving(false);
+    if (updateErr) {
+      setError(updateErr.message);
+      return;
+    }
+
     setCurrent(""); setNewPwd(""); setConfirm("");
     showToast("Password changed successfully!");
   };
@@ -56,7 +73,7 @@ export default function SecuritySection() {
         <div>
           <div className="text-xs font-bold" style={{ color:"var(--orange)" }}>Admin Access</div>
           <p className="text-[11px] mt-0.5 leading-relaxed" style={{ color:"rgba(0,0,0,0.5)" }}>
-            This controls login access to the CMS. Use a strong password and keep it private.
+            Signed in as <span className="font-bold">{email || "…"}</span>. Use a strong password and keep it private.
           </p>
         </div>
       </div>
@@ -113,16 +130,8 @@ export default function SecuritySection() {
               </div>
             )}
 
-            <SaveBtn label="Change Password"/>
+            <SaveBtn loading={saving} label="Change Password"/>
           </form>
-        </div>
-
-        <div className="mt-4 p-4 rounded-2xl" style={{ background:"rgba(249,115,22,0.06)", border:"1px solid rgba(249,115,22,0.12)" }}>
-          <div className="text-[10px] font-bold mb-1" style={{ color:"var(--orange)" }}>DEFAULT CREDENTIALS</div>
-          <p className="text-[11px] leading-relaxed" style={{ color:"rgba(0,0,0,0.5)" }}>
-            Default password is <code className="font-mono font-bold" style={{ color:"var(--orange)" }}>admin123</code>.
-            Change it after your first login for security.
-          </p>
         </div>
       </div>
     </div>

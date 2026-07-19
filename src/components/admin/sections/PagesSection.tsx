@@ -5,9 +5,10 @@ import {
   Image as ImageIcon, Type, BarChart2, Grid, Megaphone, Layout, X, Check
 } from "lucide-react";
 import { Field, Input, Textarea, Toggle, SaveBtn } from "../AdminField";
-import type { PageContent } from "../types";
+import type { PageContent, PageSection, SectionType, MediaFile } from "../types";
+import { PAGE_ICONS as PAGE_ICON_MAP, CARD_ICONS, findIcon, IconChip } from "../iconRegistry";
 
-// ── Available images in /public/images ──────────────────────────
+// ── Built-in site images (always available, in /public/images) ──
 const AVAILABLE_IMAGES = [
   { src:"/images/Gemini_Generated_Image_680jx7680jx7680j.png", label:"Coal Sector Collage" },
   { src:"/images/Gemini_Generated_Image_6wi0526wi0526wi0.png", label:"Steam Coal Indonesia" },
@@ -22,39 +23,6 @@ const AVAILABLE_IMAGES = [
   { src:"/images/shipping.jpg", label:"Shipping" },
   { src:"/images/mining.jpg",   label:"Mining Site" },
 ];
-
-// ── Section types ───────────────────────────────────────────────
-type SectionType = "hero" | "stats" | "cards" | "text" | "cta" | "image-text" | "gallery";
-
-interface StatItem  { value: string; label: string; }
-interface CardItem  { title: string; desc: string; icon?: string; }
-interface GalleryItem { src: string; label: string; }
-
-interface PageSection {
-  id: string;
-  type: SectionType;
-  label: string;
-  visible: boolean;
-  // hero
-  headline?: string;
-  subtext?: string;
-  ctaText?: string;
-  ctaLink?: string;
-  image?: string;
-  // stats
-  stats?: StatItem[];
-  // cards
-  cards?: CardItem[];
-  // text
-  heading?: string;
-  body?: string;
-  // cta
-  ctaHeading?: string;
-  ctaBody?: string;
-  ctaBtn?: string;
-  // gallery
-  gallery?: GalleryItem[];
-}
 
 const SECTION_ICONS: Record<SectionType, React.ReactNode> = {
   hero:       <Layout size={14}/>,
@@ -71,59 +39,13 @@ const SECTION_COLORS: Record<SectionType, string> = {
   text: "#22c55e", cta: "#ec4899", "image-text": "#0ea5e9", gallery: "#D97706",
 };
 
-// Default sections per page slug
-const DEFAULT_SECTIONS: Record<string, PageSection[]> = {
-  "/": [
-    { id:"h1", type:"hero",       label:"Hero Banner",       visible:true, headline:"Powering Industries. Connecting the World.", subtext:"Building sustainable energy and logistics solutions across India and global markets.", ctaText:"Explore Solutions", ctaLink:"/services", image:"/images/Gemini_Generated_Image_680jx7680jx7680j.png" },
-    { id:"s1", type:"stats",      label:"Key Stats",          visible:true, stats:[{value:"20+",label:"Years"},{value:"1M+",label:"Tons Delivered"},{value:"50+",label:"Cities"}] },
-    { id:"c1", type:"cards",      label:"Services Preview",   visible:true, cards:[{title:"Coal Trading",desc:"End-to-end coal sourcing"},{title:"Port Ops",desc:"Bulk cargo handling"},{title:"Logistics",desc:"Doorstep delivery"}] },
-    { id:"t1", type:"text",       label:"About Section",      visible:true, heading:"Trusted Since 2003", body:"Ambition Coal Pvt. Ltd. — pioneers in imported coal supply across India." },
-    { id:"a1", type:"cta",        label:"CTA Banner",         visible:true, ctaHeading:"Ready to Partner?", ctaBody:"Get in touch with our team.", ctaBtn:"Contact Us" },
-  ],
-  "/about": [
-    { id:"h2", type:"hero",       label:"Hero Carousel",      visible:true, headline:"Pioneers in Imported Coal.", subtext:"Promoted by Mr. Jayesh Mahesh Agrawal & Yashika Jayesh Agrawal.", image:"/images/Gemini_Generated_Image_680jx7680jx7680j.png" },
-    { id:"t2", type:"text",       label:"Our Story",          visible:true, heading:"Our Story", body:"Ambition Coal was established in 2003 in Mumbai with a vision to transform India's coal supply chain." },
-    { id:"s2", type:"stats",      label:"Milestones Strip",   visible:true, stats:[{value:"2003",label:"Founded"},{value:"1M+",label:"Tons/Year"},{value:"50+",label:"Cities"}] },
-    { id:"i1", type:"image-text", label:"Leadership",         visible:true, heading:"Our Leadership", body:"Directed by Jayesh & Yashika Agrawal with 20+ years of industry expertise.", image:"/images/Gemini_Generated_Image_9jp8wd9jp8wd9jp8.png" },
-    { id:"c2", type:"cards",      label:"Why Choose Us",      visible:true, cards:[{title:"Competitive Pricing",desc:"Best rates guaranteed"},{title:"Global Sourcing",desc:"6+ countries"},{title:"Quality Assured",desc:"ISO certified"}] },
-  ],
-  "/services": [
-    { id:"h3", type:"hero",       label:"Services Hero",      visible:true, headline:"Quality Coal. Reliable Supply.", subtext:"From mine to doorstep — end-to-end coal solutions.", image:"/images/Gemini_Generated_Image_680jx7680jx7680j.png" },
-    { id:"c3", type:"cards",      label:"Coal Products",      visible:true, cards:[{title:"Steam Coal — Indonesia",desc:"5500–6500 kcal/kg"},{title:"Steam Coal — South Africa",desc:"5800–6200 kcal/kg"},{title:"Coking Coal",desc:"6000–7500 kcal/kg"}] },
-    { id:"c4", type:"cards",      label:"Service Types",      visible:true, cards:[{title:"Coal Trading",desc:"End-to-end sourcing"},{title:"Port Operations",desc:"15+ ports"},{title:"Road Transport",desc:"50+ cities"}] },
-    { id:"s3", type:"stats",      label:"Salt Products",      visible:true, stats:[{value:"Industrial",label:"Grade Salt"},{value:"Edible",label:"Food Grade"}] },
-    { id:"a2", type:"cta",        label:"Request Quote CTA",  visible:true, ctaHeading:"Request a Quote", ctaBody:"Get pricing for your coal requirements.", ctaBtn:"Get Quote" },
-  ],
-  "/activities": [
-    { id:"h4", type:"hero",       label:"Activities Hero",    visible:true, headline:"Our Activities", subtext:"From plantation drives to medical camps — every initiative counts.", image:"/images/Gemini_Generated_Image_9jp8wd9jp8wd9jp8.png" },
-    { id:"s4", type:"stats",      label:"Impact Stats",       visible:true, stats:[{value:"9+",label:"2024 Initiatives"},{value:"5K+",label:"Beneficiaries"},{value:"5",label:"States"}] },
-    { id:"c5", type:"cards",      label:"Recent Initiatives", visible:true, cards:[{title:"Plantation Drive",desc:"2,000 saplings — Jun 2024"},{title:"Medical Camp",desc:"800+ villagers — May 2024"},{title:"School Supplies",desc:"450 students — Apr 2024"}] },
-    { id:"g1", type:"gallery",    label:"Photo Gallery",      visible:true, gallery:[{src:"/images/Gemini_Generated_Image_680jx7680jx7680j.png",label:"Operations"},{src:"/images/port.jpg",label:"Port"}] },
-  ],
-  "/contact": [
-    { id:"h5", type:"hero",       label:"Contact Hero",       visible:true, headline:"Get In Touch", subtext:"Reach out to our team for coal enquiries, partnerships or general questions." },
-    { id:"t3", type:"text",       label:"Office Info",        visible:true, heading:"Our Office", body:"Ambition House, BKC, Mumbai 400051\n+91 22 XXXX XXXX\ninfo@ambitioncoal.co.in" },
-    { id:"a3", type:"cta",        label:"Quick Contact CTA",  visible:true, ctaHeading:"Ready to talk?", ctaBody:"Fill the form or call us directly.", ctaBtn:"Send Message" },
-  ],
-};
-
-const STORAGE_KEY = "ac_page_sections";
-
-function loadSections(): Record<string, PageSection[]> {
-  if (typeof window === "undefined") return DEFAULT_SECTIONS;
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch { return {}; }
-}
-function saveSections(data: Record<string, PageSection[]>) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-}
-function getSections(slug: string): PageSection[] {
-  const stored = loadSections();
-  return stored[slug] ?? DEFAULT_SECTIONS[slug] ?? [];
-}
-
 // ── Image Picker Modal ──────────────────────────────────────────
-function ImagePicker({ current, onSelect, onClose }: { current?: string; onSelect:(src:string)=>void; onClose:()=>void }) {
+function ImagePicker({ current, media, onSelect, onClose }: { current?: string; media: MediaFile[]; onSelect:(src:string)=>void; onClose:()=>void }) {
   const [custom, setCustom] = useState("");
+  const images = [
+    ...media.filter(m=>m.type==="image" && m.url).map(m=>({ src:m.url, label:m.name })),
+    ...AVAILABLE_IMAGES,
+  ];
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center" style={{ background:"rgba(0,0,0,0.6)", backdropFilter:"blur(6px)" }}>
       <div className="bg-white rounded-2xl p-6 max-w-2xl w-full mx-4 max-h-[80vh] flex flex-col gap-4">
@@ -142,9 +64,9 @@ function ImagePicker({ current, onSelect, onClose }: { current?: string; onSelec
           </button>
         </div>
 
-        {/* Grid of available images */}
+        {/* Grid: uploaded media first, then built-in site images */}
         <div className="overflow-y-auto grid grid-cols-3 gap-3">
-          {AVAILABLE_IMAGES.map(img=>(
+          {images.map(img=>(
             <button key={img.src} onClick={()=>{ onSelect(img.src); onClose(); }}
                     className="relative rounded-xl overflow-hidden group"
                     style={{ aspectRatio:"4/3", border: current===img.src ? "3px solid var(--orange)" : "2px solid transparent" }}>
@@ -167,25 +89,36 @@ function ImagePicker({ current, onSelect, onClose }: { current?: string; onSelec
 }
 
 // ── Section Editor ──────────────────────────────────────────────
-function SectionEditor({ section, onChange }: { section: PageSection; onChange:(s:PageSection)=>void }) {
+type PickerTarget = { kind:"image" } | { kind:"gallery"; index:number } | { kind:"card"; index:number };
+
+function SectionEditor({ section, media, onChange }: { section: PageSection; media: MediaFile[]; onChange:(s:PageSection)=>void }) {
   const [imgPicker, setImgPicker] = useState(false);
-  const [imgPickerTarget, setImgPickerTarget] = useState<"image"|number>("image");
+  const [imgPickerTarget, setImgPickerTarget] = useState<PickerTarget>({ kind:"image" });
+  const [iconPickerCard, setIconPickerCard] = useState<number|null>(null);
   const f = (k: keyof PageSection, v: unknown) => onChange({...section, [k]: v});
 
-  const openImagePicker = (target: "image" | number) => { setImgPickerTarget(target); setImgPicker(true); };
+  const openImagePicker = (target: PickerTarget) => { setImgPickerTarget(target); setImgPicker(true); };
+
+  const pickerCurrent =
+    imgPickerTarget.kind === "gallery" ? section.gallery?.[imgPickerTarget.index]?.src :
+    imgPickerTarget.kind === "card"    ? section.cards?.[imgPickerTarget.index]?.image :
+    section.image;
 
   return (
     <div className="flex flex-col gap-3 pt-3">
       {imgPicker && (
         <ImagePicker
-          current={typeof imgPickerTarget === "number"
-            ? section.gallery?.[imgPickerTarget]?.src
-            : section.image}
+          current={pickerCurrent}
+          media={media}
           onSelect={src => {
-            if (typeof imgPickerTarget === "number") {
+            if (imgPickerTarget.kind === "gallery") {
               const g = [...(section.gallery||[])];
-              g[imgPickerTarget] = {...g[imgPickerTarget], src};
+              g[imgPickerTarget.index] = {...g[imgPickerTarget.index], src};
               f("gallery", g);
+            } else if (imgPickerTarget.kind === "card") {
+              const cc = [...(section.cards||[])];
+              cc[imgPickerTarget.index] = {...cc[imgPickerTarget.index], image:src};
+              f("cards", cc);
             } else {
               f("image", src);
             }
@@ -203,7 +136,7 @@ function SectionEditor({ section, onChange }: { section: PageSection; onChange:(
         <Field label="BACKGROUND IMAGE">
           <div className="flex gap-2 items-center">
             {section.image && <img src={section.image} alt="" className="w-16 h-10 object-cover rounded-lg"/>}
-            <button type="button" onClick={()=>openImagePicker("image")}
+            <button type="button" onClick={()=>openImagePicker({ kind:"image" })}
                     className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold"
                     style={{ background:"rgba(249,115,22,0.1)", color:"var(--orange)", border:"1px solid rgba(249,115,22,0.25)" }}>
               <ImageIcon size={12}/> {section.image ? "Change Image" : "Select Image"}
@@ -246,6 +179,45 @@ function SectionEditor({ section, onChange }: { section: PageSection; onChange:(
                    placeholder="Card title" className="px-3 py-2 rounded-lg text-sm" style={{ background:"white", border:"1px solid rgba(0,0,0,0.12)" }}/>
             <textarea value={c.desc} onChange={e=>{ const cc=[...(section.cards||[])]; cc[i]={...cc[i],desc:e.target.value}; f("cards",cc); }}
                       placeholder="Card description" rows={2} className="px-3 py-2 rounded-lg text-sm resize-none" style={{ background:"white", border:"1px solid rgba(0,0,0,0.12)" }}/>
+            <div className="flex gap-2 items-center flex-wrap">
+              {c.image && <img src={c.image} alt="" className="w-14 h-10 object-cover rounded-lg"/>}
+              <button type="button" onClick={()=>openImagePicker({ kind:"card", index:i })}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold"
+                      style={{ background:"rgba(249,115,22,0.1)", color:"var(--orange)", border:"1px solid rgba(249,115,22,0.25)" }}>
+                <ImageIcon size={11}/> {c.image ? "Change Image" : "Add Image"}
+              </button>
+              {c.image && (
+                <button type="button" onClick={()=>{ const cc=[...(section.cards||[])]; cc[i]={...cc[i],image:undefined}; f("cards",cc); }}
+                        className="p-1.5 rounded-lg" style={{ background:"rgba(239,68,68,0.1)", color:"#ef4444" }}>
+                  <Trash2 size={11}/>
+                </button>
+              )}
+
+              {c.icon && <IconChip option={findIcon(CARD_ICONS, c.icon)} size={16} box={32}/>}
+              <button type="button" onClick={()=>setIconPickerCard(p=>p===i?null:i)}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold"
+                      style={{ background:"rgba(99,102,241,0.1)", color:"#6366f1", border:"1px solid rgba(99,102,241,0.25)" }}>
+                {c.icon ? "Change Icon" : "Add Icon"}
+              </button>
+              {c.icon && (
+                <button type="button" onClick={()=>{ const cc=[...(section.cards||[])]; cc[i]={...cc[i],icon:undefined}; f("cards",cc); }}
+                        className="p-1.5 rounded-lg" style={{ background:"rgba(239,68,68,0.1)", color:"#ef4444" }}>
+                  <Trash2 size={11}/>
+                </button>
+              )}
+            </div>
+
+            {iconPickerCard === i && (
+              <div className="flex flex-wrap gap-1.5 p-2 rounded-lg" style={{ background:"rgba(99,102,241,0.05)" }}>
+                {CARD_ICONS.map(opt=>(
+                  <button type="button" key={opt.key} title={opt.label}
+                          onClick={()=>{ const cc=[...(section.cards||[])]; cc[i]={...cc[i],icon:opt.key}; f("cards",cc); setIconPickerCard(null); }}
+                          className="rounded-lg" style={{ border:`2px solid ${c.icon===opt.key?opt.color:"transparent"}` }}>
+                    <IconChip option={opt} size={14} box={28}/>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         ))}
         <button type="button" onClick={()=>f("cards",[...(section.cards||[]),{title:"",desc:""}])}
@@ -268,7 +240,7 @@ function SectionEditor({ section, onChange }: { section: PageSection; onChange:(
         <Field label="IMAGE">
           <div className="flex gap-2 items-center">
             {section.image && <img src={section.image} alt="" className="w-16 h-10 object-cover rounded-lg"/>}
-            <button type="button" onClick={()=>openImagePicker("image")}
+            <button type="button" onClick={()=>openImagePicker({ kind:"image" })}
                     className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold"
                     style={{ background:"rgba(249,115,22,0.1)", color:"var(--orange)", border:"1px solid rgba(249,115,22,0.25)" }}>
               <ImageIcon size={12}/> {section.image ? "Change" : "Select Image"}
@@ -295,12 +267,12 @@ function SectionEditor({ section, onChange }: { section: PageSection; onChange:(
                    style={{ background:"rgba(0,0,0,0.55)" }}>
                 <button type="button" onClick={()=>{ const gg=(section.gallery||[]).filter((_,j)=>j!==i); f("gallery",gg); }}
                         className="self-end p-1 rounded-lg" style={{ background:"rgba(239,68,68,0.8)" }}><Trash2 size={10} className="text-white"/></button>
-                <button type="button" onClick={()=>openImagePicker(i)}
+                <button type="button" onClick={()=>openImagePicker({ kind:"gallery", index:i })}
                         className="text-[10px] font-bold text-white px-2 py-1 rounded-lg" style={{ background:"rgba(249,115,22,0.85)" }}>Change</button>
               </div>
             </div>
           ))}
-          <button type="button" onClick={()=>openImagePicker(section.gallery?.length||0)}
+          <button type="button" onClick={()=>openImagePicker({ kind:"gallery", index:section.gallery?.length||0 })}
                   className="rounded-xl flex flex-col items-center justify-center gap-1 border-2 border-dashed transition-colors"
                   style={{ aspectRatio:"4/3", borderColor:"rgba(249,115,22,0.3)", color:"var(--orange)" }}
                   onMouseEnter={e=>(e.currentTarget.style.background="rgba(249,115,22,0.06)")}
@@ -364,13 +336,14 @@ function AddSectionPanel({ onAdd, onClose }: { onAdd:(type:SectionType)=>void; o
 // ── Props ───────────────────────────────────────────────────────
 interface Props {
   pages: PageContent[];
+  sectionsBySlug: Record<string, PageSection[]>;
+  media: MediaFile[];
   update: (p: PageContent) => void;
+  saveSections: (slug: string, sections: PageSection[]) => Promise<void>;
 }
 
 // ── Main Component ──────────────────────────────────────────────
-export default function PagesSection({ pages, update }: Props) {
-  const PAGE_ICONS: Record<string, string> = { "/":"🏠", "/about":"🏭", "/services":"⚙️", "/activities":"🤝", "/contact":"📬" };
-
+export default function PagesSection({ pages, sectionsBySlug, media, update, saveSections }: Props) {
   const [activePage, setActivePage] = useState<PageContent | null>(null);
   const [sections,   setSections]   = useState<PageSection[]>([]);
   const [expanded,   setExpanded]   = useState<string | null>(null);
@@ -379,9 +352,11 @@ export default function PagesSection({ pages, update }: Props) {
 
   const showToast = (msg: string) => { setToast(msg); setTimeout(() => setToast(""), 2500); };
 
+  const [saving, setSaving] = useState(false);
+
   const openEditor = (p: PageContent) => {
     setActivePage({...p});
-    setSections(getSections(p.slug));
+    setSections(sectionsBySlug[p.slug] ?? []);
     setExpanded(null);
   };
 
@@ -420,12 +395,12 @@ export default function PagesSection({ pages, update }: Props) {
     setExpanded(newSection.id);
   };
 
-  const saveAll = () => {
+  const saveAll = async () => {
     if (!activePage) return;
-    const stored = loadSections();
-    stored[activePage.slug] = sections;
-    saveSections(stored);
-    update({...activePage, lastEdited: new Date().toISOString().split("T")[0]});
+    setSaving(true);
+    await saveSections(activePage.slug, sections);
+    update(activePage);
+    setSaving(false);
     showToast("Page saved!");
   };
 
@@ -448,15 +423,12 @@ export default function PagesSection({ pages, update }: Props) {
                onMouseLeave={e=>(e.currentTarget.style.background="#ffffff")}>
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3 flex-1 min-w-0">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg shrink-0"
-                     style={{ background:"rgba(249,115,22,0.1)" }}>
-                  {PAGE_ICONS[p.slug] || "📄"}
-                </div>
+                <IconChip option={PAGE_ICON_MAP[p.slug] ?? PAGE_ICON_MAP["/"]} size={18} box={40}/>
                 <div className="min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">
                     <span className="font-bold text-gray-900 text-sm">{p.title}</span>
                     <code className="text-[9px] px-1.5 py-0.5 rounded font-mono" style={{ background:"rgba(0,0,0,0.05)", color:"rgba(0,0,0,0.5)" }}>{p.slug}</code>
-                    <button onClick={() => update({...p, published:!p.published})}
+                    <button onClick={() => { if (p.published && !confirm(`Take "${p.title}" offline? Visitors will no longer be able to view this page.`)) return; update({...p, published:!p.published}); }}
                             className="flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-bold"
                             style={{ background:p.published?"rgba(34,197,94,0.12)":"rgba(0,0,0,0.05)", color:p.published?"#22c55e":"rgba(0,0,0,0.4)" }}>
                       {p.published ? <Eye size={8}/> : <EyeOff size={8}/>} {p.published ? "Live" : "Draft"}
@@ -468,7 +440,7 @@ export default function PagesSection({ pages, update }: Props) {
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 <span className="text-[10px] font-bold px-2 py-1 rounded-lg" style={{ background:"rgba(0,0,0,0.05)", color:"rgba(0,0,0,0.4)" }}>
-                  {(DEFAULT_SECTIONS[p.slug]||[]).length} sections
+                  {(sectionsBySlug[p.slug]||[]).length} sections
                 </span>
                 <button onClick={() => openEditor(p)}
                         className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold"
@@ -503,9 +475,12 @@ export default function PagesSection({ pages, update }: Props) {
                   style={{ background:"rgba(0,0,0,0.06)", color:"rgba(0,0,0,0.55)" }}>
             ← Pages
           </button>
-          <div>
-            <h1 className="text-lg font-black text-gray-900">{PAGE_ICONS[activePage.slug]} {activePage.title}</h1>
-            <p className="text-[11px]" style={{ color:"rgba(0,0,0,0.4)" }}>{sections.length} sections · {activePage.slug}</p>
+          <div className="flex items-center gap-2.5">
+            <IconChip option={PAGE_ICON_MAP[activePage.slug] ?? PAGE_ICON_MAP["/"]} size={16} box={32}/>
+            <div>
+              <h1 className="text-lg font-black text-gray-900">{activePage.title}</h1>
+              <p className="text-[11px]" style={{ color:"rgba(0,0,0,0.4)" }}>{sections.length} sections · {activePage.slug}</p>
+            </div>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -515,10 +490,10 @@ export default function PagesSection({ pages, update }: Props) {
                   style={{ background:"rgba(249,115,22,0.1)", color }}>
             <Plus size={13}/> Add Section
           </button>
-          <button onClick={saveAll}
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white"
+          <button onClick={saveAll} disabled={saving}
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white disabled:opacity-60"
                   style={{ background:"var(--orange)" }}>
-            <Check size={13}/> Save Page
+            <Check size={13}/> {saving ? "Saving…" : "Save Page"}
           </button>
         </div>
       </div>
@@ -568,7 +543,7 @@ export default function PagesSection({ pages, update }: Props) {
               {/* Section fields */}
               {isExp && (
                 <div className="px-5 pb-5" style={{ borderTop:`1px solid ${col}20` }}>
-                  <SectionEditor section={sec} onChange={updateSection}/>
+                  <SectionEditor section={sec} media={media} onChange={updateSection}/>
                 </div>
               )}
             </div>

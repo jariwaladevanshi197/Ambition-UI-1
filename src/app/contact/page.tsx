@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Send } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 
 const locations = [
   { label:"Mumbai — HQ",     color:"#F97316", px:0.32, py:0.54 },
@@ -160,11 +161,25 @@ function ContactMap() {
 }
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name:"", email:"", type:"Coal Trading Inquiry", message:"" });
+  const [form, setForm] = useState({ name:"", email:"", phone:"", type:"Coal Trading Inquiry", message:"" });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
-  const handle = (e: React.FormEvent) => {
+  const handle = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSending(true);
+    setError("");
+    const supabase = createClient();
+    const { error: insertErr } = await supabase.from("messages").insert({
+      name: form.name, email: form.email, phone: form.phone, type: form.type, message: form.message,
+    });
+    setSending(false);
+    if (insertErr) {
+      setError("Something went wrong sending your message. Please try again or email us directly.");
+      return;
+    }
+    setForm({ name:"", email:"", phone:"", type:"Coal Trading Inquiry", message:"" });
     setSent(true);
     setTimeout(() => setSent(false), 3000);
   };
@@ -206,15 +221,16 @@ export default function ContactPage() {
               ) : (
                 <form onSubmit={handle} className="flex flex-col gap-4">
                   {[
-                    { label:"FULL NAME",      id:"name",  type:"text",  placeholder:"Your Name"         },
-                    { label:"EMAIL ADDRESS",  id:"email", type:"email", placeholder:"you@company.com"   },
+                    { label:"FULL NAME",      id:"name",  type:"text",  placeholder:"Your Name",       required:true  },
+                    { label:"EMAIL ADDRESS",  id:"email", type:"email", placeholder:"you@company.com",  required:true  },
+                    { label:"PHONE NUMBER",   id:"phone", type:"tel",   placeholder:"+91 XXXXX XXXXX",  required:false },
                   ].map((f) => (
                     <div key={f.id}>
                       <label className="block text-[10px] font-bold mb-1.5 tracking-wider"
                              style={{ color:"var(--text-secondary)" }}>{f.label}</label>
                       <input
-                        type={f.type} placeholder={f.placeholder} required
-                        value={form[f.id as "name"|"email"]}
+                        type={f.type} placeholder={f.placeholder} required={f.required}
+                        value={form[f.id as "name"|"email"|"phone"]}
                         onChange={(e) => setForm({...form, [f.id]: e.target.value})}
                         className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all duration-200"
                         style={{
@@ -267,13 +283,18 @@ export default function ContactPage() {
                       }}
                     />
                   </div>
-                  <button type="submit"
-                    className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold transition-all duration-200"
+                  {error && (
+                    <div className="px-3 py-2.5 rounded-xl text-xs font-bold" style={{ background:"rgba(239,68,68,0.08)", color:"#ef4444", border:"1px solid rgba(239,68,68,0.15)" }}>
+                      {error}
+                    </div>
+                  )}
+                  <button type="submit" disabled={sending}
+                    className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold transition-all duration-200 disabled:opacity-60"
                     style={{ background:"var(--orange)", color:"white" }}
                     onMouseEnter={(e) => { (e.currentTarget).style.boxShadow="0 10px 30px rgba(249,115,22,0.35)"; }}
                     onMouseLeave={(e) => { (e.currentTarget).style.boxShadow=""; }}
                   >
-                    Send Inquiry <Send size={14} />
+                    {sending ? "Sending…" : "Send Inquiry"} <Send size={14} />
                   </button>
                 </form>
               )}

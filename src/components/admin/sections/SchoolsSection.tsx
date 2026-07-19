@@ -4,17 +4,12 @@ import { Plus, Edit3, Trash2, MapPin, Users } from "lucide-react";
 import Modal from "../Modal";
 import { Field, Input, Textarea, Select, SaveBtn } from "../AdminField";
 import type { School } from "../types";
+import { SCHOOL_ICONS_BY_TYPE, IconChip } from "../iconRegistry";
 
 const PROJECT_TYPES = [
   "School","Healthcare","Community Centre","Water & Sanitation",
   "Women Empowerment","Environment","Infrastructure","Sports & Culture","Other",
 ];
-
-const PROJECT_EMOJIS: Record<string, string> = {
-  "School":"🏫","Healthcare":"🏥","Community Centre":"🤝",
-  "Water & Sanitation":"💧","Women Empowerment":"👩",
-  "Environment":"🌳","Infrastructure":"🏗️","Sports & Culture":"🎨","Other":"📌",
-};
 
 const STATES = [
   "Jharkhand","Maharashtra","Chhattisgarh","Andhra Pradesh","Odisha",
@@ -35,7 +30,7 @@ const BENEFICIARY_LABELS: Record<string, string> = {
 
 const blank = (): School => ({
   id: Date.now().toString(), name:"", projectType:"School", location:"",
-  state:"", beneficiaries:0, description:"", status:"Active", emoji:"🏫",
+  state:"", beneficiaries:0, description:"", status:"Active", emoji:SCHOOL_ICONS_BY_TYPE["School"].key,
 });
 
 interface Props {
@@ -56,7 +51,7 @@ export default function SchoolsSection({ schools, add, update, remove }: Props) 
   const f = (k:keyof School, v:unknown) => {
     setForm(p=>{
       const next = {...p,[k]:v} as School;
-      if(k==="projectType") next.emoji = PROJECT_EMOJIS[v as string] ?? "📌";
+      if(k==="projectType") next.emoji = SCHOOL_ICONS_BY_TYPE[v as string]?.key ?? "bookmark";
       return next;
     });
   };
@@ -112,7 +107,7 @@ export default function SchoolsSection({ schools, add, update, remove }: Props) 
             <button key={t} onClick={()=>setTypeFilter(typeFilter===t?"All":t)}
                     className="p-3.5 rounded-2xl text-left transition-all"
                     style={{ background:typeFilter===t?"rgba(249,115,22,0.1)":"#ffffff", border:`1px solid ${typeFilter===t?"rgba(249,115,22,0.3)":"rgba(0,0,0,0.08)"}` }}>
-              <div className="text-2xl mb-2">{PROJECT_EMOJIS[t]}</div>
+              <div className="mb-2"><IconChip option={SCHOOL_ICONS_BY_TYPE[t]} size={18} box={36}/></div>
               <div className="text-sm font-black" style={{ color:typeFilter===t?"var(--orange)":"#111111" }}>{count}</div>
               <div className="text-[10px] font-bold mt-0.5" style={{ color:typeFilter===t?"var(--orange)":"rgba(0,0,0,0.5)" }}>{t}</div>
               <div className="text-[9px] mt-0.5" style={{ color:"rgba(0,0,0,0.35)" }}>{bene.toLocaleString()} beneficiaries</div>
@@ -148,10 +143,7 @@ export default function SchoolsSection({ schools, add, update, remove }: Props) 
                onMouseLeave={e=>(e.currentTarget.style.background="#ffffff")}>
             <div className="flex items-start justify-between gap-4">
               <div className="flex items-start gap-3 flex-1 min-w-0">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0"
-                     style={{ background:"rgba(249,115,22,0.1)" }}>
-                  {s.emoji || PROJECT_EMOJIS[s.projectType] || "📌"}
-                </div>
+                <IconChip option={SCHOOL_ICONS_BY_TYPE[s.projectType] ?? SCHOOL_ICONS_BY_TYPE["Other"]} size={20} box={40}/>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center flex-wrap gap-2 mb-1">
                     <span className="font-bold text-gray-900 text-sm">{s.name}</span>
@@ -202,13 +194,16 @@ export default function SchoolsSection({ schools, add, update, remove }: Props) 
             {/* Type picker */}
             <Field label="PROJECT TYPE">
               <div className="grid gap-2" style={{ gridTemplateColumns:"repeat(3,1fr)" }}>
-                {PROJECT_TYPES.map(t=>(
-                  <button type="button" key={t} onClick={()=>f("projectType",t)}
-                          className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-xs font-bold transition-all"
-                          style={{ background:form.projectType===t?"rgba(249,115,22,0.12)":"rgba(0,0,0,0.04)", border:`1px solid ${form.projectType===t?"var(--orange)":"transparent"}`, color:form.projectType===t?"var(--orange)":"rgba(0,0,0,0.55)" }}>
-                    <span>{PROJECT_EMOJIS[t]}</span> {t}
-                  </button>
-                ))}
+                {PROJECT_TYPES.map(t=>{
+                  const opt = SCHOOL_ICONS_BY_TYPE[t];
+                  return (
+                    <button type="button" key={t} onClick={()=>f("projectType",t)}
+                            className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-xs font-bold transition-all"
+                            style={{ background:form.projectType===t?"rgba(249,115,22,0.12)":"rgba(0,0,0,0.04)", border:`1px solid ${form.projectType===t?"var(--orange)":"transparent"}`, color:form.projectType===t?"var(--orange)":"rgba(0,0,0,0.55)" }}>
+                      <opt.Icon size={13} style={{ color:opt.color }}/> {t}
+                    </button>
+                  );
+                })}
               </div>
             </Field>
 
@@ -230,7 +225,7 @@ export default function SchoolsSection({ schools, add, update, remove }: Props) 
 
             <div className="grid grid-cols-2 gap-3">
               <Field label={`${(BENEFICIARY_LABELS[form.projectType]||"BENEFICIARIES").toUpperCase()}`}>
-                <Input type="number" value={form.beneficiaries} onChange={e=>f("beneficiaries",Number(e.target.value))} min={0} placeholder="0"/>
+                <Input type="number" value={form.beneficiaries} onChange={e=>f("beneficiaries",Math.max(0, Number(e.target.value)||0))} min={0} placeholder="0"/>
               </Field>
               <Field label="STATUS">
                 <Select value={form.status} onChange={e=>f("status",e.target.value as "Active"|"Inactive")}>
