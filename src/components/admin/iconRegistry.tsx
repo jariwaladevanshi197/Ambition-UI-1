@@ -4,6 +4,7 @@ import {
   Home, Factory, Cog, Handshake, Mail, Gem, Flame,
   HardHat, Palette, Bookmark,
   BadgeDollarSign, TimerReset, Target, Telescope, Star, CheckCircle2, TrendingUp, Award, Shield,
+  Trees, Users, Recycle, Pill, Zap,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -20,6 +21,22 @@ export const ACTIVITY_ICONS: IconOption[] = [
   { key:"truck",          label:"Road Dispatch",                Icon:Truck,          color:"#22c55e" },
   { key:"train",          label:"Rail Dispatch",                Icon:Train,          color:"#22c55e" },
   { key:"pickaxe",        label:"Minerals Sourcing",            Icon:Pickaxe,        color:"#64748b" },
+];
+
+// Icons for the Activities screen, whose entries are the CSR page's
+// "Recent Initiatives" cards.
+export const INITIATIVE_ICONS: IconOption[] = [
+  { key:"trees",          label:"Plantation",          Icon:Trees,         color:"#16a34a" },
+  { key:"heart-pulse",    label:"Healthcare",          Icon:HeartPulse,    color:"#22c55e" },
+  { key:"book-open",      label:"Education",           Icon:BookOpen,      color:"#3b82f6" },
+  { key:"users",          label:"Community / Women",   Icon:Users,         color:"#ec4899" },
+  { key:"recycle",        label:"Recycling",           Icon:Recycle,       color:"#16a34a" },
+  { key:"droplets",       label:"Water & Sanitation",  Icon:Droplets,      color:"#0ea5e9" },
+  { key:"palette",        label:"Arts & Culture",      Icon:Palette,       color:"#F97316" },
+  { key:"pill",           label:"Medicine",            Icon:Pill,          color:"#22c55e" },
+  { key:"leaf",           label:"Environment",         Icon:Leaf,          color:"#16a34a" },
+  { key:"graduation-cap", label:"Skills Training",     Icon:GraduationCap, color:"#ec4899" },
+  { key:"hard-hat",       label:"Infrastructure",      Icon:HardHat,       color:"#D97706" },
 ];
 
 // Matches the 5 CSR pillars on the live CSR page (CSR_CATEGORY_COLORS), plus
@@ -78,6 +95,9 @@ export const CARD_ICONS: IconOption[] = [
   { key:"trending-up",    label:"Growth",          Icon:TrendingUp,     color:"#22c55e" },
   { key:"award",          label:"Achievement",     Icon:Award,          color:"#D97706" },
   { key:"shield",         label:"Trust/Security",  Icon:Shield,         color:"#3b82f6" },
+  { key:"zap",            label:"Energy",          Icon:Zap,            color:"#F97316" },
+  { key:"recycle",        label:"Recycling",       Icon:Recycle,        color:"#16a34a" },
+  { key:"users",          label:"People",          Icon:Users,          color:"#a855f7" },
 ];
 
 export const PAGE_ICONS: Record<string, IconOption> = {

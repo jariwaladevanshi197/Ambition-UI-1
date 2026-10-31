@@ -17,9 +17,17 @@ export default function AdminLoginPage() {
     setLoading(true);
     setErr("");
     const { error } = await supabase.auth.signInWithPassword({ email, password: pwd });
-    setLoading(false);
     if (error) {
+      setLoading(false);
       setErr("Incorrect email or password.");
+      setPwd("");
+      return;
+    }
+    const { data: isAdmin } = await supabase.rpc("is_admin");
+    setLoading(false);
+    if (!isAdmin) {
+      await supabase.auth.signOut();
+      setErr("This account doesn't have admin access.");
       setPwd("");
       return;
     }

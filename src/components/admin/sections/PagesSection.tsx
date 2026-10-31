@@ -89,6 +89,19 @@ function ImagePicker({ current, media, onSelect, onClose }: { current?: string; 
 }
 
 // ── Section Editor ──────────────────────────────────────────────
+// Sections whose items on the live site come from another admin screen, or
+// that the page shows as part of a neighbouring section.
+const SECTION_NOTES: Record<string, string> = {
+  "Coal Products": "The product cards come from the Products screen (Coal). Edit the heading and intro here.",
+  "Minerals (sourced from Zimbabwe, Kenya, Mozambique)": "The product cards come from the Products screen (Minerals). Edit the heading and intro here.",
+  "Salt Products": "The product cards come from the Products screen (Salt). Edit the heading and intro here.",
+  "Recent Initiatives": "The initiative cards come from the Activities screen. Edit the heading here.",
+  "Hero Carousel (5 rotating slides)": "The carousel slides are fixed artwork. This section only controls whether and where the carousel shows.",
+  "Trust Stats": "Shown as the strip at the bottom of Why Choose Us.",
+  "Hero Stats": "Shown beside the Activities hero headline.",
+  "Impact at a Glance": "Also shown beside the CSR hero headline.",
+};
+
 type PickerTarget = { kind:"image" } | { kind:"gallery"; index:number } | { kind:"card"; index:number };
 
 function SectionEditor({ section, media, onChange }: { section: PageSection; media: MediaFile[]; onChange:(s:PageSection)=>void }) {
@@ -106,6 +119,16 @@ function SectionEditor({ section, media, onChange }: { section: PageSection; med
 
   return (
     <div className="flex flex-col gap-3 pt-3">
+      {SECTION_NOTES[section.label] && (
+        <p className="text-[11px] leading-relaxed px-3 py-2 rounded-lg" style={{ background:"rgba(249,115,22,0.06)", color:"rgba(0,0,0,0.6)" }}>
+          {SECTION_NOTES[section.label]}
+        </p>
+      )}
+      {(section.type === "hero" || section.type === "text") && (
+        <p className="text-[10px]" style={{ color:"rgba(0,0,0,0.4)" }}>
+          Tip: wrap words in *asterisks* to show them in orange, e.g. &quot;What We *Do*&quot;. A two-line headline shows its last line in orange.
+        </p>
+      )}
       {imgPicker && (
         <ImagePicker
           current={pickerCurrent}

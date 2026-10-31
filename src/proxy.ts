@@ -23,7 +23,16 @@ export async function proxy(request: NextRequest) {
     }
   );
 
-  const { data: { user } } = await supabase.auth.getUser();
+  const { data: { user: authUser } } = await supabase.auth.getUser();
+
+  // A signed-in account that isn't on the admins allowlist is treated as
+  // signed out. RLS enforces this on the data anyway; this just keeps
+  // non-admins off the admin UI.
+  let user = authUser;
+  if (user) {
+    const { data: isAdmin } = await supabase.rpc("is_admin");
+    if (!isAdmin) user = null;
+  }
 
   const isLoginPage = request.nextUrl.pathname === "/admin/login";
 

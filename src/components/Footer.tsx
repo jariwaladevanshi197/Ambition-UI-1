@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { Mail, Phone, MapPin, Settings } from "lucide-react";
 import AmbitionLogo from "./AmbitionLogo";
-import { createClient } from "@/lib/supabase/server";
+import { cacheTag } from "next/cache";
+import { CMS_TAG, getSettings } from "@/lib/cms/server";
+import { DEFAULT_SETTINGS } from "@/content/settings";
 
 const cols = [
   {
@@ -33,18 +35,16 @@ const cols = [
   },
 ];
 
-// Fallbacks match today's hardcoded copy exactly, so nothing changes
-// visually until these are edited in the admin panel's Settings section.
-const FALLBACK = {
-  address: "Ambition House, BKC, Mumbai 400051",
-  phone: "+91 22 XXXX XXXX",
-  email: "info@ambitioncoal.co.in",
-  linkedin: "", twitter: "", youtube: "",
-};
+// Contact details come from the admin panel's Settings section; blank fields
+// fall back to DEFAULT_SETTINGS.
+const FALLBACK = DEFAULT_SETTINGS;
 
 export default async function Footer() {
-  const supabase = await createClient();
-  const { data: settings } = await supabase.from("settings").select("*").limit(1).maybeSingle();
+  // Cached (with the copyright year) and expired with the rest of the CMS
+  // content whenever the admin saves.
+  "use cache";
+  cacheTag(CMS_TAG);
+  const settings = await getSettings();
 
   const address  = settings?.address  || FALLBACK.address;
   const phone    = settings?.phone    || FALLBACK.phone;

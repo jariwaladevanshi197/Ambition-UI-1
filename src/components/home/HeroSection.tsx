@@ -3,6 +3,8 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, ChevronDown, Flame, Globe, Truck } from "lucide-react";
+import type { PageSection } from "@/components/admin/types";
+import { Highlight, plainText } from "@/components/cms/Highlight";
 
 interface Particle {
   x: number; y: number;
@@ -10,7 +12,7 @@ interface Particle {
   size: number; alpha: number; color: string;
 }
 
-export default function HeroSection() {
+export default function HeroSection({ section }: { section: PageSection }) {
   const canvasRef  = useRef<HTMLCanvasElement>(null);
   const spotRef    = useRef<HTMLDivElement>(null);
   const heroRef    = useRef<HTMLElement>(null);
@@ -147,9 +149,7 @@ export default function HeroSection() {
             className="font-black leading-[1.05] mb-6"
             style={{ fontSize: "clamp(36px, 5vw, 68px)", letterSpacing: "-2px" }}
           >
-            Powering Industries.
-            <br />
-            <span style={{ color: "var(--orange)" }}>Connecting the World.</span>
+            <Highlight text={section.headline ?? ""} />
           </motion.h1>
 
           <motion.p
@@ -159,8 +159,7 @@ export default function HeroSection() {
             className="text-lg mb-10 leading-relaxed max-w-xl"
             style={{ color: "rgba(0,0,0,0.55)" }}
           >
-            Building sustainable energy and logistics solutions across India and global markets.
-            Trusted by industries, driven by purpose.
+            {section.subtext}
           </motion.p>
 
           <motion.div
@@ -169,8 +168,8 @@ export default function HeroSection() {
             transition={{ duration: 0.6, delay: 0.45 }}
             className="flex flex-wrap gap-4 mb-12"
           >
-            <Link
-              href="/services"
+            {section.ctaText && <Link
+              href={section.ctaLink || "/services"}
               className="mag-btn group flex items-center gap-2 px-7 py-3.5 rounded-md text-sm font-bold transition-all duration-200"
               style={{ background: "var(--orange)", color: "white" }}
               onMouseEnter={(e) => {
@@ -182,9 +181,9 @@ export default function HeroSection() {
                 (e.currentTarget as HTMLAnchorElement).style.transform  = "";
               }}
             >
-              Explore Solutions
+              {section.ctaText}
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
+            </Link>}
 
             <Link
               href="/about"
@@ -240,8 +239,8 @@ export default function HeroSection() {
           <div className="relative rounded-3xl overflow-hidden shadow-2xl"
                style={{ aspectRatio: "4/3" }}>
             <img
-              src="/images/Gemini_Generated_Image_680jx7680jx7680j.png"
-              alt="Ambition Coal — industrial operations"
+              src={section.image || "/images/Gemini_Generated_Image_680jx7680jx7680j.png"}
+              alt={plainText(section.headline ?? "Ambition Coal — industrial operations")}
               className="w-full h-full object-cover"
             />
             {/* orange tint overlay */}

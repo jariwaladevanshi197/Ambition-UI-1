@@ -16,7 +16,7 @@ const TYPES_BY_CATEGORY: Record<ProductCategory, string[]> = {
 
 const blank = (category: ProductCategory = "Coal"): Product => ({
   id: Date.now().toString(), name:"", category, type: TYPES_BY_CATEGORY[category][0],
-  specs: [], applications:"", featured:false, comingSoon:false,
+  description:"", image:"", specs: [], applications:"", featured:false, comingSoon:false,
 });
 
 interface Props {
@@ -188,7 +188,9 @@ export default function ProductsSection({ products, add, update, remove }: Props
               </div>
             </Field>
 
+            <Field label="DESCRIPTION"><Textarea value={form.description} onChange={e=>f("description",e.target.value)} rows={2} placeholder="One or two sentences shown on the product card"/></Field>
             <Field label="APPLICATIONS"><Textarea value={form.applications} onChange={e=>f("applications",e.target.value)} rows={2} placeholder="Power plants, captive power…"/></Field>
+            <Field label="IMAGE"><Input value={form.image} onChange={e=>f("image",e.target.value)} placeholder="/images/your-image.jpg or a Media file URL"/></Field>
 
             <div className="flex gap-6">
               <Toggle checked={form.featured} onChange={v=>f("featured",v)} label="Featured on Services page"/>

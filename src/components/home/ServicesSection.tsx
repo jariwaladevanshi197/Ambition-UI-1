@@ -3,56 +3,28 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import type { PageSection } from "@/components/admin/types";
 
-const services = [
-  {
-    title: "Coal Trading & Sourcing",
-    desc: "End-to-end procurement of Steam Coal from Indonesia, South Africa and East Africa. Quality assured from mine to mother vessel.",
-    image: "/images/Gemini_Generated_Image_680jx7680jx7680j.png",
-    tag: "Core Business",
-    tagColor: "#F97316",
-  },
-  {
-    title: "Port Operations",
-    desc: "Stevedoring and bulk cargo handling at 15+ major Indian ports — Paradip, Haldia, Vizag and beyond.",
-    image: "/images/port.jpg",
-    tag: "Logistics",
-    tagColor: "#3b82f6",
-  },
-  {
-    title: "International Trading",
-    desc: "Global sourcing partnerships in Australia, Indonesia, South Africa, Kenya and Zimbabwe.",
-    image: "/images/shipping.jpg",
-    tag: "Global",
-    tagColor: "#8b5cf6",
-  },
-  {
-    title: "Road Transportation",
-    desc: "Doorstep delivery network covering 50+ cities. Loading, unloading, packing and dispatch managed end-to-end.",
-    image: "/images/Gemini_Generated_Image_maelcimaelcimael.png",
-    tag: "Supply Chain",
-    tagColor: "#22c55e",
-  },
-  {
-    title: "Minerals Trading",
-    desc: "Manganese ore, Chrome ore and Silica ore sourced from major origins across Indonesia, South Africa and Zimbabwe.",
-    image: "/images/Gemini_Generated_Image_imewt4imewt4imew.png",
-    tag: "Minerals",
-    tagColor: "#D97706",
-  },
-  {
-    title: "Salt — Coming Soon",
-    desc: "Industrial Grade Salt and Edible Salt. A new vertical under Ambition — expanding beyond coal into essential commodities.",
-    image: "/images/Gemini_Generated_Image_kt7gkdkt7gkdkt7gb.png",
-    tag: "New Product",
-    tagColor: "#64748b",
-    comingSoon: true,
-  },
-];
+// Badge on each card, matched by card title. Cards added in the admin get no
+// badge; a title containing "Coming Soon" gets the coming-soon treatment.
+const badges: Record<string, { tag: string; tagColor: string }> = {
+  "Coal Trading & Sourcing": { tag: "Core Business", tagColor: "#F97316" },
+  "Port Operations":         { tag: "Logistics",     tagColor: "#3b82f6" },
+  "International Trading":   { tag: "Global",        tagColor: "#8b5cf6" },
+  "Road Transportation":     { tag: "Supply Chain",  tagColor: "#22c55e" },
+  "Minerals Trading":        { tag: "Minerals",      tagColor: "#D97706" },
+  "Salt — Coming Soon":      { tag: "New Product",   tagColor: "#64748b" },
+};
 
-export default function ServicesSection() {
+export default function ServicesSection({ section }: { section: PageSection }) {
   const ref    = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const services = (section.cards ?? []).map(c => ({
+    ...c,
+    tag: badges[c.title]?.tag,
+    tagColor: badges[c.title]?.tagColor ?? "#F97316",
+    comingSoon: /coming soon/i.test(c.title),
+  }));
 
   return (
     <section ref={ref} className="py-24" style={{ background: "#f5f5f5" }}>
@@ -82,7 +54,7 @@ export default function ServicesSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((s, i) => (
             <motion.div
-              key={s.title}
+              key={`${s.title}-${i}`}
               initial={{ opacity:0, y:30 }} animate={inView?{opacity:1,y:0}:{}}
               transition={{ duration:0.5, delay: i*0.08 }}
               className="rounded-xl overflow-hidden bg-white group"
@@ -104,17 +76,17 @@ export default function ServicesSection() {
             >
               {/* Image */}
               <div className="relative overflow-hidden" style={{ height: 180 }}>
-                <img
+                {s.image && <img
                   src={s.image}
                   alt={s.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   style={{ filter: s.comingSoon ? "grayscale(0.4) brightness(0.85)" : "brightness(0.88)" }}
-                />
+                />}
                 {/* Tag */}
-                <div className="absolute top-3 left-3 px-2.5 py-1 rounded text-[10px] font-bold text-white"
+                {s.tag && <div className="absolute top-3 left-3 px-2.5 py-1 rounded text-[10px] font-bold text-white"
                      style={{ background: s.tagColor, letterSpacing:"0.05em" }}>
                   {s.tag}
-                </div>
+                </div>}
                 {s.comingSoon && (
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="px-4 py-1.5 rounded-full text-xs font-black text-white"

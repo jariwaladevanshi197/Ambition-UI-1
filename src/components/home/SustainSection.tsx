@@ -1,21 +1,20 @@
 "use client";
 import { useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
-import { Pickaxe, Droplets, Handshake, Zap, GraduationCap, Recycle } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import type { PageSection } from "@/components/admin/types";
+import { cardIcon, type CardDesign } from "@/components/cms/icons";
 
-interface Card { Icon: LucideIcon; title: string; text: string; color: string; }
+// The designed icon colour for each pillar, matched by card title.
+const designs: Record<string, CardDesign> = {
+  "Responsible Mining":       { icon:"pickaxe",        color:"#D97706" },
+  "Environmental Commitment": { icon:"droplets",       color:"#3b82f6" },
+  "Community Development":    { icon:"handshake",      color:"#22c55e" },
+  "Future Energy":            { icon:"zap",            color:"#F97316" },
+  "Women Empowerment":        { icon:"graduation-cap", color:"#a855f7" },
+  "Circular Economy":         { icon:"recycle",        color:"#16a34a" },
+};
 
-const cards: Card[] = [
-  { Icon:Pickaxe,      title:"Responsible Mining",       color:"#D97706", text:"Adopting best practices to minimise environmental impact across all extraction operations worldwide." },
-  { Icon:Droplets,     title:"Environmental Commitment", color:"#3b82f6", text:"Zero-waste initiatives, reforestation programs, and clean water conservation partnerships." },
-  { Icon:Handshake,    title:"Community Development",    color:"#22c55e", text:"Empowering local communities through education, healthcare, and economic inclusion programs." },
-  { Icon:Zap,          title:"Future Energy",            color:"#F97316", text:"Investing in cleaner coal technologies and transitioning toward renewable energy solutions." },
-  { Icon:GraduationCap,title:"Women Empowerment",        color:"#a855f7", text:"Skill development and leadership programs for women in mining communities across India." },
-  { Icon:Recycle,      title:"Circular Economy",         color:"#16a34a", text:"Recovering and reusing mine by-products to reduce waste across the supply chain." },
-];
-
-export default function SustainSection() {
+export default function SustainSection({ section }: { section: PageSection }) {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef   = useRef<HTMLDivElement>(null);
   const inView     = useInView(sectionRef, { once: true, margin:"-80px" });
@@ -112,9 +111,11 @@ export default function SustainSection() {
           className="flex gap-5 select-none"
           style={{ width:"max-content", paddingLeft:48, paddingRight:48 }}
         >
-          {cards.map((c, i) => (
+          {(section.cards ?? []).map((c, i) => {
+            const icon = cardIcon(c.icon, designs[c.title]);
+            return (
             <motion.div
-              key={c.title}
+              key={`${c.title}-${i}`}
               initial={{ opacity:0, y:30 }}
               animate={inView ? { opacity:1, y:0 } : {}}
               transition={{ duration:0.5, delay: i * 0.08 }}
@@ -136,14 +137,17 @@ export default function SustainSection() {
                 el.style.boxShadow   = "";
               }}
             >
-              <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
-                   style={{ background:`${c.color}14` }}>
-                <c.Icon size={20} style={{ color: c.color }} strokeWidth={1.75} />
-              </div>
+              {icon && (
+                <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
+                     style={{ background:`${icon.color}14` }}>
+                  <icon.Icon size={20} style={{ color: icon.color }} strokeWidth={1.75} />
+                </div>
+              )}
               <h3 className="font-bold text-sm mb-3 text-gray-900">{c.title}</h3>
-              <p className="text-xs leading-relaxed" style={{ color:"rgba(0,0,0,0.5)" }}>{c.text}</p>
+              <p className="text-xs leading-relaxed" style={{ color:"rgba(0,0,0,0.5)" }}>{c.desc}</p>
             </motion.div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

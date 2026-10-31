@@ -1,13 +1,16 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import type { PageSection } from "@/components/admin/types";
+import { parseStat } from "@/lib/cms/format";
 
-const stats = [
-  { num: 20,  suffix: "+", label: "Years Experience",  desc: "Since 2003"           },
-  { num: 15,  suffix: "+", label: "Ports Operated",    desc: "Across India"         },
-  { num: 50,  suffix: "+", label: "Cities Served",     desc: "Pan India network"    },
-  { num: 1,   suffix: "M+",label: "Tons Delivered",    desc: "Annually & growing"   },
-];
+// Caption under each stat, matched by the stat's label.
+const captions: Record<string, string> = {
+  "Years Experience": "Since 2003",
+  "Ports Operated":   "Across India",
+  "Cities Served":    "Pan India network",
+  "Tons Delivered":   "Annually & growing",
+};
 
 function CountUp({ target, suffix, active }: { target: number; suffix: string; active: boolean }) {
   const [val, setVal] = useState(0);
@@ -26,7 +29,7 @@ function CountUp({ target, suffix, active }: { target: number; suffix: string; a
   return <>{val}{suffix}</>;
 }
 
-export default function StatsSection() {
+export default function StatsSection({ section }: { section: PageSection }) {
   const ref    = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
@@ -47,9 +50,11 @@ export default function StatsSection() {
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-          {stats.map((s, i) => (
+          {(section.stats ?? []).map((s, i) => {
+            const parsed = parseStat(s.value);
+            return (
             <motion.div
-              key={s.label}
+              key={`${s.label}-${i}`}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.1 }}
@@ -88,12 +93,13 @@ export default function StatsSection() {
                 className="text-4xl md:text-5xl font-black mb-2 leading-none"
                 style={{ color: "var(--orange)" }}
               >
-                <CountUp target={s.num} suffix={s.suffix} active={inView} />
+                {parsed ? <CountUp target={parsed.num} suffix={parsed.suffix} active={inView} /> : s.value}
               </div>
               <div className="font-semibold text-sm text-gray-900 mb-1">{s.label}</div>
-              <div className="text-xs" style={{ color: "rgba(0,0,0,0.45)" }}>{s.desc}</div>
+              {captions[s.label] && <div className="text-xs" style={{ color: "rgba(0,0,0,0.45)" }}>{captions[s.label]}</div>}
             </motion.div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

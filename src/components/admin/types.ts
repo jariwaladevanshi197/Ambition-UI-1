@@ -7,6 +7,8 @@ export interface Activity {
   featured: boolean;
   published: boolean;
   emoji: string;
+  highlight: string;
+  highlightLabel: string;
 }
 
 export interface School {
@@ -28,6 +30,8 @@ export interface Product {
   name: string;
   category: ProductCategory;
   type: string;
+  description: string;
+  image: string;
   specs: string[];
   applications: string;
   featured: boolean;

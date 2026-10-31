@@ -4,138 +4,18 @@ import { createClient } from "@/lib/supabase/client";
 import type {
   Activity, School, Product, Message, PageContent, PageSection, MediaFile, CompanySettings,
 } from "./types";
+import {
+  activityFromDb, activityToDb, schoolFromDb, schoolToDb, productFromDb, productToDb,
+  messageFromDb, settingsFromDb, settingsToDb, sectionFromDb, sectionToDb, mediaFromDb,
+} from "@/lib/cms/mappers";
+import { DEFAULT_SETTINGS } from "@/content/settings";
+import { refreshPublicSite } from "@/app/admin/actions";
 
-const DEFAULT_SETTINGS: CompanySettings = {
-  name:"Ambition Coal Pvt. Ltd.",
-  tagline:"Providing a One Stop Coal Solution.",
-  email:"info@ambitioncoal.in",
-  phone:"+91 XXXXX XXXXX",
-  address:"Registered at Registrar of Companies, Ahmedabad, Gujarat",
-  linkedin:"https://linkedin.com/company/ambitioncoal",
-  twitter:"https://twitter.com/ambitioncoal",
-  youtube:"https://youtube.com/@ambitioncoal",
-  estYear:"2010",
-};
-
-/* ── DB row <-> app type mapping ─────────────────────────────── */
-// Activity and Product columns are already camelCase-free / 1:1 with their
-// DB columns, so only id needs stripping on insert.
-
-function schoolFromDb(row: Record<string, unknown>): School {
-  return {
-    id: row.id as string,
-    name: row.name as string,
-    projectType: row.project_type as string,
-    location: row.location as string,
-    state: row.state as string,
-    beneficiaries: row.beneficiaries as number,
-    description: (row.description as string) ?? "",
-    status: row.status as School["status"],
-    emoji: (row.emoji as string) ?? "",
-  };
-}
-function schoolToDb(s: Omit<School, "id">) {
-  return {
-    name: s.name, project_type: s.projectType, location: s.location, state: s.state,
-    beneficiaries: s.beneficiaries, description: s.description, status: s.status, emoji: s.emoji,
-  };
-}
-
-function productFromDb(row: Record<string, unknown>): Product {
-  return {
-    id: row.id as string,
-    name: row.name as string,
-    category: row.category as Product["category"],
-    type: row.type as string,
-    specs: (row.specs as string[]) ?? [],
-    applications: (row.applications as string) ?? "",
-    featured: row.featured as boolean,
-    comingSoon: (row.coming_soon as boolean) ?? false,
-  };
-}
-function productToDb(p: Omit<Product, "id">) {
-  return {
-    name: p.name, category: p.category, type: p.type, specs: p.specs,
-    applications: p.applications, featured: p.featured, coming_soon: p.comingSoon,
-  };
-}
-
-function messageFromDb(row: Record<string, unknown>): Message {
-  return {
-    id: row.id as string,
-    name: row.name as string,
-    email: row.email as string,
-    phone: (row.phone as string) ?? "",
-    type: (row.type as string) ?? "",
-    message: row.message as string,
-    date: (row.created_at as string)?.slice(0, 10) ?? "",
-    read: row.read as boolean,
-  };
-}
-
-function settingsFromDb(row: Record<string, unknown>): CompanySettings {
-  return {
-    name: (row.name as string) ?? DEFAULT_SETTINGS.name,
-    tagline: (row.tagline as string) ?? "",
-    email: (row.email as string) ?? "",
-    phone: (row.phone as string) ?? "",
-    address: (row.address as string) ?? "",
-    linkedin: (row.linkedin as string) ?? "",
-    twitter: (row.twitter as string) ?? "",
-    youtube: (row.youtube as string) ?? "",
-    estYear: (row.est_year as string) ?? "",
-  };
-}
-function settingsToDb(s: CompanySettings) {
-  return {
-    name: s.name, tagline: s.tagline, email: s.email, phone: s.phone, address: s.address,
-    linkedin: s.linkedin, twitter: s.twitter, youtube: s.youtube, est_year: s.estYear,
-    updated_at: new Date().toISOString(),
-  };
-}
-
-function sectionFromDb(row: Record<string, unknown>): PageSection {
-  return {
-    id: row.id as string,
-    type: row.type as PageSection["type"],
-    label: row.label as string,
-    visible: row.visible as boolean,
-    headline: (row.headline as string) ?? undefined,
-    subtext: (row.subtext as string) ?? undefined,
-    ctaText: (row.cta_text as string) ?? undefined,
-    ctaLink: (row.cta_link as string) ?? undefined,
-    image: (row.image as string) ?? undefined,
-    heading: (row.heading as string) ?? undefined,
-    body: (row.body as string) ?? undefined,
-    ctaHeading: (row.cta_heading as string) ?? undefined,
-    ctaBody: (row.cta_body as string) ?? undefined,
-    ctaBtn: (row.cta_btn as string) ?? undefined,
-    stats: (row.stats as PageSection["stats"]) ?? [],
-    cards: (row.cards as PageSection["cards"]) ?? [],
-    gallery: (row.gallery as PageSection["gallery"]) ?? [],
-  };
-}
-function sectionToDb(s: PageSection, pageId: string, position: number) {
-  return {
-    page_id: pageId, type: s.type, label: s.label, visible: s.visible, position,
-    headline: s.headline ?? null, subtext: s.subtext ?? null,
-    cta_text: s.ctaText ?? null, cta_link: s.ctaLink ?? null, image: s.image ?? null,
-    heading: s.heading ?? null, body: s.body ?? null,
-    cta_heading: s.ctaHeading ?? null, cta_body: s.ctaBody ?? null, cta_btn: s.ctaBtn ?? null,
-    stats: s.stats ?? [], cards: s.cards ?? [], gallery: s.gallery ?? [],
-  };
-}
-
-function mediaFromDb(row: Record<string, unknown>, publicUrl: (path: string) => string): MediaFile {
-  return {
-    id: row.id as string,
-    name: row.name as string,
-    type: row.type as MediaFile["type"],
-    folder: (row.folder as string) ?? "Banners",
-    size: (row.size as string) ?? "",
-    url: row.storage_path ? publicUrl(row.storage_path as string) : "",
-    date: (row.created_at as string)?.slice(0, 10) ?? "",
-  };
+// After a write that changes what visitors see, expire the public site's
+// cached content. Fire-and-forget: a failure only delays the update until
+// the cache's normal lifetime runs out.
+function refreshSite() {
+  refreshPublicSite().catch(err => console.error("Could not refresh the public site:", err));
 }
 
 export function useAdminData() {
@@ -178,7 +58,7 @@ export function useAdminData() {
       supabase.from("settings").select("*").limit(1).single(),
     ]);
 
-    setActivities((activitiesRows as Activity[]) ?? []);
+    setActivities((activitiesRows ?? []).map(activityFromDb));
     setProducts((productsRows ?? []).map(productFromDb));
     setSchools((schoolsRows ?? []).map(schoolFromDb));
     setMessages((messagesRows ?? []).map(messageFromDb));
@@ -217,18 +97,19 @@ export function useAdminData() {
 
   /* ---------- Activities ---------- */
   const addActivity = async (a: Activity) => {
-    const { id: _drop, ...rest } = a;
-    const { data } = await supabase.from("activities").insert(rest).select().single();
-    if (data) setActivities(n => [data as Activity, ...n]);
+    const { data } = await supabase.from("activities").insert(activityToDb(a)).select().single();
+    if (data) setActivities(n => [activityFromDb(data), ...n]);
+    refreshSite();
   };
   const updateActivity = async (a: Activity) => {
-    const { id, ...rest } = a;
-    const { data } = await supabase.from("activities").update(rest).eq("id", id).select().single();
-    if (data) setActivities(n => n.map(x => x.id === id ? data as Activity : x));
+    const { data } = await supabase.from("activities").update(activityToDb(a)).eq("id", a.id).select().single();
+    if (data) setActivities(n => n.map(x => x.id === a.id ? activityFromDb(data) : x));
+    refreshSite();
   };
   const deleteActivity = async (id: string) => {
     await supabase.from("activities").delete().eq("id", id);
     setActivities(n => n.filter(x => x.id !== id));
+    refreshSite();
   };
 
   /* ---------- Schools ---------- */
@@ -249,14 +130,17 @@ export function useAdminData() {
   const addProduct = async (p: Product) => {
     const { data } = await supabase.from("products").insert(productToDb(p)).select().single();
     if (data) setProducts(n => [productFromDb(data), ...n]);
+    refreshSite();
   };
   const updateProduct = async (p: Product) => {
     const { data } = await supabase.from("products").update(productToDb(p)).eq("id", p.id).select().single();
     if (data) setProducts(n => n.map(x => x.id === p.id ? productFromDb(data) : x));
+    refreshSite();
   };
   const deleteProduct = async (id: string) => {
     await supabase.from("products").delete().eq("id", id);
     setProducts(n => n.filter(x => x.id !== id));
+    refreshSite();
   };
 
   /* ---------- Messages ---------- */
@@ -275,6 +159,7 @@ export function useAdminData() {
       title: p.title, published: p.published, updated_at: new Date().toISOString(),
     }).eq("id", p.id);
     setPages(n => n.map(x => x.id === p.id ? { ...p, lastEdited: new Date().toISOString().slice(0, 10) } : x));
+    refreshSite();
   };
 
   const saveSections = async (slug: string, sections: PageSection[]) => {
@@ -285,6 +170,7 @@ export function useAdminData() {
       await supabase.from("page_sections").insert(sections.map((s, i) => sectionToDb(s, pageId, i)));
     }
     await supabase.from("pages").update({ updated_at: new Date().toISOString() }).eq("id", pageId);
+    refreshSite();
     await loadAll();
   };
 
@@ -321,6 +207,7 @@ export function useAdminData() {
   const saveSettings = async (s: CompanySettings) => {
     setSettings(s);
     await supabase.from("settings").update(settingsToDb(s)).eq("id", true);
+    refreshSite();
   };
 
   const unreadCount = messages.filter(m => !m.read).length;

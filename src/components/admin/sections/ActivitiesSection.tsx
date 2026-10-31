@@ -4,13 +4,17 @@ import { Plus, Edit3, Trash2, Eye, EyeOff, Star } from "lucide-react";
 import Modal from "../Modal";
 import { Field, Input, Textarea, Select, Toggle, SaveBtn, DeleteBtn } from "../AdminField";
 import type { Activity } from "../types";
-import { ACTIVITY_ICONS, findIcon, IconChip } from "../iconRegistry";
+import { INITIATIVE_ICONS, findIcon, IconChip } from "../iconRegistry";
+import { CSR_CATEGORIES } from "@/lib/csrCategories";
 
-const CATEGORIES = ["Education","Healthcare","Environment","Community","Infrastructure","Women Empowerment"];
+// Activities are shown as the CSR page's "Recent Initiatives"; its filter tabs
+// follow these categories.
+const CATEGORIES = [...CSR_CATEGORIES, "Community", "Infrastructure"];
 
 const blank = (): Activity => ({
   id: Date.now().toString(), title:"", description:"", category:"Education",
-  date: new Date().toISOString().split("T")[0], featured:false, published:true, emoji:ACTIVITY_ICONS[0].key,
+  date: new Date().toISOString().split("T")[0], featured:false, published:true, emoji:INITIATIVE_ICONS[0].key,
+  highlight:"", highlightLabel:"",
 });
 
 interface Props {
@@ -100,7 +104,7 @@ export default function ActivitiesSection({ activities, add, update, remove }: P
                onMouseEnter={e=>(e.currentTarget.style.background="rgba(0,0,0,0.02)")}
                onMouseLeave={e=>(e.currentTarget.style.background="")}>
             <div className="flex items-center gap-2.5 pr-4">
-              <IconChip option={findIcon(ACTIVITY_ICONS, a.emoji)} size={16} box={32}/>
+              <IconChip option={findIcon(INITIATIVE_ICONS, a.emoji)} size={16} box={32}/>
               <div>
                 <div className="text-sm font-semibold text-gray-900 flex items-center gap-1.5">
                   {a.title}
@@ -138,10 +142,10 @@ export default function ActivitiesSection({ activities, add, update, remove }: P
       {modal && (
         <Modal title={modal==="add"?"Add New Activity":"Edit Activity"} onClose={()=>setModal(null)}>
           <form onSubmit={submit} className="flex flex-col gap-4">
-            {/* Icon picker — matches the live Activities page's card icons */}
+            {/* Icon picker — the icon on the CSR page's initiative card */}
             <Field label="ICON">
               <div className="flex flex-wrap gap-2">
-                {ACTIVITY_ICONS.map(opt=>(
+                {INITIATIVE_ICONS.map(opt=>(
                   <button type="button" key={opt.key} title={opt.label} onClick={()=>f("emoji",opt.key)}
                           className="rounded-xl transition-all"
                           style={{ border:`2px solid ${form.emoji===opt.key?opt.color:"transparent"}` }}>
@@ -159,6 +163,11 @@ export default function ActivitiesSection({ activities, add, update, remove }: P
                 </Select>
               </Field>
               <Field label="DATE"><Input type="date" value={form.date} onChange={e=>f("date",e.target.value)}/></Field>
+            </div>
+            {/* Shown at the bottom of the card, e.g. "2,000  Saplings Planted" */}
+            <div className="grid grid-cols-2 gap-3">
+              <Field label="HIGHLIGHT NUMBER"><Input value={form.highlight} onChange={e=>f("highlight",e.target.value)} placeholder="e.g. 2,000"/></Field>
+              <Field label="HIGHLIGHT LABEL"><Input value={form.highlightLabel} onChange={e=>f("highlightLabel",e.target.value)} placeholder="e.g. Saplings Planted"/></Field>
             </div>
             <div className="flex gap-6">
               <Toggle checked={form.published} onChange={v=>f("published",v)} label="Published (Live)" />
