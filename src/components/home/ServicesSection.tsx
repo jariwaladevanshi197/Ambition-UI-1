@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import type { PageSection } from "@/components/admin/types";
+import type { PageSection, CardItem } from "@/components/admin/types";
 
 // Badge on each card, matched by card title. Cards added in the admin get no
 // badge; a title containing "Coming Soon" gets the coming-soon treatment.
@@ -37,7 +37,7 @@ const SERVICE_IMAGE_MAP: Record<string, string> = {
 };
 
 // Verified services matching the latest company profile
-const VERIFIED_SERVICES = [
+const VERIFIED_SERVICES: CardItem[] = [
   {
     title: "Coal Trading & Delivery",
     desc: "From trading to delivery, we provide coal to plants and factories according to each customer's requirements — the right size, grade and quality for every boiler.",
@@ -70,7 +70,7 @@ const VERIFIED_SERVICES = [
   },
 ];
 
-function resolveServices(cards?: PageSection["cards"]) {
+function resolveServices(cards?: CardItem[]): CardItem[] {
   if (!cards || cards.length === 0) return VERIFIED_SERVICES;
   const hasInappropriate = cards.some(c =>
     !c.image ||

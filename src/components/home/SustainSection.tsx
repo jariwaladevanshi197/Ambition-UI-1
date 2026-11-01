@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
-import type { PageSection } from "@/components/admin/types";
+import type { PageSection, CardItem } from "@/components/admin/types";
 import { cardIcon, type CardDesign } from "@/components/cms/icons";
 import { Highlight } from "@/components/cms/Highlight";
 
@@ -40,7 +40,7 @@ function getSafeColor(raw: string | undefined): string {
 }
 
 // Verified commitment pillars matching executive notes and company profile
-const VERIFIED_PILLARS = [
+const VERIFIED_PILLARS: CardItem[] = [
   {
     title: "Responsible Trading",
     desc: "Fair, transparent trading and ethical sourcing in every deal with customers and partners.",
@@ -73,7 +73,7 @@ const VERIFIED_PILLARS = [
   },
 ];
 
-function resolvePillars(cards?: PageSection["cards"]) {
+function resolvePillars(cards?: CardItem[]): CardItem[] {
   if (!cards || cards.length === 0) return VERIFIED_PILLARS;
   const hasLegacy = cards.some(c => c.title === "Responsible Mining") || !cards.some(c => c.title === "Responsible Supplying");
   if (hasLegacy) return VERIFIED_PILLARS;
