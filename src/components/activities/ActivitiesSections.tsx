@@ -12,8 +12,9 @@ const OPS_DETAILS: Record<string, { cat: string; date: string; highlight: string
   "Bulk Vessel Unloading":       { cat:"Port Operations", date:"Ongoing", highlight:"15+",       highlightLabel:"Ports Operated" },
   "Stacking & Heaping":          { cat:"Port Operations", date:"Ongoing", highlight:"20+",       highlightLabel:"Active Yards" },
   "Internal Shifting":           { cat:"Port Operations", date:"Ongoing", highlight:"24/7",      highlightLabel:"Yard Operations" },
-  "International Coal Sourcing": { cat:"Trading",         date:"Ongoing", highlight:"4",         highlightLabel:"Sourcing Countries" },
-  "Quality Assurance Testing":   { cat:"Trading",         date:"Ongoing", highlight:"3-Stage",   highlightLabel:"Testing Process" },
+  "International Coal Sourcing":        { cat:"Trading",         date:"Ongoing", highlight:"Asian & African", highlightLabel:"Source Markets" },
+  "Quality Assurance: Mines to Plants": { cat:"Trading",         date:"Ongoing", highlight:"Mine to Plant",   highlightLabel:"Quality Assurance" },
+  "Quality Assurance Testing":          { cat:"Trading",         date:"Ongoing", highlight:"Mine to Plant",   highlightLabel:"Quality Assurance" },
   "Salt Trading":                { cat:"Trading",         date:"New",     highlight:"2",         highlightLabel:"Product Lines" },
   "Road Dispatch":               { cat:"Logistics",       date:"Ongoing", highlight:"50+",       highlightLabel:"Cities Served" },
   "Rail Dispatch":               { cat:"Logistics",       date:"Ongoing", highlight:"Pan-India", highlightLabel:"Rail Network" },
@@ -30,6 +31,9 @@ const ALL_CATS = ["All", ...OPS_CATEGORIES];
 
 // Gallery filter category for each photo, matched by image path.
 const GALLERY_CATS: Record<string, string> = {
+  "/images/coal_specimen_grade.jpg":                      "Coal",
+  "/images/vessel_heilan_cruiser.jpg":                    "Logistics",
+  "/images/operations_collage.jpg":                       "Logistics",
   "/images/Gemini_Generated_Image_680jx7680jx7680j.png": "Mining",
   "/images/Gemini_Generated_Image_9jp8wd9jp8wd9jp8.png": "Coal",
   "/images/port.jpg":                                     "Logistics",

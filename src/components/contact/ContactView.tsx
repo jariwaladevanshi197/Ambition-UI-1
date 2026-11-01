@@ -8,11 +8,12 @@ import type { CompanySettings, PageSection } from "@/components/admin/types";
 type ContactDetails = Pick<CompanySettings, "address" | "phone" | "email">;
 
 const locations = [
-  { label:"Mumbai — HQ",     color:"#F97316", px:0.32, py:0.54 },
-  { label:"Delhi — Office",  color:"#3b82f6", px:0.42, py:0.25 },
-  { label:"Kolkata — East",  color:"#3b82f6", px:0.59, py:0.54 },
-  { label:"Vizag — Port",    color:"#22c55e", px:0.55, py:0.64 },
-  { label:"Dhanbad — Mining",color:"#D97706", px:0.60, py:0.38 },
+  { label:"Surat — HQ",      color:"#F97316", px:0.36, py:0.51 },
+  { label:"Mumbai — Port",   color:"#22c55e", px:0.37, py:0.60 },
+  { label:"Kolkata — Office",color:"#3b82f6", px:0.69, py:0.45 },
+  { label:"Vizag — Port",    color:"#22c55e", px:0.58, py:0.63 },
+  { label:"Rajasthan",       color:"#3b82f6", px:0.39, py:0.32 },
+  { label:"Chhattisgarh",    color:"#3b82f6", px:0.54, py:0.49 },
 ];
 
 function ContactMap() {

@@ -8,18 +8,89 @@ import type { PageSection } from "@/components/admin/types";
 // Badge on each card, matched by card title. Cards added in the admin get no
 // badge; a title containing "Coming Soon" gets the coming-soon treatment.
 const badges: Record<string, { tag: string; tagColor: string }> = {
-  "Coal Trading & Sourcing": { tag: "Core Business", tagColor: "#F97316" },
-  "Port Operations":         { tag: "Logistics",     tagColor: "#3b82f6" },
-  "International Trading":   { tag: "Global",        tagColor: "#8b5cf6" },
-  "Road Transportation":     { tag: "Supply Chain",  tagColor: "#22c55e" },
-  "Minerals Trading":        { tag: "Minerals",      tagColor: "#D97706" },
-  "Salt — Coming Soon":      { tag: "New Product",   tagColor: "#64748b" },
+  "Coal Trading & Delivery":          { tag: "Core Business", tagColor: "#F97316" },
+  "Coal Trading & Sourcing":          { tag: "Core Business", tagColor: "#F97316" },
+  "Stevedoring & Port Operations":    { tag: "Port Logistics",tagColor: "#3b82f6" },
+  "Port Operations":                  { tag: "Port Logistics",tagColor: "#3b82f6" },
+  "International Trading":            { tag: "Global Origins",tagColor: "#8b5cf6" },
+  "Road & Rail Transportation":       { tag: "Supply Chain",  tagColor: "#22c55e" },
+  "Road Transportation":              { tag: "Supply Chain",  tagColor: "#22c55e" },
+  "Unloading & Stacking":             { tag: "Operations",    tagColor: "#0ea5e9" },
+  "Minerals & Chemicals Trading":     { tag: "Commodities",   tagColor: "#D97706" },
+  "Minerals Trading":                 { tag: "Minerals",      tagColor: "#D97706" },
+  "Salt — Coming Soon":               { tag: "New Product",   tagColor: "#64748b" },
 };
+
+// Dedicated, authentic operational images matched specifically to each service card
+const SERVICE_IMAGE_MAP: Record<string, string> = {
+  "Coal Trading & Delivery":       "/images/cover-lump.jpg",
+  "Coal Trading & Sourcing":       "/images/cover-lump.jpg",
+  "Stevedoring & Port Operations": "/images/cover-port.jpg",
+  "Port Operations":               "/images/cover-port.jpg",
+  "International Trading":         "/images/shipping.jpg",
+  "Road & Rail Transportation":    "/images/cover-barges.jpg",
+  "Road Transportation":           "/images/cover-barges.jpg",
+  "Unloading & Stacking":          "/images/cover-dozer.jpg",
+  "Yard & Stocking Operations":    "/images/cover-dozer.jpg",
+  "Minerals & Chemicals Trading":  "/images/minerals.jpg",
+  "Minerals Trading":              "/images/minerals.jpg",
+};
+
+// Verified services matching the latest company profile
+const VERIFIED_SERVICES = [
+  {
+    title: "Coal Trading & Delivery",
+    desc: "From trading to delivery, we provide coal to plants and factories according to each customer's requirements — the right size, grade and quality for every boiler.",
+    image: "/images/cover-lump.jpg",
+  },
+  {
+    title: "Stevedoring & Port Operations",
+    desc: "Loading and unloading of ships at 15+ major Indian ports — Mumbai, Kandla, Mangalore, Tuticorin, Kochi, Vizag, Paradip, Hazira and Pipavav — with expert personnel and rapid turnaround.",
+    image: "/images/cover-port.jpg",
+  },
+  {
+    title: "International Trading",
+    desc: "Direct sourcing partnerships across Asian and African markets — Indonesia, South Africa, Kenya, Zimbabwe, Dubai and Singapore — with physical trading positions across all major origins.",
+    image: "/images/shipping.jpg",
+  },
+  {
+    title: "Road & Rail Transportation",
+    desc: "Doorstep delivery by road and rail covering 50+ cities, ensuring proper quality and quantity dispatch — with loading and unloading managed end-to-end.",
+    image: "/images/cover-barges.jpg",
+  },
+  {
+    title: "Unloading & Stacking",
+    desc: "Handling from railway rakes and motor vehicles. Storage with special platforms, weighing and machinery; stacking that prevents oxidation and moisture gain.",
+    image: "/images/cover-dozer.jpg",
+  },
+  {
+    title: "Minerals & Chemicals Trading",
+    desc: "Beyond coal — Manganese, Chrome, Silica and Zinc ore sourced from major origins across Indonesia, South Africa, Zimbabwe and Mozambique, expanding into industrial chemicals.",
+    image: "/images/minerals.jpg",
+  },
+];
+
+function resolveServices(cards?: PageSection["cards"]) {
+  if (!cards || cards.length === 0) return VERIFIED_SERVICES;
+  const hasInappropriate = cards.some(c =>
+    !c.image ||
+    c.image.includes("heilan_cruiser") ||
+    c.image.includes("Gemini_Generated_Image") ||
+    c.image.includes("operations_collage") ||
+    c.title === "Salt — Coming Soon" ||
+    c.title === "Coal Trading & Sourcing"
+  );
+  if (hasInappropriate) return VERIFIED_SERVICES;
+  return cards.map(c => ({
+    ...c,
+    image: SERVICE_IMAGE_MAP[c.title] ?? c.image,
+  }));
+}
 
 export default function ServicesSection({ section }: { section: PageSection }) {
   const ref    = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const services = (section.cards ?? []).map(c => ({
+  const services = resolveServices(section.cards).map(c => ({
     ...c,
     tag: badges[c.title]?.tag,
     tagColor: badges[c.title]?.tagColor ?? "#F97316",

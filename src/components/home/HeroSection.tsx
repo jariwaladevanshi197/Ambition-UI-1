@@ -139,7 +139,7 @@ export default function HeroSection({ section }: { section: PageSection }) {
             }}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
-            Est. 2003 · Pan India · Global Reach
+            Est. 2008 · Pan India · Global Reach
           </motion.div>
 
           <motion.h1
@@ -214,9 +214,9 @@ export default function HeroSection({ section }: { section: PageSection }) {
             className="flex gap-8"
           >
             {[
-              { icon: <Flame size={15} />, value: "20+", label: "Years" },
-              { icon: <Truck size={15} />, value: "1M+", label: "Tons Delivered" },
-              { icon: <Globe size={15} />, value: "50+", label: "Cities" },
+              { icon: <Flame size={15} />, value: "15+", label: "Years Experience" },
+              { icon: <Truck size={15} />, value: "10M+", label: "Tonnes Delivered" },
+              { icon: <Globe size={15} />, value: "50+", label: "Cities Served" },
             ].map((s) => (
               <div key={s.label}>
                 <div className="flex items-center gap-1.5 text-xl font-black mb-0.5" style={{ color: "var(--orange)" }}>
@@ -260,7 +260,7 @@ export default function HeroSection({ section }: { section: PageSection }) {
             <div className="absolute bottom-5 left-5 right-5 flex items-center justify-end">
               <div className="px-3 py-1.5 rounded-full text-xs font-bold text-white backdrop-blur-sm"
                    style={{ background: "rgba(0,0,0,0.5)" }}>
-                Est. 2003
+                Est. 2008
               </div>
             </div>
           </div>
@@ -268,10 +268,10 @@ export default function HeroSection({ section }: { section: PageSection }) {
           {/* Floating card — top right */}
           <div className="absolute -top-4 -right-4 p-4 rounded-2xl shadow-xl"
                style={{ background: "white", border: "1px solid rgba(249,115,22,0.15)", minWidth: 150 }}>
-            <div className="text-2xl font-black" style={{ color: "var(--orange)" }}>5+</div>
-            <div className="text-xs font-bold mt-0.5" style={{ color: "rgba(0,0,0,0.55)" }}>Countries Sourced</div>
+            <div className="text-2xl font-black" style={{ color: "var(--orange)" }}>7+</div>
+            <div className="text-xs font-bold mt-0.5" style={{ color: "rgba(0,0,0,0.55)" }}>Global Markets</div>
             <div className="flex gap-1 mt-2">
-              {["🇦🇺","🇮🇩","🇿🇦","🇰🇪","🇿🇼"].map(f => (
+              {["🇦🇺","🇮🇩","🇿🇦","🇰🇪","🇿🇼","🇳🇬"].map(f => (
                 <span key={f} className="text-sm">{f}</span>
               ))}
             </div>
@@ -284,8 +284,8 @@ export default function HeroSection({ section }: { section: PageSection }) {
               <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: "#22c55e" }} />
               <span className="text-xs font-bold" style={{ color: "#22c55e" }}>Live Operations</span>
             </div>
-            <div className="text-xl font-black" style={{ color: "#111111" }}>1M+</div>
-            <div className="text-xs" style={{ color: "rgba(0,0,0,0.45)" }}>Tons / Year</div>
+            <div className="text-xl font-black" style={{ color: "#111111" }}>10M+</div>
+            <div className="text-xs" style={{ color: "rgba(0,0,0,0.45)" }}>Tonnes Delivered</div>
           </div>
 
           {/* Decorative ring */}

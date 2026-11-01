@@ -75,8 +75,8 @@ export default async function Footer() {
               </div>
             </Link>
             <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(0,0,0,0.55)" }}>
-              Pioneers in supplying Imported Coal across Gujarat, Karnataka, Andhra Pradesh &
-              Chhattisgarh. Promoted by Mr. Jayesh Mahesh Agrawal & Yashika Jayesh Agrawal.
+              Pioneers in supplying Imported Coal across Gujarat, Maharashtra, Rajasthan, Karnataka, West Bengal &
+              Chhattisgarh. Promoted by Mr. Jayesh Agrawal & Mrs. Yashika Agrawal.
             </p>
             {/* Contact snippets */}
             <div className="flex flex-col gap-3">

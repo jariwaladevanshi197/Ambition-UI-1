@@ -50,6 +50,9 @@ export function schoolToDb(s: Omit<School, "id">) {
 }
 
 export function productFromDb(row: Row): Product {
+  const rawSpecs = (row.specs as string[]) ?? [];
+  // Strip GCV, Ash, Moisture as explicitly instructed by company leadership
+  const cleanSpecs = rawSpecs.filter(s => !/^(GCV|Ash|Moisture)/i.test(s.trim()));
   return {
     id: row.id as string,
     name: row.name as string,
@@ -57,7 +60,7 @@ export function productFromDb(row: Row): Product {
     type: row.type as string,
     description: (row.description as string) ?? "",
     image: (row.image as string) ?? "",
-    specs: (row.specs as string[]) ?? [],
+    specs: cleanSpecs,
     applications: (row.applications as string) ?? "",
     featured: row.featured as boolean,
     comingSoon: (row.coming_soon as boolean) ?? false,
@@ -84,16 +87,23 @@ export function messageFromDb(row: Row): Message {
 }
 
 export function settingsFromDb(row: Row): CompanySettings {
+  const addr = (row.address as string) ?? "";
+  const phone = (row.phone as string) ?? "";
+  const email = (row.email as string) ?? "";
+  const estYear = (row.est_year as string) ?? "";
+
+  const isLegacy = addr.includes("BKC") || phone.includes("XXXX") || email.includes("ambitioncoal.co.in") || estYear === "2003";
+
   return {
-    name: (row.name as string) ?? DEFAULT_SETTINGS.name,
-    tagline: (row.tagline as string) ?? "",
-    email: (row.email as string) ?? "",
-    phone: (row.phone as string) ?? "",
-    address: (row.address as string) ?? "",
+    name: (row.name as string) || DEFAULT_SETTINGS.name,
+    tagline: isLegacy || !row.tagline ? DEFAULT_SETTINGS.tagline : (row.tagline as string),
+    email: isLegacy || !email ? DEFAULT_SETTINGS.email : email,
+    phone: isLegacy || !phone ? DEFAULT_SETTINGS.phone : phone,
+    address: isLegacy || !addr ? DEFAULT_SETTINGS.address : addr,
     linkedin: (row.linkedin as string) ?? "",
     twitter: (row.twitter as string) ?? "",
     youtube: (row.youtube as string) ?? "",
-    estYear: (row.est_year as string) ?? "",
+    estYear: isLegacy || !estYear ? DEFAULT_SETTINGS.estYear : estYear,
   };
 }
 export function settingsToDb(s: CompanySettings) {

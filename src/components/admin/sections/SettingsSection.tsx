@@ -35,18 +35,18 @@ export default function SettingsSection({ settings, save }: Props) {
       <form onSubmit={submit} className="max-w-xl flex flex-col gap-5">
         <div className="p-5 rounded-2xl flex flex-col gap-4" style={{ background:"#ffffff", border:"1px solid rgba(0,0,0,0.08)" }}>
           <div className="text-[10px] font-black tracking-widest mb-1" style={{ color:"var(--orange)" }}>BRAND</div>
-          <Field label="COMPANY NAME"><Input value={form.name} onChange={e=>f("name",e.target.value)} placeholder="Ambition Coal & Mining Ltd."/></Field>
-          <Field label="TAGLINE"><Input value={form.tagline} onChange={e=>f("tagline",e.target.value)} placeholder="Powering Industries…"/></Field>
-          <Field label="ESTABLISHED YEAR"><Input value={form.estYear} onChange={e=>f("estYear",e.target.value)} placeholder="2003"/></Field>
+          <Field label="COMPANY NAME"><Input value={form.name} onChange={e=>f("name",e.target.value)} placeholder="Ambition Coal Pvt. Ltd."/></Field>
+          <Field label="TAGLINE"><Input value={form.tagline} onChange={e=>f("tagline",e.target.value)} placeholder="A One-Way Coal Solution Since 2008."/></Field>
+          <Field label="ESTABLISHED YEAR"><Input value={form.estYear} onChange={e=>f("estYear",e.target.value)} placeholder="2008"/></Field>
         </div>
 
         <div className="p-5 rounded-2xl flex flex-col gap-4" style={{ background:"#ffffff", border:"1px solid rgba(0,0,0,0.08)" }}>
           <div className="text-[10px] font-black tracking-widest mb-1" style={{ color:"var(--orange)" }}>CONTACT</div>
-          <Field label="EMAIL"><Input type="email" value={form.email} onChange={e=>f("email",e.target.value)} placeholder="info@ambitioncoal.co.in"/></Field>
-          <Field label="PHONE"><Input value={form.phone} onChange={e=>f("phone",e.target.value)} placeholder="+91 22 XXXX XXXX"/></Field>
+          <Field label="EMAIL"><Input type="email" value={form.email} onChange={e=>f("email",e.target.value)} placeholder="admin@ambitioncoal.com"/></Field>
+          <Field label="PHONE"><Input value={form.phone} onChange={e=>f("phone",e.target.value)} placeholder="+91 99980 77073 · 0261 430 1522"/></Field>
           <Field label="ADDRESS">
             <textarea value={form.address} onChange={e=>f("address",e.target.value)} rows={2}
-                      placeholder="Full registered address…"
+                      placeholder="506, Rajhans Montessa, Airport Road, Surat – 395007, Gujarat, India."
                       className="w-full px-3.5 py-2.5 rounded-xl text-sm outline-none resize-none"
                       style={{ background:"rgba(0,0,0,0.04)", border:"1px solid rgba(0,0,0,0.12)", color:"#111111" }}/>
           </Field>

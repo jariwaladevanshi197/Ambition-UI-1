@@ -229,19 +229,38 @@ export function MissionVision({ section }: { section: PageSection }) {
 }
 
 /* ── Leadership Team (card titles: "Name — Role") ── */
-const expertiseByName: Record<string, string[]> = {
-  "Jayesh Mahesh Agrawal":  ["Coal Trading","Port Logistics","Global Sourcing","Strategic Partnerships"],
-  "Yashika Jayesh Agrawal": ["Operations","CSR & Sustainability","Compliance","Finance"],
-};
+function getExpertise(name: string): string[] {
+  const n = name.toLowerCase();
+  if (n.includes("jayesh")) {
+    return ["Coal Trading", "Port Logistics", "Global Sourcing", "Strategic Partnerships"];
+  }
+  if (n.includes("yashika")) {
+    return ["Operations", "CSR & Sustainability", "Compliance", "Finance"];
+  }
+  return ["Leadership", "Industry Strategy", "Operations"];
+}
+
+const VERIFIED_LEADERS = [
+  {
+    title: "Mr. Jayesh Agrawal — Director & Promoter",
+    desc: "With more than 15 years in coal trading and supply, Jayesh has grown Ambition Coal from Surat into a pan-India energy enterprise. His relationships with international suppliers, mining concessions and port operators underpin our sourcing and supply strength across India.",
+  },
+  {
+    title: "Mrs. Yashika Agrawal — Director & Promoter",
+    desc: "Yashika brings strategic clarity and operational discipline to our nationwide growth. Focused on CSR, governance, compliance and sustainable business practices, she ensures our corporate impact powers communities alongside industries.",
+  },
+];
+
 const LEADER_COLORS = ["#F97316", "#D97706"];
 
 export function Leadership({ section }: { section: PageSection }) {
-  const leaders = (section.cards ?? []).map((c, i) => {
+  const rawCards = section.cards && section.cards.length > 0 ? section.cards : VERIFIED_LEADERS;
+  const leaders = rawCards.map((c, i) => {
     const [name, role] = splitPair(c.title);
     const fullName = name || role;
     return {
       name: fullName, role: name ? role : "", bio: c.desc, initials: initials(fullName),
-      expertise: expertiseByName[fullName] ?? [], color: LEADER_COLORS[i % LEADER_COLORS.length],
+      expertise: getExpertise(fullName), color: LEADER_COLORS[i % LEADER_COLORS.length],
     };
   });
   const leaderRef = useRef<HTMLElement>(null);

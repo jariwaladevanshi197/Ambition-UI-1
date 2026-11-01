@@ -29,8 +29,9 @@ export function formatMonth(date: string): string {
   return `${MONTHS[Number(m[2]) - 1] ?? ""} ${m[1]}`.trim();
 }
 
-/** Initials for an avatar: "Jayesh Mahesh Agrawal" -> "JA". */
+/** Initials for an avatar: "Mr. Jayesh Agrawal" -> "JA", "Mrs. Yashika Agrawal" -> "YA". */
 export function initials(name: string): string {
-  const parts = name.trim().split(/\s+/);
+  const clean = name.replace(/^(mr|mrs|ms|dr|shri|smt)\.?\s+/i, "").trim();
+  const parts = clean.split(/\s+/);
   return ((parts[0]?.[0] ?? "") + (parts.length > 1 ? parts[parts.length - 1][0] : "")).toUpperCase();
 }
